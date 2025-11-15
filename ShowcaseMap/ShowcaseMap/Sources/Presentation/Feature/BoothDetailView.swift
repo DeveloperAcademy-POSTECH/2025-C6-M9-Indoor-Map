@@ -124,7 +124,8 @@ private struct AppDownloadCardView: View {
     var body: some View {
         HStack {
             HStack(spacing: 12) {
-                Image(systemName: "photo")
+                // TODO: 이미지 변경 필요
+                Image("appLogo")
                     .resizable()
                     .frame(width: 60, height: 60)
                     .clipShape(RoundedRectangle(cornerRadius: 18))
