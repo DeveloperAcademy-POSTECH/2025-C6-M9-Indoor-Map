@@ -45,4 +45,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .modelContainer(for: FavoriteTeamInfo.self, inMemory: true)
 }
