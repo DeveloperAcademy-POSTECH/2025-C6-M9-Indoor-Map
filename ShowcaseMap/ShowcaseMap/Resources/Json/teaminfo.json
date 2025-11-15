@@ -1,0 +1,1062 @@
+[
+  {
+    "id": "c4352b6c-9db5-497a-a2da-7398440f8e4d",
+    "boothNumber": 1,
+    "name": "Hippo",
+    "appName": "Hippo",
+    "appDescription": "멸균 수술 환경에서 의료진이 직접 수술 보조 자료를 다루기 어려운 문제를 해결하기 위해, 환자 맞춤형 3D 모델을 공유된 몰입형 환경에서 조작할 수 있도록 지원함으로써 수술 퍼포먼스를 향상시킬 수 있는 앱.",
+    "members": [
+      {
+        "id": "노아",
+        "name": "김선환"
+      },
+      {
+        "id": "웨이드",
+        "name": "김현기"
+      },
+      {
+        "id": "하이디",
+        "name": "이윤서"
+      },
+      {
+        "id": "하마",
+        "name": "이주함"
+      },
+      {
+        "id": "헤기",
+        "name": "조혁재"
+      },
+      {
+        "id": "원띵",
+        "name": "천은송"
+      }
+    ],
+    "category": "medical",
+    "downloadUrl": "https://example.com",
+    "teamUrl": "https://example.com"
+  },
+  {
+    "id": "36e87346-ad49-4249-ba98-ec74a87300df",
+    "boothNumber": 2,
+    "name": "Scenergy",
+    "appName": "Scenergy",
+    "appDescription": "영화 시나리오에서 씬리스트 작성에 필요한 정보를 추출 및 편집해 씬리스트를 CSV파일로 내보내는 앱",
+    "members": [
+      {
+        "id": "콘",
+        "name": "이건노"
+      },
+      {
+        "id": "웨이",
+        "name": "이태연"
+      },
+      {
+        "id": "스티브",
+        "name": "이은수"
+      },
+      {
+        "id": "사나",
+        "name": "오수아"
+      },
+      {
+        "id": "모세",
+        "name": "조민수"
+      },
+      {
+        "id": "에이버리",
+        "name": "정서진"
+      }
+    ],
+    "category": "productivity",
+    "downloadUrl": "https://example.com",
+    "teamUrl": "https://example.com"
+  },
+  {
+    "id": "989f4d9b-d127-46e9-8b88-098d2e6b7abe",
+    "boothNumber": 3,
+    "name": "Glayer",
+    "appName": "Glayer",
+    "appDescription": "3D 공간에 2D 이미지를 다층적으로 배치하고, 사운드를 더해 영화의 무드와 공간을 구성하는 앱",
+    "members": [
+      {
+        "id": "그린",
+        "name": "고승아"
+      },
+      {
+        "id": "잭",
+        "name": "오세광"
+      },
+      {
+        "id": "모니카",
+        "name": "이가원"
+      },
+      {
+        "id": "마이",
+        "name": "정민지"
+      },
+      {
+        "id": "테더",
+        "name": "차봉준"
+      },
+      {
+        "id": "윤",
+        "name": "최윤"
+      }
+    ],
+    "category": "graphicsAndDesign",
+    "downloadUrl": "https://example.com",
+    "teamUrl": "https://example.com"
+  },
+  {
+    "id": "079818a1-dc42-476b-8067-7d67fc76f029",
+    "boothNumber": 4,
+    "name": "Re:chain",
+    "appName": "Re:chain",
+    "appDescription": "과학수사관이 3D로 스캔된 범죄현장을 Vision Pro의 몰입형 공간에서 피의자의 시선으로 동선을 재현하고, 시각화하여 범죄 재구성하는 과정을 지원하는 과학수사 보조 앱",
+    "members": [
+      {
+        "id": "젠키",
+        "name": "김현진"
+      },
+      {
+        "id": "지지",
+        "name": "박지원"
+      },
+      {
+        "id": "리아",
+        "name": "신유민"
+      },
+      {
+        "id": "거스",
+        "name": "윤창현"
+      },
+      {
+        "id": "엘피",
+        "name": "황제하"
+      }
+    ],
+    "category": "government",
+    "downloadUrl": "https://example.com",
+    "teamUrl": "https://example.com"
+  },
+  {
+    "id": "102ccd91-cb22-46f3-9ecb-fa88aefa07a4",
+    "boothNumber": 5,
+    "name": "타닥 TaDak",
+    "appName": "타닥 TaDak",
+    "appDescription": "백색 소음을 즐기는 사용자가 자신의 취향과 목적에 맞게 소리를 여러 레이어로 쌓고, 공간 속에 자유롭게 배치하여 자신만의 사운드 환경을 만들어 즐길 수 있는 앱",
+    "members": [
+      {
+        "id": "넬",
+        "name": "이찬호"
+      },
+      {
+        "id": "아일라",
+        "name": "길연진"
+      },
+      {
+        "id": "리나",
+        "name": "김민경"
+      },
+      {
+        "id": "제제",
+        "name": "박정욱"
+      },
+      {
+        "id": "파란",
+        "name": "연선애"
+      },
+      {
+        "id": "샐리",
+        "name": "이수빈"
+      }
+    ],
+    "category": "lifestyle",
+    "downloadUrl": "https://example.com",
+    "teamUrl": "https://example.com"
+  },
+  {
+    "id": "e0a5e5ef-980b-4b52-a8b8-a7054dac6250",
+    "boothNumber": 6,
+    "name": "버스온다",
+    "appName": "버스온다",
+    "appDescription": "실시간 버스 도착 예정 시간를 알려주고, Vision 인식으로 내가 탈 버스와 일치하는지 확인해서 저시력자도 버스 탑승을 놓치지 않는 앱",
+    "members": [
+      {
+        "id": "쏠",
+        "name": "석민솔"
+      },
+      {
+        "id": "에코",
+        "name": "신민규"
+      },
+      {
+        "id": "커비",
+        "name": "양서린"
+      },
+      {
+        "id": "머피",
+        "name": "유정민"
+      },
+      {
+        "id": "쓰리",
+        "name": "이슬"
+      },
+      {
+        "id": "엘",
+        "name": "한주연"
+      }
+    ],
+    "category": "navigation",
+    "downloadUrl": "https://example.com",
+    "teamUrl": "https://example.com"
+  },
+  {
+    "id": "b7d22f2e-7191-44c2-bc5a-a8f62aee6a83",
+    "boothNumber": 7,
+    "name": "찍자 ZZikZZa",
+    "appName": "찍자 ZZikZZa",
+    "appDescription": "찍는 사람의 촬영 화면을 찍히는 사람이 자신의 휴대폰에서 실시간으로 함께 보고 시각적 가이드를 공유해, 더 원활하고 정확한 소통을 돕는 카메라 앱",
+    "members": [
+      {
+        "id": "루크",
+        "name": "문승찬"
+      },
+      {
+        "id": "요시",
+        "name": "엄태형"
+      },
+      {
+        "id": "보타",
+        "name": "윤보라"
+      },
+      {
+        "id": "페퍼",
+        "name": "이재림"
+      },
+      {
+        "id": "밥",
+        "name": "임영택"
+      },
+      {
+        "id": "에린",
+        "name": "차정인"
+      }
+    ],
+    "category": "photoAndVideo",
+    "downloadUrl": "https://example.com",
+    "teamUrl": "https://example.com"
+  },
+  {
+    "id": "e93214b2-ba91-4583-aab2-1315d0b72844",
+    "boothNumber": 8,
+    "name": "Bracket",
+    "appName": "Bracket",
+    "appDescription": "DSLR/미러리스 카메라 사용자가 온전히 순간에 집중하며 촬영할 수 있도록 미리 설정한 프리셋이 셔터를 누를 때마다 자동 변경되는 ‘Tri-Shot’을 이용하고 촬영한 사진을 Ai로 그룹화하여 베스트샷을 쉽게 고를 수 있는 앱",
+    "members": [
+      {
+        "id": "라마",
+        "name": "문형근"
+      },
+      {
+        "id": "산들",
+        "name": "양희준"
+      },
+      {
+        "id": "하리",
+        "name": "윤하정"
+      },
+      {
+        "id": "민볼",
+        "name": "이보민"
+      },
+      {
+        "id": "아이비",
+        "name": "이현주"
+      },
+      {
+        "id": "숩",
+        "name": "한수빈"
+      }
+    ],
+    "category": "photoAndVideo",
+    "downloadUrl": "https://example.com",
+    "teamUrl": "https://example.com"
+  },
+  {
+    "id": "10c1c2cc-588f-4c74-b520-f621a1f94d92",
+    "boothNumber": 9,
+    "name": "수사24",
+    "appName": "수사24",
+    "appDescription": "형사들의 신속하고 정확한 추적수사를 위해 피의자 통신 기록과 활동 패턴을 실시간 분석하고 수사 전략을 제안하는 ‘지리적 프로파일링’ 앱",
+    "members": [
+      {
+        "id": "무",
+        "name": "김무찬"
+      },
+      {
+        "id": "스노우",
+        "name": "김지하"
+      },
+      {
+        "id": "태니",
+        "name": "김태인"
+      },
+      {
+        "id": "여니",
+        "name": "남도연"
+      },
+      {
+        "id": "데미안",
+        "name": "유경모"
+      },
+      {
+        "id": "미니",
+        "name": "이민재"
+      }
+    ],
+    "category": "government",
+    "downloadUrl": "https://example.com",
+    "teamUrl": "https://example.com"
+  },
+  {
+    "id": "febb48a3-64e5-4f7e-abe3-4fadab55049d",
+    "boothNumber": 10,
+    "name": "kip!",
+    "appName": "kip!",
+    "appDescription": "기억하고 싶은 정보가 담긴 스크린샷이나 링크를 복사하면 온 디바이스 AI가 내용을 정리해주고, 이를 일정 시간과 연관 장소 기반으로 리마인더를 주는 앱",
+    "members": [
+      {
+        "id": "고",
+        "name": "고재현"
+      },
+      {
+        "id": "엘레나",
+        "name": "김지윤"
+      },
+      {
+        "id": "에어",
+        "name": "양시준"
+      },
+      {
+        "id": "딘",
+        "name": "정송헌"
+      },
+      {
+        "id": "핀",
+        "name": "정종문"
+      },
+      {
+        "id": "마틴",
+        "name": "채지한"
+      }
+    ],
+    "category": "productivity",
+    "downloadUrl": "https://example.com",
+    "teamUrl": "https://example.com"
+  },
+  {
+    "id": "0dc28198-24ec-41ba-8ee8-2d2ecd75fc76",
+    "boothNumber": 11,
+    "name": "부메랑",
+    "appName": "부메랑",
+    "appDescription": "전/월세 임대차 계약이 서툰 사회초년생을 위해 OCR 기반 서류의 위험요소를 분석해주어 불안감을 해소시켜주고 안전한 부동산 계약을 도와주는 앱",
+    "members": [
+      {
+        "id": "켄",
+        "name": "김현진"
+      },
+      {
+        "id": "헨리",
+        "name": "김현목"
+      },
+      {
+        "id": "우디",
+        "name": "이창건"
+      },
+      {
+        "id": "민",
+        "name": "민채영"
+      },
+      {
+        "id": "비에라",
+        "name": "김채원"
+      },
+      {
+        "id": "세라",
+        "name": "김이준"
+      }
+    ],
+    "category": "lifestyle",
+    "downloadUrl": "https://example.com",
+    "teamUrl": "https://example.com"
+  },
+  {
+    "id": "a7c312b4-3049-4677-8838-53e023851a2c",
+    "boothNumber": 12,
+    "name": "바이브 VYBE",
+    "appName": "바이브 VYBE",
+    "appDescription": "대화로 만드는 나만의 iOS 앱! AI와 대화를 통해 아이디어를 구체화하여 개발에 필요한문서를 자동으로 생성하고, AI 개발 과정을 시각적으로보여주는 바이브 코딩 어시스턴트 “VYBE”",
+    "members": [
+      {
+        "id": "프레젠스",
+        "name": "김규학"
+      },
+      {
+        "id": "위버",
+        "name": "김미나"
+      },
+      {
+        "id": "파웰",
+        "name": "박신범"
+      },
+      {
+        "id": "다니엘리",
+        "name": "여강수"
+      },
+      {
+        "id": "정",
+        "name": "최정인"
+      },
+      {
+        "id": "로아",
+        "name": "최희진"
+      }
+    ],
+    "category": "productivity",
+    "downloadUrl": "https://example.com",
+    "teamUrl": "https://example.com"
+  },
+  {
+    "id": "715f229b-8944-45b2-87d8-ef42f5044150",
+    "boothNumber": 13,
+    "name": "리드잇",
+    "appName": "리드잇",
+    "appDescription": "AI를 통해 사용자의 영어 읽기 실력과 약한 부분을 학습하여 사용자 맞춤형 읽기 자료를 통해 영어를 공부하는, AI 맞춤형 영어 학습 앱",
+    "members": [
+      {
+        "id": "에디",
+        "name": "김재윤"
+      },
+      {
+        "id": "내일",
+        "name": "이소진"
+      },
+      {
+        "id": "미르",
+        "name": "김성현"
+      },
+      {
+        "id": "헤리",
+        "name": "정혜승"
+      },
+      {
+        "id": "킨더",
+        "name": "김민석"
+      },
+      {
+        "id": "테오",
+        "name": "김성민"
+      }
+    ],
+    "category": "education",
+    "downloadUrl": "https://example.com",
+    "teamUrl": "https://example.com"
+  },
+  {
+    "id": "e3d78d11-04e7-493a-bfb1-358d216bab10",
+    "boothNumber": 14,
+    "name": "Audiolog",
+    "appName": "Audiolog",
+    "appDescription": "사진으로 순간을 기록하고 회상하기 어려운 시각장애인이소리로 하루를 기록하고, 공간음향과 AI 검색으로 다시 그 날을 떠올릴 수 있는 청각 기반 추억 기록 앱",
+    "members": [
+      {
+        "id": "조이",
+        "name": "강기쁨"
+      },
+      {
+        "id": "엘리안",
+        "name": "김성현"
+      },
+      {
+        "id": "글로니",
+        "name": "박승은"
+      },
+      {
+        "id": "잼",
+        "name": "이자민"
+      },
+      {
+        "id": "프랭크",
+        "name": "조시현"
+      },
+      {
+        "id": "유니아",
+        "name": "최예은"
+      }
+    ],
+    "category": "lifestyle",
+    "downloadUrl": "https://example.com",
+    "teamUrl": "https://example.com"
+  },
+  {
+    "id": "77caf1c1-4616-42f3-86a0-e4c3dd966c81",
+    "boothNumber": 15,
+    "name": "보소 BOSO",
+    "appName": "보소 BOSO",
+    "appDescription": "청각장애인이 맥북으로 재생되는 영상의 소리를 실시간 자막과 시각적 효과로 확인하며, 몰입감 있게 시청할 수 있도록 도와주는 앱",
+    "members": [
+      {
+        "id": "레옹",
+        "name": "김혜서"
+      },
+      {
+        "id": "루트",
+        "name": "맹지주"
+      },
+      {
+        "id": "파덕",
+        "name": "서용원"
+      },
+      {
+        "id": "웬디",
+        "name": "윤예람"
+      },
+      {
+        "id": "메리",
+        "name": "임희서"
+      },
+      {
+        "id": "에녹",
+        "name": "한혜빈"
+      }
+    ],
+    "category": "utility",
+    "downloadUrl": "https://example.com",
+    "teamUrl": "https://example.com"
+  },
+  {
+    "id": "23bef1ef-6b4b-4ddb-be7a-99f9fbfc466d",
+    "boothNumber": 16,
+    "name": "Anggle",
+    "appName": "Anggle",
+    "appDescription": "전방십자인대 파열 경험자가 재활 과정에서 무릎 관절 가동 범위(ROM)와 통증을 측정 및 기록하고, 회복을 한 눈에 파악할 수 있는 무릎 재활 기록 앱입니다.",
+    "members": [
+      {
+        "id": "파인",
+        "name": "김순주"
+      },
+      {
+        "id": "도딘",
+        "name": "오서진"
+      },
+      {
+        "id": "준",
+        "name": "임준혁"
+      },
+      {
+        "id": "가비",
+        "name": "전유진"
+      },
+      {
+        "id": "원준",
+        "name": "차원준"
+      },
+      {
+        "id": "가배",
+        "name": "황지민"
+      }
+    ],
+    "category": "healthAndFitness",
+    "downloadUrl": "https://example.com",
+    "teamUrl": "https://example.com"
+  },
+  {
+    "id": "ae5b8563-11f3-4b01-a2e7-8bb656fc5f27",
+    "boothNumber": 17,
+    "name": "탭탭 TapTap",
+    "appName": "탭탭 TapTap",
+    "appDescription": "기사 읽기부터 스크랩까지 모바일에서 한번에,읽으며 바로 생각을 기록하는 뉴스 정리 앱",
+    "members": [
+      {
+        "id": "홍",
+        "name": "김윤홍"
+      },
+      {
+        "id": "지구",
+        "name": "신지현"
+      },
+      {
+        "id": "일",
+        "name": "여성일"
+      },
+      {
+        "id": "이안",
+        "name": "이승진"
+      },
+      {
+        "id": "주니",
+        "name": "조혜준"
+      },
+      {
+        "id": "지나",
+        "name": "진서영"
+      }
+    ],
+    "category": "news",
+    "downloadUrl": "https://example.com",
+    "teamUrl": "https://example.com"
+  },
+  {
+    "id": "bc0bfc3a-ccb0-491a-b5b9-edfa6c4beb0e",
+    "boothNumber": 18,
+    "name": "WoA",
+    "appName": "WoA",
+    "appDescription": "전시장에서 작품을 ‘찍는 순간’ 감상을 작가에게 1:1로 전달해, 사라지는 감정을 작가에게 즉시 연결시켜주는 앱",
+    "members": [
+      {
+        "id": "베리",
+        "name": "배현진"
+      },
+      {
+        "id": "이든",
+        "name": "김동희"
+      },
+      {
+        "id": "제이",
+        "name": "김지혜"
+      },
+      {
+        "id": "조미",
+        "name": "이호정"
+      },
+      {
+        "id": "광로",
+        "name": "허찬욱"
+      },
+      {
+        "id": "얀",
+        "name": "아우신얀"
+      }
+    ],
+    "category": "entertainment",
+    "downloadUrl": "https://example.com",
+    "teamUrl": "https://example.com"
+  },
+  {
+    "id": "ed9c0934-57e5-400e-9426-5bb474425e90",
+    "boothNumber": 19,
+    "name": "Stash",
+    "appName": "Stash",
+    "appDescription": "사람별로 손쉽게 메모하는 나만의 비즈니스 채팅방",
+    "members": [
+      {
+        "id": "카린",
+        "name": "김하경"
+      },
+      {
+        "id": "타키",
+        "name": "이준희"
+      },
+      {
+        "id": "자니",
+        "name": "이창희"
+      },
+      {
+        "id": "경",
+        "name": "조운경"
+      }
+    ],
+    "category": "productivity",
+    "downloadUrl": "https://example.com",
+    "teamUrl": "https://example.com"
+  },
+  {
+    "id": "ee61bd8f-595e-405b-88a1-e1360cf62002",
+    "boothNumber": 20,
+    "name": "스틸워크",
+    "appName": "스틸워크",
+    "appDescription": "걸어서 참여하는 철길숲 팀 점령전을 통해 포항 철길숲 이용자의 더 즐거운 산책을 돕는 앱",
+    "members": [
+      {
+        "id": "위시",
+        "name": "김소원"
+      },
+      {
+        "id": "브랜뉴",
+        "name": "박신규"
+      },
+      {
+        "id": "베어",
+        "name": "성은관"
+      },
+      {
+        "id": "노터",
+        "name": "소연수"
+      },
+      {
+        "id": "해피제이",
+        "name": "장성태"
+      },
+      {
+        "id": "세나",
+        "name": "황세연"
+      }
+    ],
+    "category": "lifestyle",
+    "downloadUrl": "https://example.com",
+    "teamUrl": "https://example.com"
+  },
+  {
+    "id": "2086cc56-7ac4-40d4-8d84-8709563d2d34",
+    "boothNumber": 21,
+    "name": "키치 Keychy",
+    "appName": "키치 Keychy",
+    "appDescription": "손끝으로 즐길 수 있는 나만의 디지털 키링을 만들고 모으고 나누는 새로운 문화를 제공하는 비주얼 소셜 앱",
+    "members": [
+      {
+        "id": "세오",
+        "name": "김서현"
+      },
+      {
+        "id": "길",
+        "name": "길지훈"
+      },
+      {
+        "id": "리엘",
+        "name": "권윤진"
+      },
+      {
+        "id": "싱싱",
+        "name": "이시은"
+      },
+      {
+        "id": "런도",
+        "name": "이헌도"
+      },
+      {
+        "id": "헤븐",
+        "name": "주가은"
+      }
+    ],
+    "category": "entertainment",
+    "downloadUrl": "https://example.com",
+    "teamUrl": "https://example.com"
+  },
+  {
+    "id": "0b73e0a2-1029-4e1c-bdd6-0ecaa4bd42df",
+    "boothNumber": 22,
+    "name": "뱉어 BeTTrr",
+    "appName": "뱉어 BeTTrr",
+    "appDescription": "중∙고등학생이 영어 수행평가 스크립트를 문장 분할을 통해 쉽게 외울 수 있게 하고, 녹음 분석으로 틀린 부분만 뽑아낸 피드백으로 효율적인 암기를 돕는 앱",
+    "members": [
+      {
+        "id": "이사",
+        "name": "우정아"
+      },
+      {
+        "id": "세린",
+        "name": "서세린"
+      },
+      {
+        "id": "올리버",
+        "name": "홍석호"
+      },
+      {
+        "id": "엑설런티",
+        "name": "문아영"
+      },
+      {
+        "id": "로드",
+        "name": "길정수"
+      },
+      {
+        "id": "듀이",
+        "name": "김도연"
+      }
+    ],
+    "category": "education",
+    "downloadUrl": "https://example.com",
+    "teamUrl": "https://example.com"
+  },
+  {
+    "id": "18657b88-d72e-47fb-9f88-5758ef47e42c",
+    "boothNumber": 23,
+    "name": "AINO",
+    "appName": "AINO",
+    "appDescription": "아이패드로 유튜브 강의를 들으며 공부하는 대학생의 몰입이 깨지지 않도록 AI가 요약하고 핵심 키워드를 보여주면서 바로 질문할 수 있는 앱",
+    "members": [
+      {
+        "id": "로맥",
+        "name": "김준호"
+      },
+      {
+        "id": "콜슨",
+        "name": "김민웅"
+      },
+      {
+        "id": "엠마",
+        "name": "이혜빈"
+      },
+      {
+        "id": "아이퍼",
+        "name": "유승재"
+      },
+      {
+        "id": "스카일러",
+        "name": "김유림"
+      },
+      {
+        "id": "무민",
+        "name": "남기민"
+      }
+    ],
+    "category": "productivity",
+    "downloadUrl": "https://example.com",
+    "teamUrl": "https://example.com"
+  },
+  {
+    "id": "0ea3bd45-0829-4772-a71e-a3741078878d",
+    "boothNumber": 24,
+    "name": "BabyMoA",
+    "appName": "BabyMoA",
+    "appDescription": "놓치기 쉬운 아이와의 소중한 순간들을 간편하게 기록하여, 추억을 되새길 수 있도록 도와주는 앱",
+    "members": [
+      {
+        "id": "스카이",
+        "name": "최하늘"
+      },
+      {
+        "id": "시미",
+        "name": "장수민"
+      },
+      {
+        "id": "테드",
+        "name": "한건희"
+      },
+      {
+        "id": "퍼드",
+        "name": "구태현"
+      }
+    ],
+    "category": "lifestyle",
+    "downloadUrl": "https://example.com",
+    "teamUrl": "https://example.com"
+  },
+  {
+    "id": "3056b853-7f86-4563-9ae6-6ff417869cfd",
+    "boothNumber": 25,
+    "name": "이고약",
+    "appName": "이고약",
+    "appDescription": "한국약을 기준으로 주요 성분을 비교하여 비슷하거나 동일한 해외약을 찾아주며, 약사와 소통할 수 있도록 추가적인 정보를 제공하여 사용자의 해외 약국 이용 경험을 돕는 앱",
+    "members": [
+      {
+        "id": "체셔",
+        "name": "조계성"
+      },
+      {
+        "id": "레오",
+        "name": "김준철"
+      },
+      {
+        "id": "니케",
+        "name": "최승리"
+      },
+      {
+        "id": "닉스",
+        "name": "손유진"
+      },
+      {
+        "id": "밍키",
+        "name": "윤민경"
+      },
+      {
+        "id": "젠",
+        "name": "조민정"
+      }
+    ],
+    "category": "medical",
+    "downloadUrl": "https://example.com",
+    "teamUrl": "https://example.com"
+  },
+  {
+    "id": "c9fd7b5b-a86c-439a-8a16-7a7320912dae",
+    "boothNumber": 26,
+    "name": "디렉트 DirAct",
+    "appName": "디렉트 DirAct",
+    "appDescription": "댄스팀이 단체 연습 후 연습영상을 바탕으로 피드백을 주고 받을 때,디렉터가 영상에 타임라인별로 피드백을 남기고,팀원은 해당 피드백을 영상과 함께 직관적으로 확인함으로써 안무 연습의 효율을 높여주는 앱",
+    "members": [
+      {
+        "id": "벨코",
+        "name": "김진혁"
+      },
+      {
+        "id": "카단",
+        "name": "조재훈"
+      },
+      {
+        "id": "제이콥",
+        "name": "김경주"
+      },
+      {
+        "id": "줄리앤",
+        "name": "이주은"
+      },
+      {
+        "id": "리비",
+        "name": "배연경"
+      },
+      {
+        "id": "파이디온",
+        "name": "김준구"
+      }
+    ],
+    "category": "productivity",
+    "downloadUrl": "https://example.com",
+    "teamUrl": "https://example.com"
+  },
+  {
+    "id": "e46daecd-94ed-4ff0-a562-dbb1eeddee55",
+    "boothNumber": 27,
+    "name": "FindU",
+    "appName": "FindU",
+    "appDescription": "실내지도를 활용하여 IoT 기기를 지닌 병동 환자의 위치를 병동 간호사에게 리스트 형태로 제공하는 환자 위치 관리 앱",
+    "members": [
+      {
+        "id": "원",
+        "name": "김동민"
+      },
+      {
+        "id": "루카",
+        "name": "김무성"
+      },
+      {
+        "id": "유하",
+        "name": "신유하"
+      },
+      {
+        "id": "카야",
+        "name": "전가혜"
+      },
+      {
+        "id": "제옹",
+        "name": "정의찬"
+      },
+      {
+        "id": "앤",
+        "name": "진아현"
+      }
+    ],
+    "category": "medical",
+    "downloadUrl": "https://example.com",
+    "teamUrl": "https://example.com"
+  },
+  {
+    "id": "490c5809-4dcf-4062-8d82-11100a13ff56",
+    "boothNumber": 28,
+    "name": "어디로드",
+    "appName": "어디로드",
+    "appDescription": "지도 앱의 복잡한 화면이 어려운 중장년층을 위해 길찾기에 필요한 정보만 단계별 카드로 제공하여 목적지까지 쉽게 안내하는 대중교통 길찾기 앱",
+    "members": [
+      {
+        "id": "Bin",
+        "name": "황유빈"
+      },
+      {
+        "id": "Chloe",
+        "name": "박현지"
+      },
+      {
+        "id": "Ella",
+        "name": "이은서"
+      },
+      {
+        "id": "May",
+        "name": "김민정"
+      },
+      {
+        "id": "Nika",
+        "name": "박난"
+      },
+      {
+        "id": "Jin",
+        "name": "강진"
+      }
+    ],
+    "category": "navigation",
+    "downloadUrl": "https://example.com",
+    "teamUrl": "https://example.com"
+  },
+  {
+    "id": "f6cb89bb-3ee8-4f35-b310-a53bb200817b",
+    "boothNumber": 29,
+    "name": "픽픽 PicPeek",
+    "appName": "픽픽 PicPeek",
+    "appDescription": "부모와 자녀가 자신의 사진으로 만든 스티커를 통해 글로 전하기 힘든 마음을 서로에게 쉽고 재밌게 표현하는 일상 사진 기반 1:1 소통앱",
+    "members": [
+      {
+        "id": "이토",
+        "name": "문창재"
+      },
+      {
+        "id": "현",
+        "name": "이서현"
+      },
+      {
+        "id": "주디제이",
+        "name": "이주현"
+      },
+      {
+        "id": "체리",
+        "name": "임서연"
+      },
+      {
+        "id": "앤지",
+        "name": "장수연"
+      },
+      {
+        "id": "유우",
+        "name": "조유진"
+      }
+    ],
+    "category": "socialNetworking",
+    "downloadUrl": "https://example.com",
+    "teamUrl": "https://example.com"
+  },
+  {
+    "id": "f085629d-1993-4722-8dc3-8ef76143c8f5",
+    "boothNumber": 30,
+    "name": "Re:Chord",
+    "appName": "Re:Chord",
+    "appDescription": "흥얼거린 멜로디에 어울리는 코드를 AI가 추천하여 작곡 과정을 도와주는 앱",
+    "members": [
+      {
+        "id": "조이드",
+        "name": "나현흠"
+      },
+      {
+        "id": "아리",
+        "name": "박민아"
+      },
+      {
+        "id": "제나",
+        "name": "박지희"
+      },
+      {
+        "id": "프레이",
+        "name": "양동균"
+      },
+      {
+        "id": "제리",
+        "name": "장준하"
+      },
+      {
+        "id": "레몬",
+        "name": "정희균"
+      }
+    ],
+    "category": "music",
+    "downloadUrl": "https://example.com",
+    "teamUrl": "https://example.com"
+  }
+]

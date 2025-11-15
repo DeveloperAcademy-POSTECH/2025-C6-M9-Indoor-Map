@@ -5,14 +5,14 @@
 //  Created by go on 11/13/25.
 //
 
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 @main
 struct ShowcaseMapApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            FavoriteTeamInfo.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
