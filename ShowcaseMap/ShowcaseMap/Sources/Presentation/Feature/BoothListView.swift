@@ -80,19 +80,18 @@ struct CategoryFilterView: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
-                Button {
+                FilterButton(
+                    isSelected: selectedCategory == nil && !showFavorites
+                ) {
                     selectedCategory = nil
                     showFavorites = false
                 } label: {
                     Text("전체")
-                        .foregroundColor(selectedCategory == nil && !showFavorites ? Color.white : Color.primary)
-                        .padding(.horizontal, 14)
-                        .padding(.vertical, 7)
                 }
-                .background(selectedCategory == nil && !showFavorites ? Color.teal : Color(.tertiarySystemFill))
-                .clipShape(Capsule())
 
-                Button {
+                FilterButton(
+                    isSelected: showFavorites
+                ) {
                     showFavorites.toggle()
                     if showFavorites {
                         selectedCategory = nil
@@ -100,17 +99,14 @@ struct CategoryFilterView: View {
                 } label: {
                     HStack(spacing: 4) {
                         Image(systemName: "star.fill")
-
                         Text("즐겨찾기")
-                    }.foregroundColor(showFavorites ? Color.white : Color.primary)
-                        .padding(.horizontal, 14)
-                        .padding(.vertical, 7)
+                    }
                 }
-                .background(showFavorites ? Color.teal : Color(.tertiarySystemFill))
-                .clipShape(Capsule())
 
                 ForEach(AppCategory.allCases) { category in
-                    Button {
+                    FilterButton(
+                        isSelected: selectedCategory == category
+                    ) {
                         selectedCategory = category
                         showFavorites = false
                     } label: {
@@ -118,12 +114,7 @@ struct CategoryFilterView: View {
                             Image(systemName: "circle.fill")
                             Text(category.displayName)
                         }
-                        .foregroundColor(selectedCategory == category ? Color.white : Color.primary)
-                        .padding(.horizontal, 14)
-                        .padding(.vertical, 7)
                     }
-                    .background(selectedCategory == category ? Color.teal : Color(.tertiarySystemFill))
-                    .clipShape(Capsule())
                 }
             }
         }
@@ -155,5 +146,23 @@ struct BoothListItemView: View {
             Spacer()
         }
         .padding(14)
+    }
+}
+
+// Components
+struct FilterButton<Label: View>: View {
+    let isSelected: Bool
+    let action: () -> Void
+    @ViewBuilder let label: () -> Label
+
+    var body: some View {
+        Button(action: action) {
+            label()
+                .foregroundColor(isSelected ? Color.white : Color.primary)
+                .padding(.horizontal, 14)
+                .padding(.vertical, 7)
+        }
+        .background(isSelected ? Color.teal : Color(.tertiarySystemFill))
+        .clipShape(Capsule())
     }
 }
