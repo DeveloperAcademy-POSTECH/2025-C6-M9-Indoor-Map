@@ -39,7 +39,7 @@ struct ContentView: View {
             ) {
                 Text("search")
             }
-        }.edgesIgnoringSafeArea(.all)
+        }.ignoresSafeArea()
     }
 }
 
