@@ -11,6 +11,7 @@ struct TeamInfo: Identifiable, Hashable, Codable {
     let id: UUID
     let boothNumber: Int
     let name: String
+    let appName: String
     let appDescription: String
     let members: [Learner]
     let category: AppCategory
@@ -21,6 +22,7 @@ struct TeamInfo: Identifiable, Hashable, Codable {
         id: UUID = UUID(),
         boothNumber: Int,
         name: String,
+        appName: String,
         appDescription: String,
         members: [Learner],
         category: AppCategory,
@@ -30,6 +32,7 @@ struct TeamInfo: Identifiable, Hashable, Codable {
         self.id = id
         self.boothNumber = boothNumber
         self.name = name
+        self.appName = appName
         self.appDescription = appDescription
         self.members = members
         self.category = category
@@ -38,3 +41,8 @@ struct TeamInfo: Identifiable, Hashable, Codable {
     }
 }
 
+extension TeamInfo {
+    var categoryLine: String {
+        "#\(category.displayName) \(category)"
+    }
+}

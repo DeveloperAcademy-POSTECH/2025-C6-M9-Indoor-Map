@@ -16,7 +16,7 @@ struct ContentView: View {
     var body: some View {
         TabView(selection: $selectedIndex) {
             Tab(
-                "부스",
+                "부스 전체",
                 systemImage: "list.bullet",
                 value: 0
             ) {
@@ -28,15 +28,15 @@ struct ContentView: View {
                 systemImage: "map",
                 value: 1
             ) {
-                Text("지도뷰")
+                Text("실내 지도")
             }
-            
+
             Tab(
-                "search"
-                ,systemImage: "magnifyingglass",
+                "search",
+                systemImage: "magnifyingglass",
                 value: 2,
-                role:.search
-            ){
+                role: .search
+            ) {
                 Text("search")
             }
         }

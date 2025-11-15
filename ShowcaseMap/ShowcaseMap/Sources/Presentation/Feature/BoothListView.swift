@@ -11,13 +11,16 @@ struct BoothListView: View {
     @State private var viewModel = BoothListViewModel()
 
     var body: some View {
-        NavigationView {
-            Group {
-                List(viewModel.teamInfoList) { teamInfo in
+        NavigationStack {
+            List(viewModel.teamInfoList) { teamInfo in
+                NavigationLink(value: teamInfo) {
                     Text(teamInfo.name)
                 }
             }
             .navigationTitle("부스 목록")
+            .navigationDestination(for: TeamInfo.self) { teamInfo in
+                BoothDetailView(teamInfo: teamInfo)
+            }
             .task {
                 await viewModel.fetchTeamInfo()
             }
