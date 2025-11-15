@@ -5,10 +5,17 @@
 //  Created by bishoe01 on 11/15/25.
 //
 
+import SwiftData
 import SwiftUI
 
 struct BoothDetailView: View {
     let teamInfo: TeamInfo
+    @Environment(\.modelContext) private var modelContext
+    @Query private var favoriteTeamInfos: [FavoriteTeamInfo]
+
+    private var isFavorite: Bool {
+        favoriteTeamInfos.contains { $0.teamInfoId == teamInfo.id }
+    }
 
     var body: some View {
         ScrollView {
@@ -44,9 +51,16 @@ struct BoothDetailView: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
-                    // TODO: swiftData 저장 로직
+                    if isFavorite {
+                        if let favorite = favoriteTeamInfos.first(where: { $0.teamInfoId == teamInfo.id }) {
+                            modelContext.delete(favorite)
+                        }
+                    } else {
+                        let favorite = FavoriteTeamInfo(teamInfoId: teamInfo.id)
+                        modelContext.insert(favorite)
+                    }
                 } label: {
-                    Image(systemName: "star")
+                    Image(systemName: isFavorite ? "star.fill" : "star")
                 }
             }
 
@@ -191,4 +205,5 @@ private struct TeamIntroductionView: View {
             )
         )
     }
+    .modelContainer(for: FavoriteTeamInfo.self, inMemory: true)
 }
