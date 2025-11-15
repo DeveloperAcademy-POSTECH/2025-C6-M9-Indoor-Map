@@ -5,25 +5,38 @@
 //  Created by bishoe01 on 11/15/25.
 //
 
+import SwiftData
 import SwiftUI
 
 struct BoothListView: View {
     @State private var viewModel = BoothListViewModel()
     @State private var selectedCategory: AppCategory?
+    @State private var showFavorites: Bool = false
+    @Query private var favoriteTeamInfos: [FavoriteTeamInfo]
 
     private var filteredTeamInfoList: [TeamInfo] {
-        if let selectedCategory = selectedCategory {
-            return viewModel.teamInfoList.filter { $0.category == selectedCategory }
-        } else {
-            return viewModel.teamInfoList
+        var filtered = viewModel.teamInfoList
+
+        if showFavorites {
+            let favoriteTeamInfoId = Set(favoriteTeamInfos.map { $0.teamInfoId })
+            filtered = filtered.filter { favoriteTeamInfoId.contains($0.id) }
         }
+
+        if let selectedCategory = selectedCategory {
+            filtered = filtered.filter { $0.category == selectedCategory }
+        }
+
+        return filtered
     }
 
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 18) {
-                    CategoryFilterView(selectedCategory: $selectedCategory)
+                    CategoryFilterView(
+                        selectedCategory: $selectedCategory,
+                        showFavorites: $showFavorites
+                    )
 
                     VStack(spacing: 0) {
                         ForEach(filteredTeamInfoList) { teamInfo in
@@ -57,33 +70,57 @@ struct BoothListView: View {
 
 #Preview {
     BoothListView()
+        .modelContainer(for: FavoriteTeamInfo.self, inMemory: true)
 }
 
 struct CategoryFilterView: View {
     @Binding var selectedCategory: AppCategory?
+    @Binding var showFavorites: Bool
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
                 Button {
                     selectedCategory = nil
+                    showFavorites = false
                 } label: {
                     Text("전체")
-                        .foregroundColor(selectedCategory == nil ? Color.white : Color.primary)
+                        .foregroundColor(selectedCategory == nil && !showFavorites ? Color.white : Color.primary)
                         .padding(.horizontal, 14)
                         .padding(.vertical, 7)
                 }
-                .background(selectedCategory == nil ? Color.teal : Color(.tertiarySystemFill))
+                .background(selectedCategory == nil && !showFavorites ? Color.teal : Color(.tertiarySystemFill))
+                .clipShape(Capsule())
+
+                Button {
+                    showFavorites.toggle()
+                    if showFavorites {
+                        selectedCategory = nil
+                    }
+                } label: {
+                    HStack(spacing: 4) {
+                        Image(systemName: "star.fill")
+
+                        Text("즐겨찾기")
+                    }.foregroundColor(showFavorites ? Color.white : Color.primary)
+                        .padding(.horizontal, 14)
+                        .padding(.vertical, 7)
+                }
+                .background(showFavorites ? Color.teal : Color(.tertiarySystemFill))
                 .clipShape(Capsule())
 
                 ForEach(AppCategory.allCases) { category in
                     Button {
                         selectedCategory = category
+                        showFavorites = false
                     } label: {
-                        Text(category.displayName)
-                            .foregroundColor(selectedCategory == category ? Color.white : Color.primary)
-                            .padding(.horizontal, 14)
-                            .padding(.vertical, 7)
+                        HStack(spacing: 4) {
+                            Image(systemName: "circle.fill")
+                            Text(category.displayName)
+                        }
+                        .foregroundColor(selectedCategory == category ? Color.white : Color.primary)
+                        .padding(.horizontal, 14)
+                        .padding(.vertical, 7)
                     }
                     .background(selectedCategory == category ? Color.teal : Color(.tertiarySystemFill))
                     .clipShape(Capsule())
