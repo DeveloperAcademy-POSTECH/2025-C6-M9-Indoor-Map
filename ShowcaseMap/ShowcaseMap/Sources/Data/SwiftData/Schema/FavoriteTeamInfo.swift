@@ -10,7 +10,7 @@ import SwiftData
 
 @Model
 final class FavoriteTeamInfo {
-    var teamInfoId: UUID
+    @Attribute(.unique) var teamInfoId: UUID
     
     init(teamInfoId: UUID) {
         self.teamInfoId = teamInfoId
