@@ -100,10 +100,12 @@ struct BoothListItemView: View {
 
     var body: some View {
         HStack(alignment: .center, spacing: 8) {
-            Image(systemName: "photo")
+            // TODO: 각각 앱 이름에 맞는 이미지로 변경 필요
+            Image("appLogo")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 50, height: 50)
+                .clipShape(RoundedRectangle(cornerRadius: 16))
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(teamInfo.appName)
