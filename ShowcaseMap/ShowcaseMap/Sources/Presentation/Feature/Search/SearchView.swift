@@ -34,7 +34,11 @@ struct SearchView: View {
                                         Text(category.displayName)
                                             .font(.body)
                                             .foregroundStyle(Color.primary)
+
+                                        Spacer() // 버튼영역 넓히기 위함
                                     }
+                                    .frame(maxWidth: .infinity)
+                                    .contentShape(Rectangle())
                                 }
                                 .buttonStyle(.plain)
                             }
