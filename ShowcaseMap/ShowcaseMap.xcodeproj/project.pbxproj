@@ -13,6 +13,9 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		C71BCD142EC5E15200C396CC /* ShowcaseMap */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			explicitFolders = (
+				Sources/Presentation/Feature/Indoormap/IMDFData,
+			);
 			path = ShowcaseMap;
 			sourceTree = "<group>";
 		};
