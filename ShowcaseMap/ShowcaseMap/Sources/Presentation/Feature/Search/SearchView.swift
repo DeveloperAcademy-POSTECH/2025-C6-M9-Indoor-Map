@@ -92,17 +92,19 @@ struct SearchView: View {
 
     @ViewBuilder
     private var iPadBoothGridView: some View {
-        let columns = Array(
-            repeating: GridItem(.flexible(), spacing: 32),
-            count: 2
-        )
-
-        LazyVGrid(columns: columns, spacing: 40) {
-            ForEach(viewModel.filteredTeamInfo) { teamInfo in
-                NavigationLink(value: teamInfo) {
-                    // TODO: 지도에서 부스 클릭된 것처럼 로직 연결
-                    SearchBoothItemView(teamInfo: teamInfo, searchText: viewModel.searchText, isIPad: true)
-                }
+        BoothGridView(
+            teamInfoList: viewModel.filteredTeamInfo,
+            isIPad: true,
+            searchText: viewModel.searchText
+        ) { teamInfo in
+            NavigationLink(value: teamInfo) {
+                // TODO: 지도에서 부스 클릭된 것처럼 로직 연결
+                BoothItemView(
+                    teamInfo: teamInfo,
+                    isIPad: true,
+                    searchText: viewModel.searchText,
+                    showBoothNumber: true
+                )
             }
         }
     }
@@ -113,7 +115,12 @@ struct SearchView: View {
             ForEach(viewModel.filteredTeamInfo) { teamInfo in
                 NavigationLink(value: teamInfo) {
                     // TODO: 지도에서 부스 클릭된 것처럼 로직 연결
-                    SearchBoothItemView(teamInfo: teamInfo, searchText: viewModel.searchText, isIPad: false)
+                    BoothItemView(
+                        teamInfo: teamInfo,
+                        isIPad: false,
+                        searchText: viewModel.searchText,
+                        showBoothNumber: true
+                    )
                 }
 
                 if teamInfo.id != viewModel.filteredTeamInfo.last?.id {
@@ -126,58 +133,6 @@ struct SearchView: View {
     }
 }
 
-// 부스 검색결과
-struct SearchBoothItemView: View {
-    let teamInfo: TeamInfo
-    let searchText: String
-    var isIPad: Bool = false
-
-    var body: some View {
-        let style = SearchBoothItemStyle(isIPad: isIPad)
-
-        HStack(alignment: style.alignment, spacing: style.itemSpacing) {
-            Image("appLogo")
-                .resizable()
-                .scaledToFit()
-                .frame(width: style.logoSize, height: style.logoSize)
-                .clipShape(RoundedRectangle(cornerRadius: style.logoRadius))
-
-            VStack(alignment: .leading, spacing: 4) {
-                Text(teamInfo.appName)
-                    .font(style.titleFont)
-                    .foregroundStyle(Color.primary)
-
-                HStack(alignment: .center, spacing: 4) {
-                    Text(teamInfo.categoryLine)
-                        .foregroundStyle(style.categoryLineColor)
-
-                    Image(systemName: "circle.fill")
-                        .resizable()
-                        .frame(width: 2, height: 2)
-                        .foregroundStyle(style.categoryLineColor)
-
-                    Text("부스 \(teamInfo.boothNumber)")
-                        .foregroundStyle(isIPad ? Color.primary.opacity(0.6) : style.categoryLineColor)
-                }
-                .font(.subheadline)
-                .multilineTextAlignment(.leading)
-
-                if isIPad {
-                    Spacer()
-
-                    Text(teamInfo.appDescription)
-                        .font(.callout)
-                        .foregroundStyle(Color.secondary)
-                        .lineLimit(2)
-                        .multilineTextAlignment(.leading)
-                }
-            }
-
-            Spacer()
-        }
-        .padding(style.contentPadding)
-    }
-}
 
 #Preview {
     NavigationStack {
@@ -204,37 +159,5 @@ private struct DeviceLayout {
 
     var LazyVStackSpacing: CGFloat {
         isIPad ? 16 : 12
-    }
-}
-
-private struct SearchBoothItemStyle {
-    let isIPad: Bool
-
-    var logoSize: CGFloat {
-        isIPad ? 120 : 50
-    }
-
-    var logoRadius: CGFloat {
-        isIPad ? 38 : 16
-    }
-
-    var itemSpacing: CGFloat {
-        isIPad ? 16 : 8
-    }
-
-    var alignment: VerticalAlignment {
-        isIPad ? .top : .center
-    }
-
-    var contentPadding: CGFloat {
-        isIPad ? 0 : 14
-    }
-
-    var titleFont: Font {
-        isIPad ? .title2 : .headline
-    }
-
-    var categoryLineColor: Color {
-        isIPad ? Color.teal : Color.secondary
     }
 }
