@@ -37,7 +37,6 @@ struct SearchView: View {
 
                                         Spacer() // 버튼영역 넓히기 위함
                                     }
-                                    .frame(maxWidth: .infinity)
                                     .contentShape(Rectangle())
                                 }
                                 .buttonStyle(.plain)
@@ -46,6 +45,7 @@ struct SearchView: View {
                     }
                 }
                 .padding(.horizontal, 16)
+                .safeAreaPadding(.bottom, 100)
             }
             .navigationTitle("검색")
         }
