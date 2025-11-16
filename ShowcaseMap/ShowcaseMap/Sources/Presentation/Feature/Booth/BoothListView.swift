@@ -13,6 +13,7 @@ struct BoothListView: View {
     @State private var selectedCategory: AppCategory?
     @State private var showFavorites: Bool = false
     @Query private var favoriteTeamInfos: [FavoriteTeamInfo]
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     private var filteredTeamInfoList: [TeamInfo] {
         var filtered = viewModel.teamInfoList
@@ -32,30 +33,22 @@ struct BoothListView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(spacing: 18) {
+                VStack(spacing: layout.categorySpacing) {
                     CategoryFilterView(
                         selectedCategory: $selectedCategory,
                         showFavorites: $showFavorites
                     )
 
-                    VStack(spacing: 0) {
-                        ForEach(filteredTeamInfoList) { teamInfo in
-                            NavigationLink(value: teamInfo) {
-                                BoothListItemView(teamInfo: teamInfo)
-                            }
-                            // 경계선처리
-                            if teamInfo.id != filteredTeamInfoList.last?.id {
-                                Divider()
-                            }
-                        }
+                    if layout.isIPad {
+                        iPadGridView
+                    } else {
+                        iPhoneListView
                     }
-                    .background(Color(.quaternarySystemFill))
-                    .clipShape(RoundedRectangle(cornerRadius: 20))
-                    .padding(.horizontal)
                 }
+                .padding(.horizontal, layout.horizontalPadding)
                 .safeAreaPadding(.bottom, 100)
             }
-            .navigationTitle("부스")
+            .navigationTitle(layout.isIPad ? "" : "부스")
             .navigationBarTitleDisplayMode(.large)
             .toolbarTitleDisplayMode(.inline)
             .navigationDestination(for: TeamInfo.self) { teamInfo in
@@ -65,6 +58,31 @@ struct BoothListView: View {
                 await viewModel.fetchTeamInfo()
             }
         }
+    }
+
+    @ViewBuilder
+    private var iPadGridView: some View {
+        BoothGridView(teamInfoList: filteredTeamInfoList, isIPad: true) { teamInfo in
+            NavigationLink(value: teamInfo) {
+                BoothItemView(teamInfo: teamInfo, isIPad: true)
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var iPhoneListView: some View {
+        VStack(spacing: 0) {
+            ForEach(filteredTeamInfoList) { teamInfo in
+                NavigationLink(value: teamInfo) {
+                    BoothItemView(teamInfo: teamInfo, isIPad: false)
+                }
+                if teamInfo.id != filteredTeamInfoList.last?.id {
+                    Divider()
+                }
+            }
+        }
+        .background(Color(.quaternarySystemFill))
+        .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 }
 
@@ -76,6 +94,11 @@ struct BoothListView: View {
 struct CategoryFilterView: View {
     @Binding var selectedCategory: AppCategory?
     @Binding var showFavorites: Bool
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+
+    private var layout: DeviceLayout {
+        DeviceLayout(isIPad: horizontalSizeClass == .regular)
+    }
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -118,38 +141,32 @@ struct CategoryFilterView: View {
                 }
             }
         }
-        .padding(.leading)
         .padding(.top, 12)
+        .padding(.trailing, -layout.horizontalPadding)
     }
 }
 
-struct BoothListItemView: View {
-    let teamInfo: TeamInfo
 
-    var body: some View {
-        HStack(alignment: .center, spacing: 8) {
-            // TODO: 각각 앱 이름에 맞는 이미지로 변경 필요
-            Image("appLogo")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 50, height: 50)
-                .clipShape(RoundedRectangle(cornerRadius: 16))
+extension BoothListView {
+    private var layout: DeviceLayout {
+        DeviceLayout(isIPad: horizontalSizeClass == .regular)
+    }
+}
 
-            VStack(alignment: .leading, spacing: 4) {
-                Text(teamInfo.appName)
-                    .font(.headline)
-                    .foregroundStyle(Color.primary)
-                Text(teamInfo.categoryLine)
-                    .font(.subheadline)
-                    .foregroundStyle(Color.secondary)
-            }
-            Spacer()
-        }
-        .padding(14)
+private struct DeviceLayout {
+    let isIPad: Bool
+
+    var categorySpacing: CGFloat {
+        isIPad ? 52 : 18
+    }
+
+    var horizontalPadding: CGFloat {
+        isIPad ? 32 : 15
     }
 }
 
 // Components
+
 struct FilterButton<Label: View>: View {
     let isSelected: Bool
     let action: () -> Void
