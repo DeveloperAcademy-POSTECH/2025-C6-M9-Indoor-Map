@@ -8,52 +8,22 @@
 import SwiftUI
 
 struct SearchView: View {
-    @State private var searchText: String = ""
-    @State private var viewModel = BoothListViewModel()
-    
-    // 부스검색
-    private var filteredTeamInfo: [TeamInfo] {
-        guard !searchText.isEmpty else { return [] }
-        
-        let searchLowercased = searchText.lowercased()
-        
-        return viewModel.teamInfoList.filter { teamInfo in
-            // 앱 이름
-            teamInfo.appName.lowercased().contains(searchLowercased) ||
-                // 부스번호
-                teamInfo.boothNumber.contains(searchText) ||
-                // 멤버이름(본명이랑 영어이름 둘다)
-                teamInfo.members.contains { member in
-                    member.name.lowercased().contains(searchLowercased) ||
-                        member.id.lowercased().contains(searchLowercased)
-                }
-        }
-    }
-    
-    // 편의시설 검색
-    private var filteredAmenities: [AmenityCategory] {
-        guard !searchText.isEmpty else { return AmenityCategory.allCases }
-        
-        let searchLowercased = searchText.lowercased()
-        return AmenityCategory.allCases.filter { category in
-            category.displayName.lowercased().contains(searchLowercased)
-        }
-    }
+    @State private var viewModel = SearchViewModel()
 
     var body: some View {
         NavigationStack {
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 20) {
                     // 편의시설
-                    if searchText.isEmpty || !filteredAmenities.isEmpty {
-                        if !searchText.isEmpty {
+                    if viewModel.searchText.isEmpty || !viewModel.filteredAmenities.isEmpty {
+                        if !viewModel.searchText.isEmpty {
                             Text("편의 시설")
                                 .font(.title3)
                                 .foregroundStyle(Color.primary)
                         }
                         
                         VStack(alignment: .leading, spacing: 8) {
-                            ForEach(filteredAmenities) { category in
+                            ForEach(viewModel.filteredAmenities) { category in
                                 Button {
                                     // TODO: 눌렀을때 이동하는 로직
                                 } label: {
@@ -79,28 +49,28 @@ struct SearchView: View {
                     }
                     
                     // 부스
-                    if !searchText.isEmpty {
-                        if !filteredTeamInfo.isEmpty {
+                    if !viewModel.searchText.isEmpty {
+                        if !viewModel.filteredTeamInfo.isEmpty {
                             Text("부스")
                                 .font(.title3)
                                 .foregroundStyle(Color.primary)
-                                .padding(.top, searchText.isEmpty || filteredAmenities.isEmpty ? 0 : 8)
+                                .padding(.top, viewModel.searchText.isEmpty || viewModel.filteredAmenities.isEmpty ? 0 : 8)
                             
                             VStack(spacing: 0) {
-                                ForEach(filteredTeamInfo) { teamInfo in
+                                ForEach(viewModel.filteredTeamInfo) { teamInfo in
                                     NavigationLink(value: teamInfo) {
                                         // TODO: 지도에서 부스 클릭된 것처럼 로직 연결
-                                        SearchBoothItemView(teamInfo: teamInfo, searchText: searchText)
+                                        SearchBoothItemView(teamInfo: teamInfo, searchText: viewModel.searchText)
                                     }
                                     
-                                    if teamInfo.id != filteredTeamInfo.last?.id {
+                                    if teamInfo.id != viewModel.filteredTeamInfo.last?.id {
                                         Divider()
                                     }
                                 }
                             }
                             .background(Color(.quaternarySystemFill))
                             .clipShape(RoundedRectangle(cornerRadius: 20))
-                        } else if filteredAmenities.isEmpty {
+                        } else if viewModel.filteredAmenities.isEmpty {
                             // 검색 결과가 없을 때
                             VStack(spacing: 8) {
                                 Image(systemName: "magnifyingglass")
@@ -127,7 +97,7 @@ struct SearchView: View {
                 await viewModel.fetchTeamInfo()
             }
         }
-        .searchable(text: $searchText, prompt: "부스, 앱 이름, 멤버 이름으로 검색")
+        .searchable(text: $viewModel.searchText, prompt: "부스, 앱 이름, 멤버 이름으로 검색")
     }
 }
 
