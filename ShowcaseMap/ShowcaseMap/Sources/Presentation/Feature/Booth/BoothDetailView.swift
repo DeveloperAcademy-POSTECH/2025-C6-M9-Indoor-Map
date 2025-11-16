@@ -12,41 +12,37 @@ struct BoothDetailView: View {
     let teamInfo: TeamInfo
     @Environment(\.modelContext) private var modelContext
     @Query private var favoriteTeamInfos: [FavoriteTeamInfo]
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     private var isFavorite: Bool {
         favoriteTeamInfos.contains { $0.teamInfoId == teamInfo.id }
     }
 
+    private var layout: DeviceLayout {
+        DeviceLayout(isIPad: horizontalSizeClass == .regular)
+    }
+
     var body: some View {
         ScrollView {
             VStack(alignment: .center, spacing: 12) {
-                BoothHeaderView(
-                    name: teamInfo.name,
-                    boothNumber: teamInfo.boothNumber
+                if layout.isIPad {
+                    iPadAppIntroView
+                } else {
+                    iPhoneHeaderView
+                }
+
+                TeamIntroductionView(
+                    teamName: teamInfo.name,
+                    teamUrl: teamInfo.teamUrl,
+                    members: teamInfo.members,
+                    isIpad: layout.isIPad
                 )
 
-                VStack(alignment: .leading, spacing: 12) {
-                    AppDescriptionView(
-                        description: teamInfo.appDescription,
-                        categoryLine: teamInfo.categoryLine
-                    )
-
-                    AppDownloadCardView(appName: teamInfo.appName) {
-                        print(teamInfo.members)
-                        // TODO: teaminfo.appUrl 사용
-                    }
-
-                    TeamIntroductionView(
-                        teamName: teamInfo.name,
-                        teamUrl: teamInfo.teamUrl,
-                        members: teamInfo.members
-                    )
-
-                    // 지도
-                }
+                // 지도
             }
+            .padding(.horizontal, layout.horizontalPadding)
+            .padding(.vertical, layout.verticalPadding)
         }
-        .padding(.horizontal, 15)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -74,6 +70,81 @@ struct BoothDetailView: View {
                 } label: {
                     Image(systemName: "square.and.arrow.up")
                 }
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var iPadAppIntroView: some View {
+        HStack(alignment: .top, spacing: 24) {
+            Image("appLogo")
+                .resizable()
+                .scaledToFit()
+                .frame(width: layout.logoSize, height: layout.logoSize)
+                .clipShape(RoundedRectangle(cornerRadius: layout.logoCornerRadius))
+
+            VStack(alignment: .leading, spacing: 12) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(teamInfo.appName)
+                        .font(.title)
+                        .foregroundStyle(Color.primary)
+                        .bold()
+
+                    Text("부스 · \(teamInfo.boothNumber)")
+                        .font(.callout)
+                        .foregroundStyle(Color.secondary)
+                }
+
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(teamInfo.appDescription)
+                        .font(.body)
+                        .foregroundStyle(Color.primary)
+                        .lineLimit(3)
+
+                    Text(teamInfo.categoryLine)
+                        .font(.subheadline)
+                        .foregroundStyle(Color(.tertiaryLabel))
+                }
+                Spacer()
+
+                Button {
+                    print(teamInfo.members)
+                    // TODO: teaminfo.appUrl 사용
+                } label: {
+                    HStack(spacing: 0) {
+                        Text("앱 다운로드")
+                            .font(.body)
+
+                        Image(systemName: "arrow.up.forward")
+                    }
+                }
+                .foregroundStyle(Color.teal)
+                .padding(.vertical, 14)
+                .padding(.horizontal, 20)
+                .background(Color.downloadBtn)
+                .clipShape(Capsule())
+            }
+
+            Spacer()
+        }
+    }
+
+    @ViewBuilder
+    private var iPhoneHeaderView: some View {
+        BoothHeaderView(
+            name: teamInfo.name,
+            boothNumber: teamInfo.boothNumber
+        )
+
+        VStack(alignment: .leading, spacing: 12) {
+            AppDescriptionView(
+                description: teamInfo.appDescription,
+                categoryLine: teamInfo.categoryLine
+            )
+
+            AppDownloadCardView(appName: teamInfo.appName) {
+                print(teamInfo.members)
+                // TODO: teaminfo.appUrl 사용
             }
         }
     }
@@ -122,15 +193,13 @@ private struct AppDownloadCardView: View {
     let onDownloadTap: () -> Void
 
     var body: some View {
-        HStack {
-            HStack(spacing: 12) {
-                // TODO: 이미지 변경 필요
-                Image("appLogo")
-                    .resizable()
-                    .frame(width: 60, height: 60)
-                    .clipShape(RoundedRectangle(cornerRadius: 18))
-                Text(appName)
-            }
+        HStack(spacing: 12) {
+            // TODO: 이미지 변경 필요
+            Image("appLogo")
+                .resizable()
+                .frame(width: 60, height: 60)
+                .clipShape(RoundedRectangle(cornerRadius: 18))
+            Text(appName)
             Spacer()
             Button {
                 onDownloadTap()
@@ -140,10 +209,13 @@ private struct AppDownloadCardView: View {
                     .foregroundStyle(Color.teal)
                     .padding(.vertical, 4)
                     .padding(.horizontal, 13)
-                    .background(.tertiary.opacity(0.24))
+                    .background(Color.downloadBtn)
                     .clipShape(.capsule)
             }
         }
+        .padding(.all, 12)
+        .background(Color.quatFill)
+        .clipShape(RoundedRectangle(cornerRadius: 24))
     }
 }
 
@@ -152,34 +224,36 @@ private struct TeamIntroductionView: View {
     let teamName: String
     let teamUrl: URL
     let members: [Learner]
+    let isIpad: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("팀소개")
-                .font(.title3)
+                .font(isIpad ? .title2 : .title3)
                 .foregroundStyle(Color.primary)
             HStack {
                 Text("팀 이름")
-                    .font(.subheadline)
+                    .font(isIpad ? .headline : .subheadline)
                     .foregroundStyle(Color.gray)
                 Spacer()
                 Text(teamName)
-                    .font(.subheadline)
+                    .font(isIpad ? .headline : .subheadline)
                     .foregroundStyle(Color.primary)
             }
 
             HStack {
                 Text("팀 및 프로젝트 설명")
-                    .font(.subheadline)
+                    .font(isIpad ? .headline : .subheadline)
                     .foregroundStyle(Color.gray)
                 Spacer()
-                Link("NotionLink", destination: teamUrl).font(.subheadline)
+                Link("NotionLink", destination: teamUrl)
+                    .font(isIpad ? .headline : .subheadline)
                     .foregroundStyle(Color.teal)
                     .underline()
             }
             List(members) { member in
                 Text("\(member.name)(\(member.id))")
-                    .font(.subheadline)
+                    .font(isIpad ? .body : .subheadline)
                     .listRowBackground(Color(.quaternarySystemFill))
             }
             .scaledToFit()
@@ -198,7 +272,7 @@ private struct TeamIntroductionView: View {
                 boothNumber: "1",
                 name: "샘플 팀",
                 appName: "샘플앱",
-                appDescription: "샘플 앱 설명",
+                appDescription: "샘플 앱 설명 샘플 앱 설명 샘플 앱 설명 샘플 앱 설명 샘플 앱 설명 샘플 앱 설명 샘플 앱 설명샘플 앱 설명샘플 앱 설명샘플 앱 설명샘플 앱 설명샘플 앱 설명샘플 앱 설명",
                 members: [],
                 category: .productivity,
                 downloadUrl: URL(string: "https://example.com")!,
@@ -207,4 +281,24 @@ private struct TeamIntroductionView: View {
         )
     }
     .modelContainer(for: FavoriteTeamInfo.self, inMemory: true)
+}
+
+private struct DeviceLayout {
+    let isIPad: Bool
+
+    var horizontalPadding: CGFloat {
+        isIPad ? 32 : 15
+    }
+
+    var verticalPadding: CGFloat {
+        isIPad ? 28 : 0
+    }
+
+    var logoSize: CGFloat {
+        isIPad ? 240 : 60
+    }
+
+    var logoCornerRadius: CGFloat {
+        isIPad ? 38 : 18
+    }
 }
