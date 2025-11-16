@@ -21,8 +21,8 @@ struct SearchView: View {
             // 앱 이름
             teamInfo.appName.lowercased().contains(searchLowercased) ||
                 // 부스번호
-                String(teamInfo.boothNumber).contains(searchText) ||
-                // 멤버이름(본명,영어이름 둘다)
+                teamInfo.boothNumber.contains(searchText) ||
+                // 멤버이름(본명이랑 영어이름 둘다)
                 teamInfo.members.contains { member in
                     member.name.lowercased().contains(searchLowercased) ||
                         member.id.lowercased().contains(searchLowercased)

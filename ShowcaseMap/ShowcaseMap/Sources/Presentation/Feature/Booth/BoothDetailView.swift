@@ -82,7 +82,7 @@ struct BoothDetailView: View {
 // 부스 정보 헤더
 private struct BoothHeaderView: View {
     let name: String
-    let boothNumber: Int
+    let boothNumber: String
 
     var body: some View {
         VStack(alignment: .center, spacing: 2) {
@@ -195,7 +195,7 @@ private struct TeamIntroductionView: View {
     NavigationStack {
         BoothDetailView(
             teamInfo: TeamInfo(
-                boothNumber: 1,
+                boothNumber: "1",
                 name: "샘플 팀",
                 appName: "샘플앱",
                 appDescription: "샘플 앱 설명",
