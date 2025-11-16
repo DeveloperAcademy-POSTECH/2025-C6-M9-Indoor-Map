@@ -34,14 +34,15 @@ struct BoothDetailView: View {
                 TeamIntroductionView(
                     teamName: teamInfo.name,
                     teamUrl: teamInfo.teamUrl,
-                    members: teamInfo.members
+                    members: teamInfo.members,
+                    isIpad: layout.isIPad
                 )
 
                 // 지도
             }
+            .padding(.horizontal, layout.horizontalPadding)
+            .padding(.vertical, layout.verticalPadding)
         }
-        .padding(.horizontal, layout.horizontalPadding)
-        .padding(.vertical, layout.verticalPadding)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -223,34 +224,36 @@ private struct TeamIntroductionView: View {
     let teamName: String
     let teamUrl: URL
     let members: [Learner]
+    let isIpad: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("팀소개")
-                .font(.title3)
+                .font(isIpad ? .title2 : .title3)
                 .foregroundStyle(Color.primary)
             HStack {
                 Text("팀 이름")
-                    .font(.subheadline)
+                    .font(isIpad ? .headline : .subheadline)
                     .foregroundStyle(Color.gray)
                 Spacer()
                 Text(teamName)
-                    .font(.subheadline)
+                    .font(isIpad ? .headline : .subheadline)
                     .foregroundStyle(Color.primary)
             }
 
             HStack {
                 Text("팀 및 프로젝트 설명")
-                    .font(.subheadline)
+                    .font(isIpad ? .headline : .subheadline)
                     .foregroundStyle(Color.gray)
                 Spacer()
-                Link("NotionLink", destination: teamUrl).font(.subheadline)
+                Link("NotionLink", destination: teamUrl)
+                    .font(isIpad ? .headline : .subheadline)
                     .foregroundStyle(Color.teal)
                     .underline()
             }
             List(members) { member in
                 Text("\(member.name)(\(member.id))")
-                    .font(.subheadline)
+                    .font(isIpad ? .body : .subheadline)
                     .listRowBackground(Color(.quaternarySystemFill))
             }
             .scaledToFit()

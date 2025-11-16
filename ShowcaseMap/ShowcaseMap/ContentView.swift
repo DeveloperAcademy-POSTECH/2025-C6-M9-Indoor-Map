@@ -28,7 +28,8 @@ struct ContentView: View {
                 systemImage: "map",
                 value: .map
             ) {
-                BoothListView()
+                //MAPVIEW
+                Text("MAPVIEW")
             }
 
             Tab(

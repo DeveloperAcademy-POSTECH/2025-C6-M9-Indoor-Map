@@ -175,6 +175,7 @@ struct BoothListItemView: View {
                 Text(teamInfo.categoryLine)
                     .font(.subheadline)
                     .foregroundStyle(style.categoryLineColor)
+                    .multilineTextAlignment(.leading)
 
                 if isIPad {
                     Spacer()
