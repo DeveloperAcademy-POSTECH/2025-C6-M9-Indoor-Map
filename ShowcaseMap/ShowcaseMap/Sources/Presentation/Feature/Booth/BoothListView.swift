@@ -62,16 +62,9 @@ struct BoothListView: View {
 
     @ViewBuilder
     private var iPadGridView: some View {
-        let columns = Array(
-            repeating: GridItem(.flexible(), spacing: 32),
-            count: 2
-        )
-
-        LazyVGrid(columns: columns, spacing: 40) {
-            ForEach(filteredTeamInfoList) { teamInfo in
-                NavigationLink(value: teamInfo) {
-                    BoothListItemView(teamInfo: teamInfo, isIPad: true)
-                }
+        BoothGridView(teamInfoList: filteredTeamInfoList, isIPad: true) { teamInfo in
+            NavigationLink(value: teamInfo) {
+                BoothItemView(teamInfo: teamInfo, isIPad: true)
             }
         }
     }
@@ -81,7 +74,7 @@ struct BoothListView: View {
         VStack(spacing: 0) {
             ForEach(filteredTeamInfoList) { teamInfo in
                 NavigationLink(value: teamInfo) {
-                    BoothListItemView(teamInfo: teamInfo, isIPad: false)
+                    BoothItemView(teamInfo: teamInfo, isIPad: false)
                 }
                 if teamInfo.id != filteredTeamInfoList.last?.id {
                     Divider()
@@ -153,44 +146,6 @@ struct CategoryFilterView: View {
     }
 }
 
-struct BoothListItemView: View {
-    let teamInfo: TeamInfo
-    var isIPad: Bool = false
-
-    var body: some View {
-        let style = BoothItemStyle(isIPad: isIPad)
-
-        HStack(alignment: style.alignment, spacing: style.itemSpacing) {
-            // TODO: 각각 앱 이름에 맞는 이미지로 변경 필요
-            Image("appLogo")
-                .resizable()
-                .scaledToFit()
-                .frame(width: style.logoSize, height: style.logoSize)
-                .clipShape(RoundedRectangle(cornerRadius: style.logoRadius))
-
-            VStack(alignment: .leading, spacing: 4) {
-                Text(teamInfo.appName)
-                    .font(style.titleFont)
-                    .foregroundStyle(Color.primary)
-                Text(teamInfo.categoryLine)
-                    .font(.subheadline)
-                    .foregroundStyle(style.categoryLineColor)
-                    .multilineTextAlignment(.leading)
-
-                if isIPad {
-                    Spacer()
-                    Text(teamInfo.appDescription)
-                        .font(.callout)
-                        .foregroundStyle(Color.secondary)
-                        .lineLimit(2)
-                        .multilineTextAlignment(.leading)
-                }
-            }
-            Spacer()
-        }
-        .padding(style.contentPadding)
-    }
-}
 
 extension BoothListView {
     private var layout: DeviceLayout {
@@ -207,38 +162,6 @@ private struct DeviceLayout {
 
     var horizontalPadding: CGFloat {
         isIPad ? 32 : 15
-    }
-}
-
-private struct BoothItemStyle {
-    let isIPad: Bool
-
-    var logoSize: CGFloat {
-        isIPad ? 120 : 50
-    }
-
-    var logoRadius: CGFloat {
-        isIPad ? 38 : 16
-    }
-
-    var itemSpacing: CGFloat {
-        isIPad ? 16 : 8
-    }
-
-    var alignment: VerticalAlignment {
-        isIPad ? .top : .center
-    }
-
-    var contentPadding: CGFloat {
-        isIPad ? 0 : 14
-    }
-
-    var titleFont: Font {
-        isIPad ? .title2 : .headline
-    }
-
-    var categoryLineColor: Color {
-        isIPad ? Color.teal : Color.secondary
     }
 }
 
