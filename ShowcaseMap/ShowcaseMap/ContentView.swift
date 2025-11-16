@@ -28,8 +28,7 @@ struct ContentView: View {
                 systemImage: "map",
                 value: .map
             ) {
-                //MAPVIEW
-                Text("MAPVIEW")
+                IndoorMapView()
             }
 
             Tab(

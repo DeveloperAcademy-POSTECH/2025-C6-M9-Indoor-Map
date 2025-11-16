@@ -2,7 +2,7 @@
 //  LabelAnnotationView.swift
 //  ShowcaseMap
 //
-//  Created by 딘은딘딘 on 11/16/25.
+//  Created by 딘은딘딘 on 11/15/25.
 //
 
 import MapKit
@@ -30,7 +30,6 @@ class LabelAnnotationView: MKAnnotationView {
         label.font = UIFont.preferredFont(forTextStyle: .caption1)
         addSubview(label)
         
-        // Set the label constriants.
         label.translatesAutoresizingMaskIntoConstraints = false
         label.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         label.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
@@ -41,15 +40,14 @@ class LabelAnnotationView: MKAnnotationView {
         point.layer.borderWidth = 1.0
         point.layer.borderColor = UIColor(named: "AnnotationBorder")?.cgColor
         self.addSubview(point)
-        
-        // Set the point constraints so that it is centered and above label.
+
         point.translatesAutoresizingMaskIntoConstraints = false
         point.widthAnchor.constraint(equalToConstant: radius * 2).isActive = true
         point.heightAnchor.constraint(equalToConstant: radius * 2).isActive = true
         point.topAnchor.constraint(equalTo: topAnchor).isActive = true
         point.centerXAnchor.constraint(equalTo: label.centerXAnchor).isActive = true
         point.bottomAnchor.constraint(equalTo: label.topAnchor).isActive = true
-        
+
         centerOffset = CGPoint(x: 0, y: label.font.lineHeight / 2 )
         calloutOffset = CGPoint(x: 0, y: -radius)
         canShowCallout = true

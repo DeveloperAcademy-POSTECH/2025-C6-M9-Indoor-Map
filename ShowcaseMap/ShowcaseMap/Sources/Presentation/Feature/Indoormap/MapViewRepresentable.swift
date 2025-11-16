@@ -2,7 +2,7 @@
 //  MapViewRepresentable.swift
 //  ShowcaseMap
 //
-//  Created by 딘은딘딘 on 11/16/25.
+//  Created by 딘은딘딘 on 11/15/25.
 //
 
 import SwiftUI
@@ -18,12 +18,13 @@ struct MapViewRepresentable: UIViewRepresentable {
         let mapView = MKMapView()
         mapView.delegate = context.coordinator
         mapView.showsUserLocation = true
-
-        // Hide default map POIs
         mapView.pointOfInterestFilter = .excludingAll
+        mapView.camera.heading = 0
+        mapView.isRotateEnabled = false
 
         mapView.register(PointAnnotationView.self, forAnnotationViewWithReuseIdentifier: "PointAnnotationView")
         mapView.register(LabelAnnotationView.self, forAnnotationViewWithReuseIdentifier: "LabelAnnotationView")
+        mapView.register(CategoryAnnotationView.self, forAnnotationViewWithReuseIdentifier: "CategoryAnnotationView")
         return mapView
     }
 
@@ -84,16 +85,12 @@ struct MapViewRepresentable: UIViewRepresentable {
                 return nil
             }
 
-            if let stylableFeature = annotation as? StylableFeature {
-                if stylableFeature is Occupant {
-                    let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "LabelAnnotationView", for: annotation)
-                    stylableFeature.configure(annotationView: annotationView)
-                    return annotationView
-                } else {
-                    let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "PointAnnotationView", for: annotation)
-                    stylableFeature.configure(annotationView: annotationView)
-                    return annotationView
-                }
+            if annotation is UnitAnnotation || annotation is Amenity || annotation is Occupant {
+                let annotationView = mapView.dequeueReusableAnnotationView(
+                    withIdentifier: "CategoryAnnotationView",
+                    for: annotation
+                ) as! CategoryAnnotationView
+                return annotationView
             }
 
             return nil

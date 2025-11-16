@@ -1,10 +1,3 @@
-//
-//  Styles.swift
-//  ShowcaseMap
-//
-//  Created by 딘은딘딘 on 11/16/25.
-//
-
 import MapKit
 
 protocol StylableFeature {
@@ -63,7 +56,6 @@ extension Unit: StylableFeature {
 
 extension Opening: StylableFeature {
     func configure(overlayRenderer: MKOverlayPathRenderer) {
-        // Match the standard unit fill color so the opening lines match the open areas' colors.
         overlayRenderer.strokeColor = UIColor(named: "WalkwayFill")
         overlayRenderer.lineWidth = 2.0
     }
@@ -83,7 +75,6 @@ extension Amenity: StylableFeature {
         } else {
             annotationView.backgroundColor = UIColor(named: "DefaultAmenityFill")
         }
-        
         annotationView.displayPriority = .defaultLow
     }
 }
