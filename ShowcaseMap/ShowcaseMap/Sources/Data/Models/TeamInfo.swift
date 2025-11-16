@@ -9,7 +9,7 @@ import Foundation
 
 struct TeamInfo: Identifiable, Hashable, Codable {
     let id: UUID
-    let boothNumber: Int
+    let boothNumber: String
     let name: String
     let appName: String
     let appDescription: String
@@ -20,7 +20,7 @@ struct TeamInfo: Identifiable, Hashable, Codable {
 
     init(
         id: UUID = UUID(),
-        boothNumber: Int,
+        boothNumber: String,
         name: String,
         appName: String,
         appDescription: String,

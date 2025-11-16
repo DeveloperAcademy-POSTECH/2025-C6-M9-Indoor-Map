@@ -11,14 +11,14 @@ import SwiftUI
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
 
-    @State private var selectedIndex: Int = 0
+    @State private var tabSelection: TabIdentifier = .map
 
     var body: some View {
-        TabView(selection: $selectedIndex) {
+        TabView(selection: $tabSelection) {
             Tab(
                 "부스 전체",
                 systemImage: "list.bullet",
-                value: 0
+                value: .booth
             ) {
                 BoothListView()
             }
@@ -26,18 +26,18 @@ struct ContentView: View {
             Tab(
                 "지도뷰",
                 systemImage: "map",
-                value: 1
+                value: .map
             ) {
-                Text("실내 지도")
+                BoothListView()
             }
 
             Tab(
                 "search",
                 systemImage: "magnifyingglass",
-                value: 2,
+                value: .search,
                 role: .search
             ) {
-                Text("search")
+                SearchView()
             }
         }.ignoresSafeArea()
     }
@@ -46,4 +46,11 @@ struct ContentView: View {
 #Preview {
     ContentView()
         .modelContainer(for: FavoriteTeamInfo.self, inMemory: true)
+}
+
+
+enum TabIdentifier: String, CaseIterable {
+    case booth
+    case map
+    case search
 }
