@@ -34,6 +34,7 @@ class IndoorMapViewModel: ObservableObject {
             }
         }
     }
+    @Published var selectedBooth: TeamInfo? = nil
 
     private let locationManager = CLLocationManager()
 
@@ -166,6 +167,36 @@ class IndoorMapViewModel: ObservableObject {
 
         let centerPoint = MKMapPoint(x: x / Double(polygon.pointCount), y: y / Double(polygon.pointCount))
         return centerPoint.coordinate
+    }
+// 테스트용 표시입니다. 메인랩 Annotation 클릭하면 나옵니다.
+    func handleAnnotationTap(_ annotation: MKAnnotation) {
+        // 메인랩 annotation을 탭하면 테스트용 부스 데이터 표시
+        if let occupant = annotation as? Occupant {
+            // Use bestLocalizedValue (or title as a fallback) instead of subscripting LocalizedName
+            let localizedName = occupant.properties.name.bestLocalizedValue ?? occupant.title
+            if localizedName == "메인랩" || localizedName == "MainLab" {
+                selectedBooth = createMockBoothData()
+            }
+        }
+    }
+
+    private func createMockBoothData() -> TeamInfo {
+        let mockMembers = [
+            Learner(id: "딘", name: "Dean"),
+            Learner(id: "제이", name: "Jay"),
+            Learner(id: "앨리스", name: "Alice")
+        ]
+
+        return TeamInfo(
+            boothNumber: "01",
+            name: "테스트 팀",
+            appName: "테스트 앱",
+            appDescription: "이것은 BoothDetailSheetView를 테스트하기 위한 가상의 부스입니다. 메인랩을 탭하면 이 시트가 표시됩니다.",
+            members: mockMembers,
+            category: .productivity,
+            downloadUrl: URL(string: "https://example.com")!,
+            teamUrl: URL(string: "https://example.com/team")!
+        )
     }
 }
 

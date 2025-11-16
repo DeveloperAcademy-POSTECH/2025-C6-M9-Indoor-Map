@@ -13,6 +13,7 @@ struct MapViewRepresentable: UIViewRepresentable {
     let annotations: [MKAnnotation]
     let features: [StylableFeature]
     let region: MKMapRect
+    var onAnnotationTap: ((MKAnnotation) -> Void)?
 
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView()
@@ -45,14 +46,16 @@ struct MapViewRepresentable: UIViewRepresentable {
     }
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(features: features)
+        Coordinator(features: features, onAnnotationTap: onAnnotationTap)
     }
 
     class Coordinator: NSObject, MKMapViewDelegate {
         var features: [StylableFeature]
+        var onAnnotationTap: ((MKAnnotation) -> Void)?
 
-        init(features: [StylableFeature]) {
+        init(features: [StylableFeature], onAnnotationTap: ((MKAnnotation) -> Void)?) {
             self.features = features
+            self.onAnnotationTap = onAnnotationTap
         }
 
         func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -94,6 +97,15 @@ struct MapViewRepresentable: UIViewRepresentable {
             }
 
             return nil
+        }
+
+        func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+            guard let annotation = view.annotation,
+                  !(annotation is MKUserLocation) else {
+                return
+            }
+            onAnnotationTap?(annotation)
+            mapView.deselectAnnotation(annotation, animated: false)
         }
     }
 }

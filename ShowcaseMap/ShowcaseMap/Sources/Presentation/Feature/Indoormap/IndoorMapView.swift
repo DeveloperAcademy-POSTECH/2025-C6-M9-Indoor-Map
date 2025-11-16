@@ -16,7 +16,10 @@ struct IndoorMapView: View {
                 overlays: viewModel.currentLevelOverlays,
                 annotations: viewModel.currentLevelAnnotations,
                 features: viewModel.currentLevelFeatures,
-                region: viewModel.region
+                region: viewModel.region,
+                onAnnotationTap: { annotation in
+                    viewModel.handleAnnotationTap(annotation)
+                }
             )
             .ignoresSafeArea()
 
@@ -46,6 +49,9 @@ struct IndoorMapView: View {
         }
         .onAppear {
             viewModel.loadIMDFData()
+        }
+        .sheet(item: $viewModel.selectedBooth) { booth in
+            BoothDetailView(teamInfo: booth)
         }
     }
 }
