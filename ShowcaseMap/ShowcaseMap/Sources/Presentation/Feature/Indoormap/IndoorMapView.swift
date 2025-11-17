@@ -13,10 +13,11 @@ struct IndoorMapView: View {
     @State private var selection: UUID?
     @Binding var selectedCategory: POICategory?
 
-    @State private var showTeamInfo: Bool = true
-    @State private var sheetDetent: PresentationDetent = .height(80)
+    @State private var showTeamInfo: Bool = false
+    @State private var sheetDetent: PresentationDetent = .height(350)
     @State private var sheetHeight: CGFloat = 0
     @State private var animationDuration: CGFloat = 0
+    @State private var selectedTeamInfo: TeamInfo?
 
     @Namespace private var mapScope
     var body: some View {
@@ -48,20 +49,23 @@ struct IndoorMapView: View {
             .mapControlVisibility(.hidden)
             .ignoresSafeArea()
             .sheet(isPresented: $showTeamInfo) {
-                BottomSheetView(sheetDetent: $sheetDetent)
-                    .presentationDetents([.height(80), .height(350), .large])
-                    .presentationBackgroundInteraction(.enabled)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .onGeometryChange(for: CGFloat.self) {
-                        max(min($0.size.height, 350), 0)
-                    } action: { oldValue, newValue in
-                        sheetHeight = newValue
+                BottomSheetView(
+                    sheetDetent: $sheetDetent,
+                    selectedTeamInfo: selectedTeamInfo
+                )
+                .presentationDetents([.height(80), .height(350), .large], selection: $sheetDetent)
+                .presentationBackgroundInteraction(.enabled)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .onGeometryChange(for: CGFloat.self) {
+                    max(min($0.size.height, 350), 0)
+                } action: { oldValue, newValue in
+                    sheetHeight = newValue
 
-                        let diff = abs(newValue - oldValue)
-                        let duration = max(min(diff / 100, 0.3), 0)
-                        animationDuration = duration
+                    let diff = abs(newValue - oldValue)
+                    let duration = max(min(diff / 100, 0.3), 0)
+                    animationDuration = duration
 
-                    }.ignoresSafeArea()
+                }.ignoresSafeArea()
             }
             .overlay(alignment: .bottomLeading) {
                 BottomFloatingToolBar()
@@ -101,6 +105,18 @@ struct IndoorMapView: View {
         .onChange(of: viewModel.selectedCategory) { _, newValue in
             selectedCategory = newValue
         }
+        .onChange(of: selection) { _, newValue in
+            if let selectedId = newValue {
+                selectedTeamInfo = viewModel.teamInfos.first { $0.id == selectedId }
+                if selectedTeamInfo != nil {
+                    sheetDetent = .height(350)
+                    showTeamInfo = true
+                }
+            } else {
+                selectedTeamInfo = nil
+                showTeamInfo = false
+            }
+        }
     }
 
     @ViewBuilder
@@ -129,8 +145,53 @@ struct IndoorMapView: View {
 
 struct BottomSheetView: View {
     @Binding var sheetDetent: PresentationDetent
+    let selectedTeamInfo: TeamInfo?
+
     var body: some View {
-        Text("HI")
+        if let teamInfo = selectedTeamInfo {
+            if sheetDetent == .height(80) {
+                VStack(spacing: 4) {
+                    Text(teamInfo.appName)
+                        .font(.system(size: 17))
+                        .foregroundStyle(Color.primary)
+                        .bold()
+
+                    Text("부스 · \(teamInfo.boothNumber)")
+                        .font(.caption)
+                        .foregroundStyle(Color.secondary)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else {
+                ScrollView {
+                    VStack(alignment: .center, spacing: 16) {
+                        BoothHeaderView(
+                            name: teamInfo.appName,
+                            boothNumber: teamInfo.boothNumber
+                        )
+
+                        AppDescriptionView(
+                            description: teamInfo.appDescription,
+                            categoryLine: teamInfo.categoryLine
+                        )
+
+                        AppDownloadCardView(
+                            appName: teamInfo.appName,
+                            boothNumber: teamInfo.boothNumber
+                        ) {
+                            print("다운로드 탭")
+                        }
+
+                        TeamIntroductionView(
+                            teamName: teamInfo.name,
+                            teamUrl: teamInfo.teamUrl,
+                            members: teamInfo.members,
+                            isIpad: false
+                        )
+                    }
+                    .padding(.all, 20)
+                }
+            }
+        }
     }
 }
 

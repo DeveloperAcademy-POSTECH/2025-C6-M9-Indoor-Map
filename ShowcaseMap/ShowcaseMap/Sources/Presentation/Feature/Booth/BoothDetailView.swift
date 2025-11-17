@@ -151,7 +151,7 @@ struct BoothDetailView: View {
 }
 
 // 부스 정보 헤더
-private struct BoothHeaderView: View {
+struct BoothHeaderView: View {
     let name: String
     let boothNumber: String
 
@@ -170,7 +170,7 @@ private struct BoothHeaderView: View {
 }
 
 // 앱 소개
-private struct AppDescriptionView: View {
+struct AppDescriptionView: View {
     let description: String
     let categoryLine: String
 
@@ -188,7 +188,7 @@ private struct AppDescriptionView: View {
 }
 
 // 앱 다운로드 카드
-private struct AppDownloadCardView: View {
+struct AppDownloadCardView: View {
     let appName: String
     let boothNumber : String
     let onDownloadTap: () -> Void
@@ -222,7 +222,7 @@ private struct AppDownloadCardView: View {
 }
 
 // 팀소개
-private struct TeamIntroductionView: View {
+struct TeamIntroductionView: View {
     let teamName: String
     let teamUrl: URL
     let members: [Learner]
