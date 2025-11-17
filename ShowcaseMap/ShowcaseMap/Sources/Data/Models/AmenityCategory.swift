@@ -82,7 +82,7 @@ enum AmenityCategory: String, CaseIterable, Identifiable, Codable {
         case .restroom:
             return .restroom
         case .breakArea:
-            return .restarea
+            return .breakArea
         case .diningArea:
             return .dining
         case .coatroom:

@@ -33,7 +33,11 @@
     ],
     "category": "medical",
     "downloadUrl": "https://example.com",
-    "teamUrl": "https://example.com"
+    "teamUrl": "https://example.com",
+    "display_point": [
+      129.325962,
+      36.013938
+    ]
   },
   {
     "id": "36e87346-ad49-4249-ba98-ec74a87300df",
@@ -69,7 +73,11 @@
     ],
     "category": "productivity",
     "downloadUrl": "https://example.com",
-    "teamUrl": "https://example.com"
+    "teamUrl": "https://example.com",
+    "display_point": [
+      129.325939,
+      36.01393
+    ]
   },
   {
     "id": "989f4d9b-d127-46e9-8b88-098d2e6b7abe",
@@ -105,7 +113,11 @@
     ],
     "category": "graphicsAndDesign",
     "downloadUrl": "https://example.com",
-    "teamUrl": "https://example.com"
+    "teamUrl": "https://example.com",
+    "display_point": [
+      129.325947,
+      36.01397
+    ]
   },
   {
     "id": "079818a1-dc42-476b-8067-7d67fc76f029",
@@ -137,7 +149,11 @@
     ],
     "category": "government",
     "downloadUrl": "https://example.com",
-    "teamUrl": "https://example.com"
+    "teamUrl": "https://example.com",
+    "display_point": [
+      129.325923,
+      36.013961
+    ]
   },
   {
     "id": "102ccd91-cb22-46f3-9ecb-fa88aefa07a4",
@@ -173,7 +189,11 @@
     ],
     "category": "lifestyle",
     "downloadUrl": "https://example.com",
-    "teamUrl": "https://example.com"
+    "teamUrl": "https://example.com",
+    "display_point": [
+      129.32583,
+      36.013947
+    ]
   },
   {
     "id": "e0a5e5ef-980b-4b52-a8b8-a7054dac6250",
@@ -209,7 +229,11 @@
     ],
     "category": "navigation",
     "downloadUrl": "https://example.com",
-    "teamUrl": "https://example.com"
+    "teamUrl": "https://example.com",
+    "display_point": [
+      129.325789,
+      36.014027
+    ]
   },
   {
     "id": "b7d22f2e-7191-44c2-bc5a-a8f62aee6a83",
@@ -245,7 +269,11 @@
     ],
     "category": "photoAndVideo",
     "downloadUrl": "https://example.com",
-    "teamUrl": "https://example.com"
+    "teamUrl": "https://example.com",
+    "display_point": [
+      129.325735,
+      36.014142
+    ]
   },
   {
     "id": "e93214b2-ba91-4583-aab2-1315d0b72844",
@@ -281,7 +309,11 @@
     ],
     "category": "photoAndVideo",
     "downloadUrl": "https://example.com",
-    "teamUrl": "https://example.com"
+    "teamUrl": "https://example.com",
+    "display_point": [
+      129.32572,
+      36.014169
+    ]
   },
   {
     "id": "10c1c2cc-588f-4c74-b520-f621a1f94d92",
@@ -317,7 +349,11 @@
     ],
     "category": "government",
     "downloadUrl": "https://example.com",
-    "teamUrl": "https://example.com"
+    "teamUrl": "https://example.com",
+    "display_point": [
+      129.325684,
+      36.014219
+    ]
   },
   {
     "id": "febb48a3-64e5-4f7e-abe3-4fadab55049d",
@@ -353,7 +389,11 @@
     ],
     "category": "productivity",
     "downloadUrl": "https://example.com",
-    "teamUrl": "https://example.com"
+    "teamUrl": "https://example.com",
+    "display_point": [
+      129.325661,
+      36.014328
+    ]
   },
   {
     "id": "0dc28198-24ec-41ba-8ee8-2d2ecd75fc76",
@@ -389,7 +429,11 @@
     ],
     "category": "lifestyle",
     "downloadUrl": "https://example.com",
-    "teamUrl": "https://example.com"
+    "teamUrl": "https://example.com",
+    "display_point": [
+      129.325716,
+      36.014359
+    ]
   },
   {
     "id": "a7c312b4-3049-4677-8838-53e023851a2c",
@@ -425,7 +469,11 @@
     ],
     "category": "productivity",
     "downloadUrl": "https://example.com",
-    "teamUrl": "https://example.com"
+    "teamUrl": "https://example.com",
+    "display_point": [
+      129.325704,
+      36.014409
+    ]
   },
   {
     "id": "715f229b-8944-45b2-87d8-ef42f5044150",
@@ -461,7 +509,11 @@
     ],
     "category": "education",
     "downloadUrl": "https://example.com",
-    "teamUrl": "https://example.com"
+    "teamUrl": "https://example.com",
+    "display_point": [
+      129.325631,
+      36.014353
+    ]
   },
   {
     "id": "e3d78d11-04e7-493a-bfb1-358d216bab10",
@@ -497,7 +549,11 @@
     ],
     "category": "lifestyle",
     "downloadUrl": "https://example.com",
-    "teamUrl": "https://example.com"
+    "teamUrl": "https://example.com",
+    "display_point": [
+      129.325613,
+      36.014388
+    ]
   },
   {
     "id": "77caf1c1-4616-42f3-86a0-e4c3dd966c81",
@@ -533,7 +589,11 @@
     ],
     "category": "utility",
     "downloadUrl": "https://example.com",
-    "teamUrl": "https://example.com"
+    "teamUrl": "https://example.com",
+    "display_point": [
+      129.325618,
+      36.01442
+    ]
   },
   {
     "id": "23bef1ef-6b4b-4ddb-be7a-99f9fbfc466d",
@@ -569,7 +629,11 @@
     ],
     "category": "healthAndFitness",
     "downloadUrl": "https://example.com",
-    "teamUrl": "https://example.com"
+    "teamUrl": "https://example.com",
+    "display_point": [
+      129.325585,
+      36.014437
+    ]
   },
   {
     "id": "ae5b8563-11f3-4b01-a2e7-8bb656fc5f27",
@@ -605,7 +669,11 @@
     ],
     "category": "news",
     "downloadUrl": "https://example.com",
-    "teamUrl": "https://example.com"
+    "teamUrl": "https://example.com",
+    "display_point": [
+      129.325669,
+      36.014451
+    ]
   },
   {
     "id": "bc0bfc3a-ccb0-491a-b5b9-edfa6c4beb0e",
@@ -641,7 +709,11 @@
     ],
     "category": "entertainment",
     "downloadUrl": "https://example.com",
-    "teamUrl": "https://example.com"
+    "teamUrl": "https://example.com",
+    "display_point": [
+      129.325606,
+      36.014473
+    ]
   },
   {
     "id": "ed9c0934-57e5-400e-9426-5bb474425e90",
@@ -669,7 +741,11 @@
     ],
     "category": "productivity",
     "downloadUrl": "https://example.com",
-    "teamUrl": "https://example.com"
+    "teamUrl": "https://example.com",
+    "display_point": [
+      129.325642,
+      36.014511
+    ]
   },
   {
     "id": "ee61bd8f-595e-405b-88a1-e1360cf62002",
@@ -705,7 +781,11 @@
     ],
     "category": "lifestyle",
     "downloadUrl": "https://example.com",
-    "teamUrl": "https://example.com"
+    "teamUrl": "https://example.com",
+    "display_point": [
+      129.325668,
+      36.014533
+    ]
   },
   {
     "id": "2086cc56-7ac4-40d4-8d84-8709563d2d34",
@@ -741,7 +821,11 @@
     ],
     "category": "entertainment",
     "downloadUrl": "https://example.com",
-    "teamUrl": "https://example.com"
+    "teamUrl": "https://example.com",
+    "display_point": [
+      129.325697,
+      36.014548
+    ]
   },
   {
     "id": "0b73e0a2-1029-4e1c-bdd6-0ecaa4bd42df",
@@ -777,7 +861,11 @@
     ],
     "category": "education",
     "downloadUrl": "https://example.com",
-    "teamUrl": "https://example.com"
+    "teamUrl": "https://example.com",
+    "display_point": [
+      129.325745,
+      36.014493
+    ]
   },
   {
     "id": "18657b88-d72e-47fb-9f88-5758ef47e42c",
@@ -813,7 +901,11 @@
     ],
     "category": "productivity",
     "downloadUrl": "https://example.com",
-    "teamUrl": "https://example.com"
+    "teamUrl": "https://example.com",
+    "display_point": [
+      129.325708,
+      36.014481
+    ]
   },
   {
     "id": "0ea3bd45-0829-4772-a71e-a3741078878d",
@@ -842,11 +934,14 @@
         "id": "바바",
         "name": "바바"
       }
-      
     ],
     "category": "lifestyle",
     "downloadUrl": "https://example.com",
-    "teamUrl": "https://example.com"
+    "teamUrl": "https://example.com",
+    "display_point": [
+      129.32579,
+      36.014432
+    ]
   },
   {
     "id": "3056b853-7f86-4563-9ae6-6ff417869cfd",
@@ -882,7 +977,11 @@
     ],
     "category": "medical",
     "downloadUrl": "https://example.com",
-    "teamUrl": "https://example.com"
+    "teamUrl": "https://example.com",
+    "display_point": [
+      129.32575,
+      36.014428
+    ]
   },
   {
     "id": "c9fd7b5b-a86c-439a-8a16-7a7320912dae",
@@ -918,7 +1017,11 @@
     ],
     "category": "productivity",
     "downloadUrl": "https://example.com",
-    "teamUrl": "https://example.com"
+    "teamUrl": "https://example.com",
+    "display_point": [
+      129.325735,
+      36.014388
+    ]
   },
   {
     "id": "e46daecd-94ed-4ff0-a562-dbb1eeddee55",
@@ -954,7 +1057,11 @@
     ],
     "category": "medical",
     "downloadUrl": "https://example.com",
-    "teamUrl": "https://example.com"
+    "teamUrl": "https://example.com",
+    "display_point": [
+      129.325806,
+      36.014384
+    ]
   },
   {
     "id": "490c5809-4dcf-4062-8d82-11100a13ff56",
@@ -990,7 +1097,11 @@
     ],
     "category": "navigation",
     "downloadUrl": "https://example.com",
-    "teamUrl": "https://example.com"
+    "teamUrl": "https://example.com",
+    "display_point": [
+      129.325767,
+      36.014363
+    ]
   },
   {
     "id": "f6cb89bb-3ee8-4f35-b310-a53bb200817b",
@@ -1026,7 +1137,11 @@
     ],
     "category": "socialNetworking",
     "downloadUrl": "https://example.com",
-    "teamUrl": "https://example.com"
+    "teamUrl": "https://example.com",
+    "display_point": [
+      129.325743,
+      36.014335
+    ]
   },
   {
     "id": "f085629d-1993-4722-8dc3-8ef76143c8f5",
@@ -1062,6 +1177,10 @@
     ],
     "category": "music",
     "downloadUrl": "https://example.com",
-    "teamUrl": "https://example.com"
+    "teamUrl": "https://example.com",
+    "display_point": [
+      129.325887,
+      36.014289
+    ]
   }
 ]

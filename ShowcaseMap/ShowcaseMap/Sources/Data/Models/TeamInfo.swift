@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 struct TeamInfo: Identifiable, Hashable, Codable {
     let id: UUID
@@ -17,6 +18,11 @@ struct TeamInfo: Identifiable, Hashable, Codable {
     let category: AppCategory
     let downloadUrl: URL
     let teamUrl: URL
+    private let display_point: [Double]
+
+    var displayPoint: CLLocationCoordinate2D {
+        CLLocationCoordinate2D(latitude: display_point[1], longitude: display_point[0])
+    }
 
     init(
         id: UUID = UUID(),
@@ -27,7 +33,8 @@ struct TeamInfo: Identifiable, Hashable, Codable {
         members: [Learner],
         category: AppCategory,
         downloadUrl: URL,
-        teamUrl: URL
+        teamUrl: URL,
+        displayPoint: [Double]
     ) {
         self.id = id
         self.boothNumber = boothNumber
@@ -38,6 +45,7 @@ struct TeamInfo: Identifiable, Hashable, Codable {
         self.category = category
         self.downloadUrl = downloadUrl
         self.teamUrl = teamUrl
+        self.display_point = displayPoint
     }
 }
 

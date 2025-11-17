@@ -88,7 +88,7 @@ struct SearchView: View {
                 await viewModel.fetchTeamInfo()
             }
         }
-        .searchable(text: $viewModel.searchText)
+        .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always))
     }
 
     @ViewBuilder
@@ -99,7 +99,6 @@ struct SearchView: View {
             searchText: viewModel.searchText
         ) { teamInfo in
             NavigationLink(value: teamInfo) {
-                // TODO: 지도에서 부스 클릭된 것처럼 로직 연결
                 BoothItemView(
                     teamInfo: teamInfo,
                     isIPad: true,
