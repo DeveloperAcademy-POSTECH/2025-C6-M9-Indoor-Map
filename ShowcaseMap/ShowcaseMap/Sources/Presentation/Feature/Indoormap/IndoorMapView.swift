@@ -19,6 +19,18 @@ struct IndoorMapView: View {
     @State private var animationDuration: CGFloat = 0
     @State private var selectedTeamInfo: TeamInfo?
 
+    @State private var isLevelPickerExpanded: Bool = false
+    @State private var showLevelInfo: Bool = false
+    @State private var selectedLevelName: String = ""
+
+    private var currentLevelName: String {
+        guard !viewModel.levels.isEmpty, viewModel.selectedLevelIndex < viewModel.levels.count else {
+            return ""
+        }
+        let level = viewModel.levels[viewModel.selectedLevelIndex]
+        return level.properties.shortName.bestLocalizedValue ?? "\(level.properties.ordinal)"
+    }
+
     @Namespace private var mapScope
     var body: some View {
         ZStack {
@@ -67,9 +79,21 @@ struct IndoorMapView: View {
 
                 }.ignoresSafeArea()
             }
+            .sheet(isPresented: $showLevelInfo) {
+                LevelInfoSheet(levelName: selectedLevelName)
+                    .presentationDetents([.height(80)])
+                    .presentationBackgroundInteraction(.enabled)
+            }
             .overlay(alignment: .bottomLeading) {
-                BottomFloatingToolBar()
-                    .padding(.leading, 20)
+                VStack(spacing: 0) {
+                    if isLevelPickerExpanded {
+                        LevelPickerOverlay()
+                            .padding(.bottom, 16)
+                    }
+
+                    BottomFloatingToolBar()
+                }
+                .padding(.leading, 20)
             }
 
             VStack {
@@ -109,6 +133,10 @@ struct IndoorMapView: View {
             if let selectedId = newValue {
                 selectedTeamInfo = viewModel.teamInfos.first { $0.id == selectedId }
                 if selectedTeamInfo != nil {
+                    // 부스 선택 시 층 모드 해제
+                    isLevelPickerExpanded = false
+                    showLevelInfo = false
+
                     sheetDetent = .height(350)
                     showTeamInfo = true
                 }
@@ -117,29 +145,92 @@ struct IndoorMapView: View {
                 showTeamInfo = false
             }
         }
+        .onChange(of: isLevelPickerExpanded) { _, newValue in
+            if newValue {
+                // 층선택시 부스관련 시트 제거
+                selection = nil
+                showTeamInfo = false
+            }
+        }
+    }
+
+    @ViewBuilder
+    func LevelPickerOverlay() -> some View {
+        VStack(spacing: 12) {
+            // X 버튼
+            Button {
+                withAnimation {
+                    isLevelPickerExpanded = false
+                    showLevelInfo = false
+                }
+            } label: {
+                Image(systemName: "xmark")
+                    .font(.system(size: 19, weight: .medium))
+            }
+            .padding(.all, 10)
+            .background(Color(.systemBackground))
+            .clipShape(Circle())
+
+            // 층 버튼들
+            VStack(spacing: 4) {
+                ForEach(Array(viewModel.levels.enumerated()), id: \.offset) { index, level in
+                    let levelName = level.properties.shortName.bestLocalizedValue ?? "\(level.properties.ordinal)"
+
+                    Button {
+                        viewModel.selectedLevelIndex = index
+                        selectedLevelName = levelName
+                        showLevelInfo = true
+                    } label: {
+                        Text(levelName)
+                            .font(.system(size: 19, weight: .medium))
+                            .foregroundStyle(Color.primary)
+                            .frame(width: 40, height: 40)
+                            .background(
+                                Circle()
+                                    .fill(viewModel.selectedLevelIndex == index ? Color.primary.opacity(0.2) : Color(.systemBackground))
+                            )
+                    }
+                }
+            }
+            .padding(.vertical, 6)
+            .padding(.horizontal, 4)
+            .background(
+                RoundedRectangle(cornerRadius: 26)
+                    .fill(Color(.systemBackground).opacity(0.9))
+            )
+        }
+        .foregroundStyle(Color.primary)
     }
 
     @ViewBuilder
     func BottomFloatingToolBar() -> some View {
-        VStack(spacing: 16) {
-            Button {} label: {
-                Image(systemName: "location")
-            }
-            .padding(.all, 10)
-            .background(Color.white)
-            .clipShape(Capsule())
+        if !isLevelPickerExpanded {
+            VStack(spacing: 16) {
+                Button {
+                    withAnimation {
+                        isLevelPickerExpanded.toggle()
+                    }
+                } label: {
+                    Text(currentLevelName)
+                        .font(.system(size: 19, weight: .medium))
+                }
+                .padding(.all, 10)
+                .background(Color(.systemBackground))
+                .clipShape(Circle())
 
-            Button {} label: {
-                Image(systemName: "location")
+                Button {} label: {
+                    Image(systemName: "location")
+                        .font(.system(size: 19, weight: .medium))
+                }
+                .padding(.all, 10)
+                .background(Color(.systemBackground))
+                .clipShape(Circle())
             }
-            .padding(.all, 10)
-            .background(Color.white)
-            .clipShape(Capsule())
+            .font(.title3)
+            .foregroundStyle(Color.primary)
+            .offset(y: showTeamInfo ? -(sheetHeight - 50) : -10)
+            .animation(.interpolatingSpring(duration: animationDuration, bounce: 0, initialVelocity: 0), value: sheetHeight)
         }
-        .font(.title3)
-        .foregroundStyle(Color.primary)
-        .offset(y: showTeamInfo ? -(sheetHeight - 50) : -10)
-        .animation(.interpolatingSpring(duration: animationDuration, bounce: 0, initialVelocity: 0), value: sheetHeight)
     }
 }
 
@@ -192,6 +283,24 @@ struct BottomSheetView: View {
                 }
             }
         }
+    }
+}
+
+struct LevelInfoSheet: View {
+    let levelName: String
+
+    var body: some View {
+        VStack(spacing: 4) {
+            Text(levelName)
+                .font(.headline)
+                .foregroundStyle(Color.primary)
+                .bold()
+
+            Text("<설명>")
+                .font(.caption)
+                .foregroundStyle(Color.secondary)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
