@@ -71,4 +71,26 @@ enum AmenityCategory: String, CaseIterable, Identifiable, Codable {
             return Color(rawValue).opacity(0.1)
         }
     }
+
+    // POICategory로 변환
+    var toPOICategory: POICategory? {
+        switch self {
+        case .registrationDesk:
+            return .registration
+        case .informationDesk:
+            return .information
+        case .restroom:
+            return .restroom
+        case .breakArea:
+            return .restarea
+        case .diningArea:
+            return .dining
+        case .coatroom:
+            return .coatRoom
+        case .elevator:
+            return .elevator
+        case .stairs:
+            return .stairs
+        }
+    }
 }
