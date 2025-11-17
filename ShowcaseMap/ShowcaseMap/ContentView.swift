@@ -13,6 +13,7 @@ struct ContentView: View {
 
     @State private var tabSelection: TabIdentifier = .map
     @State private var selectedCategory: POICategory? = nil
+    @State private var selectedBoothForMap: TeamInfo?
 
     var body: some View {
         TabView(selection: $tabSelection) {
@@ -21,7 +22,10 @@ struct ContentView: View {
                 systemImage: "list.bullet",
                 value: .booth
             ) {
-                BoothListView()
+                BoothListView(
+                    tabSelection: $tabSelection,
+                    selectedBoothForMap: $selectedBoothForMap
+                )
             }
 
             Tab(
@@ -29,7 +33,10 @@ struct ContentView: View {
                 systemImage: "map",
                 value: .map
             ) {
-                IndoorMapView(selectedCategory: $selectedCategory)
+                IndoorMapView(
+                    selectedCategory: $selectedCategory,
+                    selectedBooth: $selectedBoothForMap
+                )
             }
 
             Tab(
@@ -39,6 +46,8 @@ struct ContentView: View {
                 role: .search
             ) {
                 SearchView(
+                    tabSelection: $tabSelection,
+                    selectedBoothForMap: $selectedBoothForMap,
                     onCategorySelected: { category in
                         selectedCategory = category
                         tabSelection = .map

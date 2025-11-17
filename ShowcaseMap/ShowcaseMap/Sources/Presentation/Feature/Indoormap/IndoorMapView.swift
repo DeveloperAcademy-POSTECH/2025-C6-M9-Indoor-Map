@@ -12,6 +12,7 @@ struct IndoorMapView: View {
     @State private var viewModel = IndoorMapViewModel()
     @State private var selection: UUID?
     @Binding var selectedCategory: POICategory?
+    @Binding var selectedBooth: TeamInfo?
 
     @State private var showTeamInfo: Bool = false
     @State private var sheetDetent: PresentationDetent = .height(350)
@@ -97,6 +98,12 @@ struct IndoorMapView: View {
         }
         .onAppear {
             viewModel.loadIMDFData()
+
+            // BoothDetailView에서 상태 전달 염두
+            if let booth = selectedBooth {
+                selection = booth.id
+                selectedBooth = nil
+            }
         }
         .onChange(of: selectedCategory) { _, newValue in
             viewModel.selectedCategory = newValue
@@ -288,5 +295,5 @@ struct LevelInfoSheet: View {
 }
 
 #Preview {
-    IndoorMapView(selectedCategory: .constant(nil))
+    IndoorMapView(selectedCategory: .constant(nil), selectedBooth: .constant(nil))
 }

@@ -5,11 +5,15 @@
 //  Created by bishoe01 on 11/15/25.
 //
 
+import MapKit
 import SwiftData
 import SwiftUI
 
 struct BoothDetailView: View {
     let teamInfo: TeamInfo
+    @Binding var tabSelection: TabIdentifier
+    @Binding var selectedBoothForMap: TeamInfo?
+
     @Environment(\.modelContext) private var modelContext
     @Query private var favoriteTeamInfos: [FavoriteTeamInfo]
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -38,11 +42,23 @@ struct BoothDetailView: View {
                     isIpad: layout.isIPad
                 )
 
-                // 지도
+                Button {
+                    selectedBoothForMap = teamInfo
+                    tabSelection = .map
+                } label: {
+                    Map {
+                        Marker(teamInfo.appName, coordinate: teamInfo.displayPoint)
+                    }
+                    .frame(width: .infinity, height: 180)
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .allowsHitTesting(false)
+                }
             }
             .padding(.horizontal, layout.horizontalPadding)
             .padding(.vertical, layout.verticalPadding)
+            .safeAreaPadding(.bottom, 100)
         }
+
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -142,7 +158,7 @@ struct BoothDetailView: View {
                 categoryLine: teamInfo.categoryLine
             )
 
-            AppDownloadCardView(appName: teamInfo.appName, boothNumber : teamInfo.boothNumber) {
+            AppDownloadCardView(appName: teamInfo.appName, boothNumber: teamInfo.boothNumber) {
                 print(teamInfo.members)
                 // TODO: teaminfo.appUrl 사용
             }
@@ -190,9 +206,8 @@ struct AppDescriptionView: View {
 // 앱 다운로드 카드
 struct AppDownloadCardView: View {
     let appName: String
-    let boothNumber : String
+    let boothNumber: String
     let onDownloadTap: () -> Void
-    
 
     var body: some View {
         HStack(spacing: 12) {
@@ -280,7 +295,9 @@ struct TeamIntroductionView: View {
                 downloadUrl: URL(string: "https://example.com")!,
                 teamUrl: URL(string: "https://example.com")!,
                 displayPoint: []
-            )
+            ),
+            tabSelection: .constant(.booth),
+            selectedBoothForMap: .constant(nil)
         )
     }
     .modelContainer(for: FavoriteTeamInfo.self, inMemory: true)
