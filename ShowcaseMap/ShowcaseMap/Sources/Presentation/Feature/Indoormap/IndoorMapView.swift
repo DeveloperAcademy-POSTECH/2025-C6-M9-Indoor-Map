@@ -126,14 +126,14 @@ struct IndoorMapView: View {
                 selectedTeamInfo = viewModel.selectBooth(withId: selectedId)
 
                 if let teamInfo = selectedTeamInfo {
-                    // 부스 선택 시 층 모드 해제
+                    // 마커 선택 시 층 모드 해제
                     isLevelPickerExpanded = false
                     showLevelInfo = false
 
                     sheetDetent = .height(350)
                     showTeamInfo = true
 
-                    // 카메라 이동
+                    // 탭한 마커 중심으로 카메라 이동
                     viewModel.moveCameraToSelectedBooth(coordinate: teamInfo.displayPoint)
                 }
             } else {
@@ -146,6 +146,10 @@ struct IndoorMapView: View {
                 // 층선택시 부스관련 시트 제거
                 selection = nil
                 showTeamInfo = false
+
+                // 바로 층정보 시트 표시
+                selectedLevelName = viewModel.currentLevelName
+                showLevelInfo = true
             }
         }
     }
