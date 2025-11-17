@@ -10,7 +10,7 @@ import SwiftUI
 
 @main
 struct ShowcaseMapApp: App {
-    @StateObject private var imdfStore = IMDFStore()
+    @State private var imdfStore = IMDFStore()
 
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
@@ -28,7 +28,7 @@ struct ShowcaseMapApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(imdfStore)
+                .environment(imdfStore)
                 .onAppear {
                     imdfStore.loadIMDFData()
                 }

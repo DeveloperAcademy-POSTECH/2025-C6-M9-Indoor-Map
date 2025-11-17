@@ -9,7 +9,7 @@ import MapKit
 import SwiftUI
 
 struct IndoorMapView: View {
-    @EnvironmentObject var imdfStore: IMDFStore
+    @Environment(IMDFStore.self) var imdfStore
     @State private var viewModel: IndoorMapViewModel?
     @State private var selection: UUID?
     @Binding var selectedCategory: POICategory?
@@ -313,5 +313,5 @@ struct LevelInfoSheet: View {
 
 #Preview {
     IndoorMapView(selectedCategory: .constant(nil), selectedBooth: .constant(nil))
-        .environmentObject(IMDFStore())
+        .environment(IMDFStore())
 }

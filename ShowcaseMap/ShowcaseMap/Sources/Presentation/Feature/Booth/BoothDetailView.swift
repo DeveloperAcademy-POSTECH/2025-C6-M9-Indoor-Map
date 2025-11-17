@@ -14,7 +14,7 @@ struct BoothDetailView: View {
     @Binding var tabSelection: TabIdentifier
     @Binding var selectedBoothForMap: TeamInfo?
 
-    @EnvironmentObject var imdfStore: IMDFStore
+    @Environment(IMDFStore.self) var imdfStore
     @State private var miniMapPolygons: [MapPolygonData] = []
     @State private var miniMapCameraPosition: MapCameraPosition = .automatic
 
@@ -325,7 +325,7 @@ struct TeamIntroductionView: View {
             tabSelection: .constant(.booth),
             selectedBoothForMap: .constant(nil)
         )
-        .environmentObject(IMDFStore())
+        .environment(IMDFStore())
     }
     .modelContainer(for: FavoriteTeamInfo.self, inMemory: true)
 }
