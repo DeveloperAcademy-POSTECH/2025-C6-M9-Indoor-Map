@@ -77,7 +77,7 @@ struct BoothDetailView: View {
     @ViewBuilder
     private var iPadAppIntroView: some View {
         HStack(alignment: .top, spacing: 24) {
-            Image("appLogo")
+            Image(teamInfo.boothNumber)
                 .resizable()
                 .scaledToFit()
                 .frame(width: layout.logoSize, height: layout.logoSize)
@@ -142,7 +142,7 @@ struct BoothDetailView: View {
                 categoryLine: teamInfo.categoryLine
             )
 
-            AppDownloadCardView(appName: teamInfo.appName) {
+            AppDownloadCardView(appName: teamInfo.appName, boothNumber : teamInfo.boothNumber) {
                 print(teamInfo.members)
                 // TODO: teaminfo.appUrl 사용
             }
@@ -190,12 +190,14 @@ private struct AppDescriptionView: View {
 // 앱 다운로드 카드
 private struct AppDownloadCardView: View {
     let appName: String
+    let boothNumber : String
     let onDownloadTap: () -> Void
+    
 
     var body: some View {
         HStack(spacing: 12) {
             // TODO: 이미지 변경 필요
-            Image("appLogo")
+            Image(boothNumber)
                 .resizable()
                 .frame(width: 60, height: 60)
                 .clipShape(RoundedRectangle(cornerRadius: 18))
