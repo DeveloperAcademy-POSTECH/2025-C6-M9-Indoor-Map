@@ -14,6 +14,10 @@ struct BoothDetailView: View {
     @Binding var tabSelection: TabIdentifier
     @Binding var selectedBoothForMap: TeamInfo?
 
+    @EnvironmentObject var imdfStore: IMDFStore
+    @State private var miniMapPolygons: [MapPolygonData] = []
+    @State private var miniMapCameraPosition: MapCameraPosition = .automatic
+
     @Environment(\.modelContext) private var modelContext
     @Query private var favoriteTeamInfos: [FavoriteTeamInfo]
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -46,10 +50,18 @@ struct BoothDetailView: View {
                     selectedBoothForMap = teamInfo
                     tabSelection = .map
                 } label: {
-                    Map {
+                    Map(position: $miniMapCameraPosition) {
+                        // 실내지도
+                        ForEach(miniMapPolygons) { polygon in
+                            MapPolygon(coordinates: polygon.coordinates)
+                                .foregroundStyle(polygon.fillColor)
+                                .stroke(polygon.strokeColor, lineWidth: polygon.lineWidth)
+                        }
+                        // 실제 주인공
                         Marker(teamInfo.appName, coordinate: teamInfo.displayPoint)
                     }
-                    .frame(width: .infinity, height: 180)
+                    .mapControlVisibility(.hidden)
+                    .frame(height: 180)
                     .clipShape(RoundedRectangle(cornerRadius: 16))
                     .allowsHitTesting(false)
                 }
@@ -58,7 +70,21 @@ struct BoothDetailView: View {
             .padding(.vertical, layout.verticalPadding)
             .safeAreaPadding(.bottom, 100)
         }
+        .task {
+            // 5층 데이터가져오기(부스가 5층)
+            let mapData = imdfStore.getMapData(for: 5, category: nil)
+            miniMapPolygons = mapData.polygons
 
+            // 카메라 확대
+            miniMapCameraPosition = .camera(
+                MapCamera(
+                    centerCoordinate: teamInfo.displayPoint,
+                    distance: 60,
+                    heading: -23,
+                    pitch: 0
+                )
+            )
+        }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -299,6 +325,7 @@ struct TeamIntroductionView: View {
             tabSelection: .constant(.booth),
             selectedBoothForMap: .constant(nil)
         )
+        .environmentObject(IMDFStore())
     }
     .modelContainer(for: FavoriteTeamInfo.self, inMemory: true)
 }

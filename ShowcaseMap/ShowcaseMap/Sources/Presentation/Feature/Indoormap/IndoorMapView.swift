@@ -9,7 +9,8 @@ import MapKit
 import SwiftUI
 
 struct IndoorMapView: View {
-    @State private var viewModel = IndoorMapViewModel()
+    @EnvironmentObject var imdfStore: IMDFStore
+    @State private var viewModel: IndoorMapViewModel?
     @State private var selection: UUID?
     @Binding var selectedCategory: POICategory?
     @Binding var selectedBooth: TeamInfo?
@@ -26,8 +27,68 @@ struct IndoorMapView: View {
 
     @Namespace private var mapScope
     var body: some View {
+        Group {
+            if let viewModel = viewModel {
+                mapContent(viewModel: viewModel)
+            } else {
+                ProgressView()
+            }
+        }
+        .onAppear {
+            if viewModel == nil {
+                viewModel = IndoorMapViewModel(imdfStore: imdfStore)
+                viewModel?.loadIMDFData()
+            }
+
+            // BoothDetailView에서 상태 전달 염두
+            if let booth = selectedBooth {
+                selection = booth.id
+                selectedBooth = nil
+            }
+        }
+        .onChange(of: selectedCategory) { _, newValue in
+            viewModel?.selectedCategory = newValue
+        }
+        .onChange(of: viewModel?.selectedCategory) { _, newValue in
+            selectedCategory = newValue
+        }
+        .onChange(of: selection) { _, newValue in
+            if let selectedId = newValue {
+                selectedTeamInfo = viewModel?.selectBooth(withId: selectedId)
+
+                if let teamInfo = selectedTeamInfo {
+                    // 마커 선택 시 층 모드 해제
+                    isLevelPickerExpanded = false
+                    showLevelInfo = false
+
+                    sheetDetent = .height(350)
+                    showTeamInfo = true
+
+                    // 탭한 마커 중심으로 카메라 이동
+                    viewModel?.moveCameraToSelectedBooth(coordinate: teamInfo.displayPoint)
+                }
+            } else {
+                selectedTeamInfo = nil
+                showTeamInfo = false
+            }
+        }
+        .onChange(of: isLevelPickerExpanded) { _, newValue in
+            if newValue {
+                // 층선택시 부스관련 시트 제거
+                selection = nil
+                showTeamInfo = false
+
+                // 바로 층정보 시트 표시
+                selectedLevelName = viewModel?.currentLevelName ?? ""
+                showLevelInfo = true
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func mapContent(viewModel: IndoorMapViewModel) -> some View {
         ZStack {
-            Map(position: $viewModel.mapCameraPosition, selection: $selection, scope: mapScope) {
+            Map(position: .constant(viewModel.mapCameraPosition), selection: $selection, scope: mapScope) {
                 // 사용자 위치
                 UserAnnotation()
 
@@ -80,72 +141,26 @@ struct IndoorMapView: View {
             .overlay(alignment: .bottomLeading) {
                 VStack(spacing: 0) {
                     if isLevelPickerExpanded {
-                        LevelPickerOverlay()
+                        LevelPickerOverlay(viewModel: viewModel)
                             .padding(.bottom, 16)
                     }
 
-                    BottomFloatingToolBar()
+                    BottomFloatingToolBar(viewModel: viewModel)
                 }
                 .padding(.leading, 20)
             }
 
             VStack {
-                POICategoryFilterView(selectedCategory: $viewModel.selectedCategory)
+                POICategoryFilterView(selectedCategory: .constant(viewModel.selectedCategory))
                     .padding(.top, 8)
 
                 Spacer()
             }
         }
-        .onAppear {
-            viewModel.loadIMDFData()
-
-            // BoothDetailView에서 상태 전달 염두
-            if let booth = selectedBooth {
-                selection = booth.id
-                selectedBooth = nil
-            }
-        }
-        .onChange(of: selectedCategory) { _, newValue in
-            viewModel.selectedCategory = newValue
-        }
-        .onChange(of: viewModel.selectedCategory) { _, newValue in
-            selectedCategory = newValue
-        }
-        .onChange(of: selection) { _, newValue in
-            if let selectedId = newValue {
-                selectedTeamInfo = viewModel.selectBooth(withId: selectedId)
-
-                if let teamInfo = selectedTeamInfo {
-                    // 마커 선택 시 층 모드 해제
-                    isLevelPickerExpanded = false
-                    showLevelInfo = false
-
-                    sheetDetent = .height(350)
-                    showTeamInfo = true
-
-                    // 탭한 마커 중심으로 카메라 이동
-                    viewModel.moveCameraToSelectedBooth(coordinate: teamInfo.displayPoint)
-                }
-            } else {
-                selectedTeamInfo = nil
-                showTeamInfo = false
-            }
-        }
-        .onChange(of: isLevelPickerExpanded) { _, newValue in
-            if newValue {
-                // 층선택시 부스관련 시트 제거
-                selection = nil
-                showTeamInfo = false
-
-                // 바로 층정보 시트 표시
-                selectedLevelName = viewModel.currentLevelName
-                showLevelInfo = true
-            }
-        }
     }
 
     @ViewBuilder
-    func LevelPickerOverlay() -> some View {
+    func LevelPickerOverlay(viewModel: IndoorMapViewModel) -> some View {
         VStack(spacing: 12) {
             // X 버튼
             Button {
@@ -167,7 +182,7 @@ struct IndoorMapView: View {
                     let levelName = level.properties.shortName.bestLocalizedValue ?? "\(level.properties.ordinal)"
 
                     Button {
-                        viewModel.selectedLevelIndex = index
+                        self.viewModel?.selectedLevelIndex = index
                         selectedLevelName = levelName
                         showLevelInfo = true
                     } label: {
@@ -193,7 +208,7 @@ struct IndoorMapView: View {
     }
 
     @ViewBuilder
-    func BottomFloatingToolBar() -> some View {
+    func BottomFloatingToolBar(viewModel: IndoorMapViewModel) -> some View {
         if !isLevelPickerExpanded {
             VStack(spacing: 16) {
                 Button {
@@ -296,4 +311,5 @@ struct LevelInfoSheet: View {
 
 #Preview {
     IndoorMapView(selectedCategory: .constant(nil), selectedBooth: .constant(nil))
+        .environmentObject(IMDFStore())
 }

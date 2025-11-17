@@ -30,7 +30,7 @@ class IndoorMapViewModel {
     var selectedBooth: TeamInfo?
     var teamInfos: [TeamInfo] = []
 
-    private let imdfStore = IMDFStore()
+    private let imdfStore: IMDFStore
     private let locationManager = CLLocationManager()
     private let teamRepository: TeamInfoRepository = MockTeamRepository()
 
@@ -56,12 +56,13 @@ class IndoorMapViewModel {
         return level.properties.shortName.bestLocalizedValue ?? "\(level.properties.ordinal)"
     }
 
-    init() {
+    init(imdfStore: IMDFStore) {
+        self.imdfStore = imdfStore
         locationManager.requestWhenInUseAuthorization()
     }
 
     func loadIMDFData() {
-        imdfStore.loadIMDFData()
+        // IMDF 데이터는 이미 App에서 로드됨
 
         Task {
             do {
