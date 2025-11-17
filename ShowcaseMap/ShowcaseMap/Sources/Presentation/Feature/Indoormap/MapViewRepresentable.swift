@@ -50,6 +50,16 @@ struct MapViewRepresentable: UIViewRepresentable {
     }
 
     func updateUIView(_ mapView: MKMapView, context: Context) {
+        let centerCoordinate = CLLocationCoordinate2D(latitude: 36.014267, longitude: 129.325778)
+        let camera = MKMapCamera()
+        camera.centerCoordinate = centerCoordinate
+        camera.centerCoordinateDistance = 250
+        camera.pitch = 0
+        camera.heading = -23
+        DispatchQueue.main.async {
+            mapView.setCamera(camera, animated: false)
+        }
+        
         context.coordinator.features = features
 
         if !region.isEmpty {
