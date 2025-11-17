@@ -10,6 +10,7 @@ import SwiftUI
 struct SearchView: View {
     @State private var viewModel = SearchViewModel()
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    var onCategorySelected: ((POICategory?) -> Void)?
 
     var body: some View {
         NavigationStack {
@@ -24,7 +25,7 @@ struct SearchView: View {
                         VStack(alignment: .leading, spacing: layout.ListSpacing) {
                             ForEach(viewModel.filteredAmenities) { category in
                                 Button {
-                                    // TODO: 눌렀을때 이동하는 로직
+                                    onCategorySelected?(category.toPOICategory)
                                 } label: {
                                     HStack(alignment: .center, spacing: 10) {
                                         Image(systemName: category.symbolName)
@@ -136,7 +137,7 @@ struct SearchView: View {
 
 #Preview {
     NavigationStack {
-        SearchView()
+        SearchView(onCategorySelected: nil)
     }
 }
 

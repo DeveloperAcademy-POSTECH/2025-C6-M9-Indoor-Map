@@ -9,6 +9,7 @@ import SwiftUI
 
 struct IndoorMapView: View {
     @StateObject private var viewModel = IndoorMapViewModel()
+    @Binding var selectedCategory: POICategory?
 
     var body: some View {
         ZStack {
@@ -50,6 +51,12 @@ struct IndoorMapView: View {
         .onAppear {
             viewModel.loadIMDFData()
         }
+        .onChange(of: selectedCategory) { _, newValue in
+            viewModel.selectedCategory = newValue
+        }
+        .onChange(of: viewModel.selectedCategory) { _, newValue in
+            selectedCategory = newValue
+        }
         .sheet(item: $viewModel.selectedBooth) { booth in
             BoothDetailView(teamInfo: booth)
         }
@@ -57,5 +64,5 @@ struct IndoorMapView: View {
 }
 
 #Preview {
-    IndoorMapView()
+    IndoorMapView(selectedCategory: .constant(nil))
 }

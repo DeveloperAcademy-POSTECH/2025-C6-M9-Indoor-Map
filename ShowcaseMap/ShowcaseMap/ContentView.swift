@@ -12,6 +12,7 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
 
     @State private var tabSelection: TabIdentifier = .map
+    @State private var selectedCategory: POICategory? = nil
 
     var body: some View {
         TabView(selection: $tabSelection) {
@@ -28,7 +29,7 @@ struct ContentView: View {
                 systemImage: "map",
                 value: .map
             ) {
-                IndoorMapView()
+                IndoorMapView(selectedCategory: $selectedCategory)
             }
 
             Tab(
@@ -37,7 +38,12 @@ struct ContentView: View {
                 value: .search,
                 role: .search
             ) {
-                SearchView()
+                SearchView(
+                    onCategorySelected: { category in
+                        selectedCategory = category
+                        tabSelection = .map
+                    }
+                )
             }
         }.ignoresSafeArea()
     }

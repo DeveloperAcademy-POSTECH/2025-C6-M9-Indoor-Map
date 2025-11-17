@@ -21,7 +21,7 @@ struct MapViewRepresentable: UIViewRepresentable {
         mapView.showsUserLocation = true
         mapView.pointOfInterestFilter = .excludingAll
         mapView.camera.heading = 0
-        mapView.isRotateEnabled = false
+        mapView.isRotateEnabled = true
 
         mapView.register(PointAnnotationView.self, forAnnotationViewWithReuseIdentifier: "PointAnnotationView")
         mapView.register(LabelAnnotationView.self, forAnnotationViewWithReuseIdentifier: "LabelAnnotationView")
