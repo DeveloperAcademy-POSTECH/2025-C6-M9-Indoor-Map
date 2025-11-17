@@ -20,7 +20,27 @@ struct MapViewRepresentable: UIViewRepresentable {
         mapView.delegate = context.coordinator
         mapView.showsUserLocation = true
         mapView.pointOfInterestFilter = .excludingAll
-        mapView.camera.heading = 0
+        
+        let centerCoordinate = CLLocationCoordinate2D(latitude: 36.014267, longitude: 129.325778)
+        let camera = MKMapCamera()
+        camera.centerCoordinate = centerCoordinate
+        camera.centerCoordinateDistance = 250
+        camera.pitch = 0
+        camera.heading = -23
+        DispatchQueue.main.async {
+            mapView.setCamera(camera, animated: false)
+        }
+
+        let minZoom: CLLocationDistance = 10
+        let maxZoom: CLLocationDistance = 250
+        let zoomRange = MKMapView.CameraZoomRange(minCenterCoordinateDistance: minZoom, maxCenterCoordinateDistance: maxZoom)
+        mapView.setCameraZoomRange(zoomRange, animated: false)
+        
+        let region = MKCoordinateRegion(center: centerCoordinate, latitudinalMeters: 180, longitudinalMeters: 80)
+        let boundary = MKMapView.CameraBoundary(coordinateRegion: region)
+        mapView.setCameraBoundary(boundary, animated: false)
+        
+        
         mapView.isRotateEnabled = true
 
         mapView.register(PointAnnotationView.self, forAnnotationViewWithReuseIdentifier: "PointAnnotationView")
