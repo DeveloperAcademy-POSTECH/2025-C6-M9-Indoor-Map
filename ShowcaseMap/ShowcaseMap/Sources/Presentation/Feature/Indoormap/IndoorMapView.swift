@@ -94,23 +94,6 @@ struct IndoorMapView: View {
 
                 Spacer()
             }
-            // LEVEL PICKER
-//            VStack {
-//                Spacer()
-//
-//                HStack {
-//                    if !viewModel.levels.isEmpty {
-//                        LevelPickerSwiftUI(
-//                            levels: viewModel.levels,
-//                            selectedIndex: $viewModel.selectedLevelIndex
-//                        )
-//                        .padding(.leading, 16)
-//                        .padding(.bottom, 16)
-//                    }
-//
-//                    Spacer()
-//                }
-//            }
         }
         .onAppear {
             viewModel.loadIMDFData()
