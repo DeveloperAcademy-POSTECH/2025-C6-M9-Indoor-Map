@@ -40,6 +40,8 @@ struct IndoorMapView: View {
                 viewModel?.loadIMDFData()
             }
 
+            selectedLevelName = viewModel?.currentLevelName ?? ""
+
             // BoothDetailView에서 상태 전달 염두
             if let booth = selectedBooth {
                 selection = booth.id
