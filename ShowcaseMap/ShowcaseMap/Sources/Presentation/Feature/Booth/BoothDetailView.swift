@@ -278,7 +278,8 @@ private struct TeamIntroductionView: View {
                 members: [],
                 category: .productivity,
                 downloadUrl: URL(string: "https://example.com")!,
-                teamUrl: URL(string: "https://example.com")!
+                teamUrl: URL(string: "https://example.com")!,
+                displayPoint: []
             )
         )
     }

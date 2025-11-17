@@ -1,6 +1,6 @@
 /*
-Category Model for filtering amenities and units
-*/
+ Category Model for filtering amenities and units
+ */
 
 import Foundation
 import UIKit
@@ -9,7 +9,7 @@ enum POICategory: String, CaseIterable, Identifiable {
     case registration = "등록데스크"
     case information = "안내데스크"
     case restroom = "화장실"
-    case restarea = "휴식 공간"
+    case breakArea = "휴식 공간"
     case dining = "취식 공간"
     case coatRoom = "코트룸"
     case elevator = "엘리베이터"
@@ -25,7 +25,7 @@ enum POICategory: String, CaseIterable, Identifiable {
             return "info.circle"
         case .restroom:
             return "toilet"
-        case .restarea:
+        case .breakArea:
             return "chair.lounge"
         case .dining:
             return "fork.knife"
@@ -66,28 +66,6 @@ enum POICategory: String, CaseIterable, Identifiable {
 
     var hasData: Bool {
         return !amenityCategories.isEmpty || !unitCategories.isEmpty
-    }
-
-    // Color for annotation markers
-    var color: UIColor {
-        switch self {
-        case .registration:
-            return UIColor.systemOrange
-        case .information:
-            return UIColor.systemBlue
-        case .restroom:
-            return UIColor.systemCyan
-        case .restarea:
-            return UIColor.systemGreen
-        case .dining:
-            return UIColor.systemPink
-        case .coatRoom:
-            return UIColor.systemBrown
-        case .elevator:
-            return UIColor.systemPurple
-        case .stairs:
-            return UIColor.systemGray
-        }
     }
 
     // Helper method to get category from amenity category string

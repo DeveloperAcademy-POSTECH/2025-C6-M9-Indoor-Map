@@ -9,13 +9,19 @@ import MapKit
 import SwiftUI
 
 struct IndoorMapView: View {
-    @StateObject private var viewModel = IndoorMapViewModel()
+    @State private var viewModel = IndoorMapViewModel()
     @State private var selection: UUID?
     @Binding var selectedCategory: POICategory?
 
+    @State private var showTeamInfo: Bool = true
+    @State private var sheetDetent: PresentationDetent = .height(80)
+    @State private var sheetHeight: CGFloat = 0
+    @State private var animationDuration: CGFloat = 0
+
+    @Namespace private var mapScope
     var body: some View {
         ZStack {
-            Map(position: $viewModel.mapCameraPosition, selection: $selection) {
+            Map(position: $viewModel.mapCameraPosition, selection: $selection, scope: mapScope) {
                 // 사용자 위치
                 UserAnnotation()
 
@@ -26,18 +32,41 @@ struct IndoorMapView: View {
                         .stroke(polygon.strokeColor, lineWidth: polygon.lineWidth)
                 }
 
-                // Markers (Amenity, Occupant 등)
-                ForEach(viewModel.mapMarkers) { marker in
-                    Marker(marker.title, systemImage: "person.fill", coordinate: marker.coordinate)
-                        .tag(marker.id)
+                // annotation (Amenity, Occupant 등)
+//                ForEach(viewModel.mapMarkers) { marker in
+//                    Marker(marker.title, coordinate: marker.coordinate)
+//                        .tag(marker.id)
+//                }
+
+                // 부스 마커
+                ForEach(viewModel.teamInfos) { teamInfo in
+                    Marker(teamInfo.name, coordinate: teamInfo.displayPoint)
+                        .tag(teamInfo.id)
                 }
             }
             .mapStyle(.standard)
-            .mapControls {
-                MapUserLocationButton()
-                MapCompass()
-            }
+            .mapControlVisibility(.hidden)
             .ignoresSafeArea()
+            .sheet(isPresented: $showTeamInfo) {
+                BottomSheetView(sheetDetent: $sheetDetent)
+                    .presentationDetents([.height(80), .height(350), .large])
+                    .presentationBackgroundInteraction(.enabled)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .onGeometryChange(for: CGFloat.self) {
+                        max(min($0.size.height, 350), 0)
+                    } action: { oldValue, newValue in
+                        sheetHeight = newValue
+
+                        let diff = abs(newValue - oldValue)
+                        let duration = max(min(diff / 100, 0.3), 0)
+                        animationDuration = duration
+
+                    }.ignoresSafeArea()
+            }
+            .overlay(alignment: .bottomLeading) {
+                BottomFloatingToolBar()
+                    .padding(.leading, 20)
+            }
 
             VStack {
                 POICategoryFilterView(selectedCategory: $viewModel.selectedCategory)
@@ -45,44 +74,23 @@ struct IndoorMapView: View {
 
                 Spacer()
             }
-
-            VStack {
-                Spacer()
-
-                HStack {
-                    if !viewModel.levels.isEmpty {
-                        LevelPickerSwiftUI(
-                            levels: viewModel.levels,
-                            selectedIndex: $viewModel.selectedLevelIndex
-                        )
-                        .padding(.leading, 16)
-                        .padding(.bottom, 16)
-                    }
-
-                    Spacer()
-                }
-            }
-        }
-        .overlay(alignment: .bottomLeading) {
-            GeometryReader { geo in
-                let sheetWidth = geo.size.width * 0.35
-                let fullHeight = geo.size.height
-                let isSelected = false
-                let sheetHeight = isSelected ? fullHeight - 20 : 110
-
-                Color.clear
-                    .overlay(alignment: .bottomLeading) {
-                        VStack {
-                            
-                        }
-                        .frame(width: sheetWidth, height: sheetHeight)
-                        .background(Color.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 24))
-                        .padding(.leading, 20)
-                        .padding(.bottom, 20)
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
+            // LEVEL PICKER
+//            VStack {
+//                Spacer()
+//
+//                HStack {
+//                    if !viewModel.levels.isEmpty {
+//                        LevelPickerSwiftUI(
+//                            levels: viewModel.levels,
+//                            selectedIndex: $viewModel.selectedLevelIndex
+//                        )
+//                        .padding(.leading, 16)
+//                        .padding(.bottom, 16)
+//                    }
+//
+//                    Spacer()
+//                }
+//            }
         }
         .onAppear {
             viewModel.loadIMDFData()
@@ -93,52 +101,36 @@ struct IndoorMapView: View {
         .onChange(of: viewModel.selectedCategory) { _, newValue in
             selectedCategory = newValue
         }
-        .sheet(item: $viewModel.selectedBooth) { booth in
-            BoothDetailView(teamInfo: booth)
-                .presentationDetents([.medium])
-                .presentationBackgroundInteraction(.enabled)
+    }
+
+    @ViewBuilder
+    func BottomFloatingToolBar() -> some View {
+        VStack(spacing: 16) {
+            Button {} label: {
+                Image(systemName: "location")
+            }
+            .padding(.all, 10)
+            .background(Color.white)
+            .clipShape(Capsule())
+
+            Button {} label: {
+                Image(systemName: "location")
+            }
+            .padding(.all, 10)
+            .background(Color.white)
+            .clipShape(Capsule())
         }
+        .font(.title3)
+        .foregroundStyle(Color.primary)
+        .offset(y: showTeamInfo ? -(sheetHeight - 50) : -10)
+        .animation(.interpolatingSpring(duration: animationDuration, bounce: 0, initialVelocity: 0), value: sheetHeight)
     }
 }
 
-// MARK: - CategoryMarkerView
-
-struct CategoryMarkerView: View {
-    let category: POICategory?
-
+struct BottomSheetView: View {
+    @Binding var sheetDetent: PresentationDetent
     var body: some View {
-        if let category = category {
-            ZStack {
-                Circle()
-                    .fill(Color(uiColor: category.color))
-                    .frame(width: 36, height: 36)
-                    .overlay(
-                        Circle()
-                            .stroke(Color.white, lineWidth: 2)
-                    )
-                    .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 2)
-
-                Image(systemName: category.iconName)
-                    .font(.system(size: 16, weight: .bold))
-                    .foregroundColor(.white)
-            }
-        } else {
-            // Occupant나 기타 마커
-            ZStack {
-                Circle()
-                    .fill(Color.gray)
-                    .frame(width: 36, height: 36)
-                    .overlay(
-                        Circle()
-                            .stroke(Color.white, lineWidth: 2)
-                    )
-                    .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 2)
-
-                Image(systemName: "person.fill")
-                    .font(.system(size: 16, weight: .bold))
-                    .foregroundColor(.white)
-            }
-        }
+        Text("HI")
     }
 }
 
