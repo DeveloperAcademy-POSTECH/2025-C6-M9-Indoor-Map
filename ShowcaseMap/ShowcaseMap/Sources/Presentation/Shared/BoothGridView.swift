@@ -40,7 +40,7 @@ struct BoothItemView: View {
         let style = BoothItemStyle(isIPad: isIPad)
 
         HStack(alignment: style.alignment, spacing: style.itemSpacing) {
-            Image("appLogo")
+            Image(teamInfo.boothNumber)
                 .resizable()
                 .scaledToFit()
                 .frame(width: style.logoSize, height: style.logoSize)
