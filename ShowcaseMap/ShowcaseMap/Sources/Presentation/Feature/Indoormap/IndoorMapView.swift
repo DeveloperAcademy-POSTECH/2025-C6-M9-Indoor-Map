@@ -139,6 +139,20 @@ struct IndoorMapView: View {
 
                     sheetDetent = .height(350)
                     showTeamInfo = true
+
+                    // 마커 선택시 카메라 이동
+                    if let coordinate = selectedTeamInfo?.displayPoint {
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            viewModel.mapCameraPosition = .camera(
+                                MapCamera(
+                                    centerCoordinate: coordinate,
+                                    distance: 175,
+                                    heading: -23,
+                                    pitch: 0
+                                )
+                            )
+                        }
+                    }
                 }
             } else {
                 selectedTeamInfo = nil
