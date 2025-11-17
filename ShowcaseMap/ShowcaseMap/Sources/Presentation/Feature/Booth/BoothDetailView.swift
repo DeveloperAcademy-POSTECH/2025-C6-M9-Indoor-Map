@@ -5,11 +5,19 @@
 //  Created by bishoe01 on 11/15/25.
 //
 
+import MapKit
 import SwiftData
 import SwiftUI
 
 struct BoothDetailView: View {
     let teamInfo: TeamInfo
+    @Binding var tabSelection: TabIdentifier
+    @Binding var selectedBoothForMap: TeamInfo?
+
+    @Environment(IMDFStore.self) var imdfStore
+    @State private var miniMapPolygons: [MapPolygonData] = []
+    @State private var miniMapCameraPosition: MapCameraPosition = .automatic
+
     @Environment(\.modelContext) private var modelContext
     @Query private var favoriteTeamInfos: [FavoriteTeamInfo]
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -38,10 +46,44 @@ struct BoothDetailView: View {
                     isIpad: layout.isIPad
                 )
 
-                // 지도
+                Button {
+                    selectedBoothForMap = teamInfo
+                    tabSelection = .map
+                } label: {
+                    Map(position: $miniMapCameraPosition) {
+                        // 실내지도
+                        ForEach(miniMapPolygons) { polygon in
+                            MapPolygon(coordinates: polygon.coordinates)
+                                .foregroundStyle(polygon.fillColor)
+                                .stroke(polygon.strokeColor, lineWidth: polygon.lineWidth)
+                        }
+                        // 실제 주인공
+                        Marker(teamInfo.appName, coordinate: teamInfo.displayPoint)
+                    }
+                    .mapControlVisibility(.hidden)
+                    .frame(height: 180)
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .allowsHitTesting(false)
+                }
             }
             .padding(.horizontal, layout.horizontalPadding)
             .padding(.vertical, layout.verticalPadding)
+            .safeAreaPadding(.bottom, 100)
+        }
+        .task {
+            // 5층 데이터가져오기(부스가 5층)
+            let mapData = imdfStore.getMapData(for: 5, category: nil)
+            miniMapPolygons = mapData.polygons
+
+            // 카메라 확대
+            miniMapCameraPosition = .camera(
+                MapCamera(
+                    centerCoordinate: teamInfo.displayPoint,
+                    distance: 60,
+                    heading: -23,
+                    pitch: 0
+                )
+            )
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -142,7 +184,7 @@ struct BoothDetailView: View {
                 categoryLine: teamInfo.categoryLine
             )
 
-            AppDownloadCardView(appName: teamInfo.appName, boothNumber : teamInfo.boothNumber) {
+            AppDownloadCardView(appName: teamInfo.appName, boothNumber: teamInfo.boothNumber) {
                 print(teamInfo.members)
                 // TODO: teaminfo.appUrl 사용
             }
@@ -190,9 +232,8 @@ struct AppDescriptionView: View {
 // 앱 다운로드 카드
 struct AppDownloadCardView: View {
     let appName: String
-    let boothNumber : String
+    let boothNumber: String
     let onDownloadTap: () -> Void
-    
 
     var body: some View {
         HStack(spacing: 12) {
@@ -280,8 +321,11 @@ struct TeamIntroductionView: View {
                 downloadUrl: URL(string: "https://example.com")!,
                 teamUrl: URL(string: "https://example.com")!,
                 displayPoint: []
-            )
+            ),
+            tabSelection: .constant(.booth),
+            selectedBoothForMap: .constant(nil)
         )
+        .environment(IMDFStore())
     }
     .modelContainer(for: FavoriteTeamInfo.self, inMemory: true)
 }

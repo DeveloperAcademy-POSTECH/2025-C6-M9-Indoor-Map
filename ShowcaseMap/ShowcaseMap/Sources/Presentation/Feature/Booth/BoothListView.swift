@@ -9,6 +9,9 @@ import SwiftData
 import SwiftUI
 
 struct BoothListView: View {
+    @Binding var tabSelection: TabIdentifier
+    @Binding var selectedBoothForMap: TeamInfo?
+
     @State private var viewModel = BoothListViewModel()
     @State private var selectedCategory: AppCategory?
     @State private var showFavorites: Bool = false
@@ -52,7 +55,11 @@ struct BoothListView: View {
             .navigationBarTitleDisplayMode(.large)
             .toolbarTitleDisplayMode(.inline)
             .navigationDestination(for: TeamInfo.self) { teamInfo in
-                BoothDetailView(teamInfo: teamInfo)
+                BoothDetailView(
+                    teamInfo: teamInfo,
+                    tabSelection: $tabSelection,
+                    selectedBoothForMap: $selectedBoothForMap
+                )
             }
             .task {
                 await viewModel.fetchTeamInfo()
@@ -87,8 +94,11 @@ struct BoothListView: View {
 }
 
 #Preview {
-    BoothListView()
-        .modelContainer(for: FavoriteTeamInfo.self, inMemory: true)
+    BoothListView(
+        tabSelection: .constant(.booth),
+        selectedBoothForMap: .constant(nil)
+    )
+    .modelContainer(for: FavoriteTeamInfo.self, inMemory: true)
 }
 
 struct CategoryFilterView: View {

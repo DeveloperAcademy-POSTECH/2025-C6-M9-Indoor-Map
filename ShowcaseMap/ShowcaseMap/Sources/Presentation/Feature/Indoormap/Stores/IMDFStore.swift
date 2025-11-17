@@ -10,13 +10,14 @@ import Foundation
 import MapKit
 import SwiftUI
 
+@Observable
 @MainActor
-class IMDFStore: ObservableObject {
-    @Published var venue: Venue?
-    @Published var levels: [Level] = []
-    @Published var mapPolygons: [MapPolygonData] = []
-    @Published var mapMarkers: [MapMarkerData] = []
-    @Published var fixtures: [Fixture] = []
+class IMDFStore {
+    var venue: Venue?
+    var levels: [Level] = []
+    var mapPolygons: [MapPolygonData] = []
+    var mapMarkers: [MapMarkerData] = []
+    var fixtures: [Fixture] = []
 
     private let imdfDecoder = IMDFDecoder()
 

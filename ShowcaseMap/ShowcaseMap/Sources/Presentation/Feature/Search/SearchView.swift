@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct SearchView: View {
+    @Binding var tabSelection: TabIdentifier
+    @Binding var selectedBoothForMap: TeamInfo?
+
     @State private var viewModel = SearchViewModel()
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     var onCategorySelected: ((POICategory?) -> Void)?
@@ -82,7 +85,11 @@ struct SearchView: View {
             .navigationTitle("검색")
             .navigationBarTitleDisplayMode(.automatic)
             .navigationDestination(for: TeamInfo.self) { teamInfo in
-                BoothDetailView(teamInfo: teamInfo)
+                BoothDetailView(
+                    teamInfo: teamInfo,
+                    tabSelection: $tabSelection,
+                    selectedBoothForMap: $selectedBoothForMap
+                )
             }
             .task {
                 await viewModel.fetchTeamInfo()
@@ -136,7 +143,11 @@ struct SearchView: View {
 
 #Preview {
     NavigationStack {
-        SearchView(onCategorySelected: nil)
+        SearchView(
+            tabSelection: .constant(.search),
+            selectedBoothForMap: .constant(nil),
+            onCategorySelected: nil
+        )
     }
 }
 
