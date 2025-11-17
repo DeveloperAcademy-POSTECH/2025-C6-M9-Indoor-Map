@@ -23,14 +23,6 @@ struct IndoorMapView: View {
     @State private var showLevelInfo: Bool = false
     @State private var selectedLevelName: String = ""
 
-    private var currentLevelName: String {
-        guard !viewModel.levels.isEmpty, viewModel.selectedLevelIndex < viewModel.levels.count else {
-            return ""
-        }
-        let level = viewModel.levels[viewModel.selectedLevelIndex]
-        return level.properties.shortName.bestLocalizedValue ?? "\(level.properties.ordinal)"
-    }
-
     @Namespace private var mapScope
     var body: some View {
         ZStack {
@@ -131,8 +123,9 @@ struct IndoorMapView: View {
         }
         .onChange(of: selection) { _, newValue in
             if let selectedId = newValue {
-                selectedTeamInfo = viewModel.teamInfos.first { $0.id == selectedId }
-                if selectedTeamInfo != nil {
+                selectedTeamInfo = viewModel.selectBooth(withId: selectedId)
+
+                if let teamInfo = selectedTeamInfo {
                     // 부스 선택 시 층 모드 해제
                     isLevelPickerExpanded = false
                     showLevelInfo = false
@@ -140,19 +133,8 @@ struct IndoorMapView: View {
                     sheetDetent = .height(350)
                     showTeamInfo = true
 
-                    // 마커 선택시 카메라 이동
-                    if let coordinate = selectedTeamInfo?.displayPoint {
-                        withAnimation(.easeInOut(duration: 0.3)) {
-                            viewModel.mapCameraPosition = .camera(
-                                MapCamera(
-                                    centerCoordinate: coordinate,
-                                    distance: 175,
-                                    heading: -23,
-                                    pitch: 0
-                                )
-                            )
-                        }
-                    }
+                    // 카메라 이동
+                    viewModel.moveCameraToSelectedBooth(coordinate: teamInfo.displayPoint)
                 }
             } else {
                 selectedTeamInfo = nil
@@ -225,7 +207,7 @@ struct IndoorMapView: View {
                         isLevelPickerExpanded.toggle()
                     }
                 } label: {
-                    Text(currentLevelName)
+                    Text(viewModel.currentLevelName)
                         .font(.system(size: 19, weight: .medium))
                 }
                 .padding(.all, 10)

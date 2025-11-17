@@ -48,6 +48,14 @@ class IndoorMapViewModel {
         return imdfStore.levels
     }
 
+    var currentLevelName: String {
+        guard !levels.isEmpty, selectedLevelIndex < levels.count else {
+            return ""
+        }
+        let level = levels[selectedLevelIndex]
+        return level.properties.shortName.bestLocalizedValue ?? "\(level.properties.ordinal)"
+    }
+
     init() {
         locationManager.requestWhenInUseAuthorization()
     }
@@ -97,6 +105,24 @@ class IndoorMapViewModel {
         let data = imdfStore.getMapData(for: ordinal, category: selectedCategory)
         mapPolygons = data.polygons
         mapMarkers = data.markers
+    }
+
+    // 지금은 TeamInfo만이지만 추후 확장 예정
+    func selectBooth(withId id: UUID) -> TeamInfo? {
+        return teamInfos.first { $0.id == id }
+    }
+
+    func moveCameraToSelectedBooth(coordinate: CLLocationCoordinate2D) {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            mapCameraPosition = .camera(
+                MapCamera(
+                    centerCoordinate: coordinate,
+                    distance: 175,
+                    heading: -23,
+                    pitch: 0
+                )
+            )
+        }
     }
 }
 
