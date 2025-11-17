@@ -16,6 +16,7 @@ class IMDFStore: ObservableObject {
     @Published var levels: [Level] = []
     @Published var mapPolygons: [MapPolygonData] = []
     @Published var mapMarkers: [MapMarkerData] = []
+    @Published var fixtures: [Fixture] = []
 
     private let imdfDecoder = IMDFDecoder()
 
@@ -35,16 +36,32 @@ class IMDFStore: ObservableObject {
                     } else {
                         return [levels.first!]
                     }
-                }.flatMap({ $0.value })
+                }.flatMap { $0.value }
 
                 let filteredLevels = processedLevels.filter { level in
                     level.properties.ordinal == 4 || level.properties.ordinal == 5
                 }
 
-                self.levels = filteredLevels.sorted(by: { $0.properties.ordinal > $1.properties.ordinal })
+                levels = filteredLevels.sorted(by: { $0.properties.ordinal > $1.properties.ordinal })
             }
+
+            loadFixtures()
         } catch {
-            print("Error loading IMDF data: \(error)")
+            print("load IMDF Error : \(error)")
+        }
+    }
+
+    func loadFixtures() {
+        guard let fixtureURL = Bundle.main.url(forResource: "fixture", withExtension: "geojson", subdirectory: "IMDFData") else {
+            return
+        }
+
+        do {
+            let data = try Data(contentsOf: fixtureURL)
+            let collection = try JSONDecoder().decode(FixtureCollection.self, from: data)
+            fixtures = collection.features
+        } catch {
+            print("fixture로딩 에러 \(error)")
         }
     }
 
@@ -135,6 +152,24 @@ class IMDFStore: ObservableObject {
             }
         }
 
+        // Fixtures를 polygon으로 변환
+        for fixture in fixtures {
+            if let firstPolygon = fixture.geometry.coordinates.first,
+               let firstRing = firstPolygon.first
+            {
+                let coordinates = firstRing.map { point in
+                    CLLocationCoordinate2D(latitude: point[1], longitude: point[0])
+                }
+
+                polygons.append(MapPolygonData(
+                    coordinates: coordinates,
+                    fillColor: Color.blue.opacity(0.2),
+                    strokeColor: Color.blue,
+                    lineWidth: 1.5
+                ))
+            }
+        }
+
         return (polygons, markers)
     }
 
@@ -186,7 +221,7 @@ class IMDFStore: ObservableObject {
     }
 
     private func createMarkerData(from amenity: Amenity, category: POICategory?) -> MapMarkerData? {
-        guard amenity.coordinate.latitude != 0 && amenity.coordinate.longitude != 0 else {
+        guard amenity.coordinate.latitude != 0, amenity.coordinate.longitude != 0 else {
             return nil
         }
 
@@ -199,7 +234,7 @@ class IMDFStore: ObservableObject {
     }
 
     private func createMarkerData(from occupant: Occupant, category: POICategory?) -> MapMarkerData? {
-        guard occupant.coordinate.latitude != 0 && occupant.coordinate.longitude != 0 else {
+        guard occupant.coordinate.latitude != 0, occupant.coordinate.longitude != 0 else {
             return nil
         }
 

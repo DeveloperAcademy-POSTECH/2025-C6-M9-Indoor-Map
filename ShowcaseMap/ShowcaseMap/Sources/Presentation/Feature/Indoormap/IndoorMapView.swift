@@ -5,16 +5,17 @@
 //  Created by 딘은딘딘 on 11/15/25.
 //
 
-import SwiftUI
 import MapKit
+import SwiftUI
 
 struct IndoorMapView: View {
     @StateObject private var viewModel = IndoorMapViewModel()
+    @State private var selection: UUID?
     @Binding var selectedCategory: POICategory?
 
     var body: some View {
         ZStack {
-            Map(position: $viewModel.mapCameraPosition) {
+            Map(position: $viewModel.mapCameraPosition, selection: $selection) {
                 // 사용자 위치
                 UserAnnotation()
 
@@ -27,12 +28,8 @@ struct IndoorMapView: View {
 
                 // Markers (Amenity, Occupant 등)
                 ForEach(viewModel.mapMarkers) { marker in
-                    Annotation(marker.title, coordinate: marker.coordinate) {
-                        CategoryMarkerView(category: marker.category)
-                            .onTapGesture {
-                                viewModel.handleAnnotationTap(marker.annotation)
-                            }
-                    }
+                    Marker(marker.title, systemImage: "person.fill", coordinate: marker.coordinate)
+                        .tag(marker.id)
                 }
             }
             .mapStyle(.standard)
@@ -66,6 +63,27 @@ struct IndoorMapView: View {
                 }
             }
         }
+        .overlay(alignment: .bottomLeading) {
+            GeometryReader { geo in
+                let sheetWidth = geo.size.width * 0.35
+                let fullHeight = geo.size.height
+                let isSelected = false
+                let sheetHeight = isSelected ? fullHeight - 20 : 110
+
+                Color.clear
+                    .overlay(alignment: .bottomLeading) {
+                        VStack {
+                            
+                        }
+                        .frame(width: sheetWidth, height: sheetHeight)
+                        .background(Color.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 24))
+                        .padding(.leading, 20)
+                        .padding(.bottom, 20)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+        }
         .onAppear {
             viewModel.loadIMDFData()
         }
@@ -77,11 +95,14 @@ struct IndoorMapView: View {
         }
         .sheet(item: $viewModel.selectedBooth) { booth in
             BoothDetailView(teamInfo: booth)
+                .presentationDetents([.medium])
+                .presentationBackgroundInteraction(.enabled)
         }
     }
 }
 
 // MARK: - CategoryMarkerView
+
 struct CategoryMarkerView: View {
     let category: POICategory?
 
