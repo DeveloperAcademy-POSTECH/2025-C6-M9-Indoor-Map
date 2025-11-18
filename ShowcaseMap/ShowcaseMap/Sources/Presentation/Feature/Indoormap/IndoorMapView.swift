@@ -85,10 +85,10 @@ struct IndoorMapView: View {
                 // Polygons (Unit, Level 등)
                 ForEach(viewModel.mapPolygons) { polygon in
                     MapPolygon(coordinates: polygon.coordinates)
-                        .foregroundStyle(polygon.fillColor)
+                        .foregroundStyle(polygon.fillColor ?? Color.clear)
                         .stroke(polygon.strokeColor, lineWidth: polygon.lineWidth)
                 }
-
+                
                 // 부스 마커
                 ForEach(viewModel.teamInfos) { teamInfo in
                     Marker(teamInfo.name, coordinate: teamInfo.displayPoint)

@@ -163,9 +163,9 @@ class IMDFStore {
 
                 polygons.append(MapPolygonData(
                     coordinates: coordinates,
-                    fillColor: Color.gray.opacity(0.2),
-                    strokeColor: Color.gray,
-                    lineWidth: 0.3
+                    fillColor: Color.deskFill,
+                    strokeColor: Color.deskFill,
+                    lineWidth: 0.01
                 ))
             }
         }
@@ -175,13 +175,13 @@ class IMDFStore {
 
     private func createPolygonData(from polygon: MKPolygon, feature: StylableFeature) -> MapPolygonData {
         let coordinates = extractCoordinates(from: polygon)
-        var fillColor = Color.orange.opacity(0.3)
+        var fillColor = Color.gray.opacity(0.3)
         var strokeColor = Color.gray
         var lineWidth: CGFloat = 1.0
 
         if let unit = feature as? Unit {
             switch unit.properties.category {
-            case "nonpublic":
+            case "unspecified":
                 fillColor = Color(uiColor: UIColor(named: "NonPublicFill") ?? .orange)
                 strokeColor = Color(uiColor: UIColor(named: "UnitStroke") ?? .gray)
                 lineWidth = 1.3
