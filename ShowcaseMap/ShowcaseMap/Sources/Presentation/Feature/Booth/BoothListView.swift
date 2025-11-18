@@ -144,7 +144,7 @@ struct CategoryFilterView: View {
                         showFavorites = false
                     } label: {
                         HStack(spacing: 4) {
-                            Image(systemName: "circle.fill")
+                            Image(systemName: category.systemImageName) // changed here
                             Text(category.displayName)
                         }
                     }

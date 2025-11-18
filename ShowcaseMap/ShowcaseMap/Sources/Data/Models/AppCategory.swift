@@ -44,4 +44,25 @@ enum AppCategory: String, CaseIterable, Identifiable, Codable {
         case .other: return "기타"
         }
     }
+
+    // Add this:
+    var systemImageName: String {
+        switch self {
+        case .medical: return "cross.case.fill"
+        case .productivity: return "checklist"
+        case .graphicsAndDesign: return "paintpalette.fill"
+        case .government: return "building.columns.fill"
+        case .lifestyle: return "leaf.fill"
+        case .navigation: return "location.fill"
+        case .photoAndVideo: return "camera.fill"
+        case .education: return "book.fill"
+        case .utility: return "wrench.and.screwdriver.fill"
+        case .healthAndFitness: return "figure.run"
+        case .news: return "newspaper.fill"
+        case .entertainment: return "party.popper.fill"
+        case .socialNetworking: return "person.2.fill"
+        case .music: return "music.note"
+        case .other: return "square.grid.2x2.fill"
+        }
+    }
 }
