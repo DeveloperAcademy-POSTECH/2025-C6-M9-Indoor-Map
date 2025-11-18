@@ -21,7 +21,7 @@ enum AppCategory: String, CaseIterable, Identifiable, Codable {
     case entertainment // 엔터테인먼트
     case socialNetworking // 소셜 네트워킹
     case music // 음악
-    case other // 기타 (예비용)
+    //case other // 기타 (예비용)
 
     var id: String { rawValue }
 
@@ -41,11 +41,10 @@ enum AppCategory: String, CaseIterable, Identifiable, Codable {
         case .entertainment: return "엔터테인먼트"
         case .socialNetworking: return "소셜 네트워킹"
         case .music: return "음악"
-        case .other: return "기타"
+        //case .other: return "기타"
         }
     }
 
-    // Add this:
     var systemImageName: String {
         switch self {
         case .medical: return "cross.case.fill"
@@ -53,7 +52,7 @@ enum AppCategory: String, CaseIterable, Identifiable, Codable {
         case .graphicsAndDesign: return "swatchpalette.fill"
         case .government: return "building.columns.fill"
         case .lifestyle: return "chair.lounge.fill"
-        case .navigation: return "location.fill"
+        case .navigation: return "map.fill"
         case .photoAndVideo: return "camera.fill"
         case .education: return "graduationcap.fill"
         case .utility: return "wrench.and.screwdriver.fill"
@@ -62,7 +61,7 @@ enum AppCategory: String, CaseIterable, Identifiable, Codable {
         case .entertainment: return "popcorn.fill"
         case .socialNetworking: return "message.fill"
         case .music: return "music.note"
-        case .other: return "square.grid.2x2.fill"
+        //case .other: return "square.grid.2x2.fill"
         }
     }
 }

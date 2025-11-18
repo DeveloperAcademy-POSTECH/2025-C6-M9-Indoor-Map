@@ -42,13 +42,15 @@ struct BoothListView: View {
                         showFavorites: $showFavorites
                     )
 
-                    if layout.isIPad {
-                        iPadGridView
-                    } else {
-                        iPhoneListView
+                    Group {
+                        if layout.isIPad {
+                            iPadGridView
+                        } else {
+                            iPhoneListView
+                        }
                     }
+                    .padding(.horizontal, layout.horizontalPadding)
                 }
-                .padding(.horizontal, layout.horizontalPadding)
                 .safeAreaPadding(.bottom, 100)
             }
             .navigationTitle(layout.isIPad ? "" : "부스")
@@ -144,15 +146,16 @@ struct CategoryFilterView: View {
                         showFavorites = false
                     } label: {
                         HStack(spacing: 4) {
-                            Image(systemName: category.systemImageName) // changed here
+                            Image(systemName: category.systemImageName)
                             Text(category.displayName)
                         }
                     }
                 }
             }
+            .padding(.horizontal, 16)
         }
         .padding(.top, 12)
-        .padding(.trailing, -layout.horizontalPadding)
+//        .padding(.trailing, -layout.horizontalPadding)
     }
 }
 
