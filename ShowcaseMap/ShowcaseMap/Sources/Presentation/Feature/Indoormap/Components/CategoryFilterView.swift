@@ -28,10 +28,12 @@ struct POICategoryFilterView: View {
     }
 
     private func toggleCategory(_ category: POICategory) {
-        if selectedCategory == category {
-            selectedCategory = nil
-        } else {
-            selectedCategory = category
+        withAnimation {
+            if selectedCategory == category {
+                selectedCategory = nil
+            } else {
+                selectedCategory = category
+            }
         }
     }
 }
@@ -46,53 +48,31 @@ struct CategoryButton: View {
             HStack(spacing: 6) {
                 Image(systemName: category.iconName)
                     .font(.system(size: 14))
-
                 Text(category.rawValue)
                     .font(.system(size: 16, weight: .medium))
             }
-            //.foregroundColor(isSelected ? .white : .primary)
+            .foregroundStyle(isSelected ? .teal : .primary)
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
+            .applyGlassEffect()
+            .clipShape(.capsule)
         }
-        .modifier(GlassButtonModifier(isSelected: isSelected))
+        .buttonStyle(.plain)
     }
 }
 
-struct GlassButtonModifier: ViewModifier {
-    let isSelected: Bool
-    
-    func body(content: Content) -> some View {
+extension View {
+    @ViewBuilder
+    func applyGlassEffect() -> some View {
         if #available(iOS 26.0, *) {
-            content
-                .buttonStyle(.glass(.clear))
-                .clipShape(Capsule())
-//                .foregroundColor(
-//                    Color.primary
-//                )
-                .foregroundStyle(
-                    isSelected
-                    ? Color.teal
-                    : Color.primary
-                    )
-//                .overlay(
-//                    Capsule()
-//                        .fill(isSelected ? Color.teal.opacity(0.50) : Color.clear)
-//                )
+            self.glassEffect()
         } else {
-            content
-                .background(
-                    Capsule()
-                        .fill(isSelected ? Color.teal : Color(uiColor: .systemGray5))
-                )
-                .overlay(
-                    Capsule()
-                        .stroke(isSelected ? Color.teal : Color.clear, lineWidth: 1)
-                )
-                .clipShape(Capsule())
+            self.background(.ultraThinMaterial).clipShape(.capsule)
         }
     }
 }
 
 #Preview {
-    POICategoryFilterView(selectedCategory: .constant(.restroom))
+    @Previewable @State var selectedCategory: POICategory? = nil
+        POICategoryFilterView(selectedCategory: $selectedCategory)
 }
