@@ -121,7 +121,7 @@ struct IndoorMapView: View {
                     sheetDetent: $sheetDetent,
                     selectedTeamInfo: selectedTeamInfo
                 )
-                .presentationDetents([.height(80), .height(350), .large], selection: $sheetDetent)
+                .presentationDetents([.height(350), .large], selection: $sheetDetent)
                 .presentationBackgroundInteraction(.enabled)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .onGeometryChange(for: CGFloat.self) {
@@ -134,11 +134,6 @@ struct IndoorMapView: View {
                     animationDuration = duration
 
                 }.ignoresSafeArea()
-            }
-            .sheet(isPresented: $showLevelInfo) {
-                LevelInfoSheet(levelName: selectedLevelName)
-                    .presentationDetents([.height(80)])
-                    .presentationBackgroundInteraction(.enabled)
             }
             .overlay(alignment: .bottomLeading) {
                 VStack(spacing: 0) {
@@ -247,47 +242,33 @@ struct BottomSheetView: View {
 
     var body: some View {
         if let teamInfo = selectedTeamInfo {
-            if sheetDetent == .height(80) {
-                VStack(spacing: 4) {
-                    Text(teamInfo.appName)
-                        .font(.system(size: 17))
-                        .foregroundStyle(Color.primary)
-                        .bold()
+            ScrollView {
+                VStack(alignment: .center, spacing: 16) {
+                    BoothHeaderView(
+                        name: teamInfo.appName,
+                        boothNumber: teamInfo.boothNumber
+                    )
 
-                    Text("부스 · \(teamInfo.boothNumber)")
-                        .font(.caption)
-                        .foregroundStyle(Color.secondary)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-            } else {
-                ScrollView {
-                    VStack(alignment: .center, spacing: 16) {
-                        BoothHeaderView(
-                            name: teamInfo.appName,
-                            boothNumber: teamInfo.boothNumber
-                        )
+                    AppDescriptionView(
+                        description: teamInfo.appDescription,
+                        categoryLine: teamInfo.categoryLine
+                    )
 
-                        AppDescriptionView(
-                            description: teamInfo.appDescription,
-                            categoryLine: teamInfo.categoryLine
-                        )
-
-                        AppDownloadCardView(
-                            appName: teamInfo.appName,
-                            boothNumber: teamInfo.boothNumber
-                        ) {
-                            print("다운로드 탭")
-                        }
-
-                        TeamIntroductionView(
-                            teamName: teamInfo.name,
-                            teamUrl: teamInfo.teamUrl,
-                            members: teamInfo.members,
-                            isIpad: false
-                        )
+                    AppDownloadCardView(
+                        appName: teamInfo.appName,
+                        boothNumber: teamInfo.boothNumber
+                    ) {
+                        print("다운로드 탭")
                     }
-                    .padding(.all, 20)
+
+                    TeamIntroductionView(
+                        teamName: teamInfo.name,
+                        teamUrl: teamInfo.teamUrl,
+                        members: teamInfo.members,
+                        isIpad: false
+                    )
                 }
+                .padding(.all, 20)
             }
         }
     }
