@@ -163,9 +163,9 @@ class IMDFStore {
 
                 polygons.append(MapPolygonData(
                     coordinates: coordinates,
-                    fillColor: Color.blue.opacity(0.2),
-                    strokeColor: Color.blue,
-                    lineWidth: 1.5
+                    fillColor: Color.gray.opacity(0.2),
+                    strokeColor: Color.gray,
+                    lineWidth: 0.3
                 ))
             }
         }

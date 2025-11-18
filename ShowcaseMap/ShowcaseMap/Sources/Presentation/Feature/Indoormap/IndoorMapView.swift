@@ -92,6 +92,7 @@ struct IndoorMapView: View {
                 // 부스 마커
                 ForEach(viewModel.teamInfos) { teamInfo in
                     Marker(teamInfo.name, coordinate: teamInfo.displayPoint)
+                        .tint(.teal)
                         .tag(teamInfo.id)
                 }
             }
