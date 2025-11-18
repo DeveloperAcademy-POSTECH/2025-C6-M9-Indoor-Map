@@ -153,14 +153,17 @@ class IMDFStore {
         }
 
         // Fixtures를 polygon으로 변환
+        let currentLevelId = levels.first?.identifier.uuidString.lowercased()
+
         for fixture in fixtures {
+            guard fixture.levelId.lowercased() == currentLevelId else { continue }
+
             if let firstPolygon = fixture.geometry.coordinates.first,
                let firstRing = firstPolygon.first
             {
                 let coordinates = firstRing.map { point in
                     CLLocationCoordinate2D(latitude: point[1], longitude: point[0])
                 }
-
                 polygons.append(MapPolygonData(
                     coordinates: coordinates,
                     fillColor: Color.gray.opacity(0.2),
