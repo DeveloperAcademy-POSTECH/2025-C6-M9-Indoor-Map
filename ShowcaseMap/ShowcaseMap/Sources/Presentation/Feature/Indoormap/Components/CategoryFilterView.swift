@@ -49,22 +49,17 @@ struct CategoryButton: View {
 
                 Text(category.rawValue)
                     .font(.system(size: 14, weight: .medium))
-
-                if isSelected {
-                    Image(systemName: "checkmark")
-                        .font(.system(size: 12, weight: .bold))
-                }
             }
             .foregroundColor(isSelected ? .white : .primary)
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
             .background(
                 Capsule()
-                    .fill(isSelected ? Color.blue : Color(uiColor: .systemGray5))
+                    .fill(isSelected ? Color.teal : Color(uiColor: .systemGray5))
             )
             .overlay(
                 Capsule()
-                    .stroke(isSelected ? Color.blue : Color.clear, lineWidth: 1)
+                    .stroke(isSelected ? Color.teal : Color.clear, lineWidth: 1)
             )
         }
     }
