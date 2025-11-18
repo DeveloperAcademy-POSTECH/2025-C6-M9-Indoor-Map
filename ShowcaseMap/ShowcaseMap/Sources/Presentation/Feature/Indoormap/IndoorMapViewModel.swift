@@ -29,6 +29,7 @@ class IndoorMapViewModel {
 
     var selectedBooth: TeamInfo?
     var teamInfos: [TeamInfo] = []
+    private var allTeamInfos: [TeamInfo] = []
 
     private let imdfStore: IMDFStore
     private let locationManager = CLLocationManager()
@@ -64,7 +65,8 @@ class IndoorMapViewModel {
     func loadIMDFData() {
         Task {
             do {
-                teamInfos = try await teamRepository.fetchTeamInfo()
+                allTeamInfos = try await teamRepository.fetchTeamInfo()
+                updateMapData()
             } catch {
                 print("Failed to load team info: \(error)")
             }
@@ -88,8 +90,6 @@ class IndoorMapViewModel {
         } else if !levels.isEmpty {
             selectedLevelIndex = 0
         }
-
-        updateMapData()
     }
 
     private func updateMapData() {
@@ -103,6 +103,8 @@ class IndoorMapViewModel {
         let data = imdfStore.getMapData(for: ordinal, category: selectedCategory)
         mapPolygons = data.polygons
         mapMarkers = data.markers
+
+        teamInfos = allTeamInfos.filter { $0.levelId == ordinal }
     }
 
     // 지금은 TeamInfo만이지만 추후 확장 예정

@@ -5,11 +5,12 @@
 //  Created by bishoe01 on 11/15/25.
 //
 
-import Foundation
 import CoreLocation
+import Foundation
 
 struct TeamInfo: Identifiable, Hashable, Codable {
     let id: UUID
+
     let boothNumber: String
     let name: String
     let appName: String
@@ -19,13 +20,14 @@ struct TeamInfo: Identifiable, Hashable, Codable {
     let downloadUrl: URL
     let teamUrl: URL
     private let display_point: [Double]
-
+    let levelId: Int
     var displayPoint: CLLocationCoordinate2D {
         CLLocationCoordinate2D(latitude: display_point[1], longitude: display_point[0])
     }
 
     init(
         id: UUID = UUID(),
+        levelId: Int,
         boothNumber: String,
         name: String,
         appName: String,
@@ -34,9 +36,11 @@ struct TeamInfo: Identifiable, Hashable, Codable {
         category: AppCategory,
         downloadUrl: URL,
         teamUrl: URL,
-        displayPoint: [Double]
+        displayPoint: [Double],
+
     ) {
         self.id = id
+        self.levelId = levelId
         self.boothNumber = boothNumber
         self.name = name
         self.appName = appName

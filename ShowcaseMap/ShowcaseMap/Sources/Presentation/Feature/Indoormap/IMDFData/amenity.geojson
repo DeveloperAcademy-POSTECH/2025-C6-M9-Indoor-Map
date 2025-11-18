@@ -183,7 +183,9 @@
         "category": "restroom.unisex.wheelchair",
         "accessibility": null,
         "name": {
-          "en": "Restroom(wheelchair)"
+          "en": "Restroom(wheelchair)",
+          "ko": "장애인 화장실"
+          
         },
         "alt_name": null,
         "hours": null,
@@ -211,7 +213,8 @@
         "category": "restroom.unisex.wheelchair",
         "accessibility": null,
         "name": {
-          "en": "Restroom(wheelchair)"
+          "en": "Restroom(wheelchair)",
+          "ko": "장애인 화장실"
         },
         "alt_name": null,
         "hours": null,
@@ -326,7 +329,8 @@
         "category": "restroom.female",
         "accessibility": null,
         "name": {
-          "en": "Family Restroom"
+            "en": "Restroom(Woman)",
+            "ko": "여자화장실"
         },
         "alt_name": null,
         "hours": null,

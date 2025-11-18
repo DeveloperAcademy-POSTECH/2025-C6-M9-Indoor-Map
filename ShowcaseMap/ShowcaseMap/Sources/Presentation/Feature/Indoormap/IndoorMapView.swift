@@ -225,27 +225,6 @@ struct BottomSheetView: View {
     }
 }
 
-
-
-struct LevelInfoSheet: View {
-    let levelName: String
-
-    var body: some View {
-        VStack(spacing: 4) {
-            Text(levelName)
-                .font(.headline)
-                .foregroundStyle(Color.primary)
-                .bold()
-
-            Text("<설명>")
-                .font(.caption)
-                .foregroundStyle(Color.secondary)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-}
-
-
 struct SheetIconButton: View {
     let systemName: String
     let action: () -> Void
