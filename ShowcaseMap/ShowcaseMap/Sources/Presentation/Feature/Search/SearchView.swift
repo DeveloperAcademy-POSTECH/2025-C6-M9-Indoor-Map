@@ -23,6 +23,7 @@ struct SearchView: View {
                     if viewModel.searchText.isEmpty || !viewModel.filteredAmenities.isEmpty {
                         Text("편의 시설")
                             .font(.title3)
+                            .fontWeight(.semibold)
                             .foregroundStyle(Color.primary)
 
                         VStack(alignment: .leading, spacing: layout.ListSpacing) {
@@ -56,6 +57,7 @@ struct SearchView: View {
                         if !viewModel.filteredTeamInfo.isEmpty {
                             Text("부스")
                                 .font(.title3)
+                                .fontWeight(.semibold)
                                 .foregroundStyle(Color.primary)
                                 .padding(.top, viewModel.searchText.isEmpty || viewModel.filteredAmenities.isEmpty ? 0 : 8)
 
@@ -165,7 +167,7 @@ private struct DeviceLayout {
     }
 
     var ListSpacing: CGFloat {
-        isIPad ? 16 : 8
+        isIPad ? 16 : 10
     }
 
     var LazyVStackSpacing: CGFloat {

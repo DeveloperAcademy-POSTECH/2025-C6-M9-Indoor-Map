@@ -101,18 +101,6 @@ struct BoothDetailView: View {
                     Image(systemName: isFavorite ? "star.fill" : "star")
                 }
             }
-
-            if #available(iOS 26.0, *) {
-                ToolbarSpacer(.fixed, placement: .topBarTrailing)
-            }
-
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    // TODO: 공유 로직
-                } label: {
-                    Image(systemName: "square.and.arrow.up")
-                }
-            }
         }
     }
 

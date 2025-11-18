@@ -62,8 +62,6 @@ class IndoorMapViewModel {
     }
 
     func loadIMDFData() {
-        // 데이터호출 App으로 변경
-
         Task {
             do {
                 teamInfos = try await teamRepository.fetchTeamInfo()
@@ -72,7 +70,6 @@ class IndoorMapViewModel {
             }
         }
 
-        // 카메라 포지션 설정
         let centerCoordinate = CLLocationCoordinate2D(latitude: 36.014267, longitude: 129.325778)
         mapCameraPosition = .camera(
             MapCamera(

@@ -7,6 +7,7 @@
 
 import MapKit
 import SwiftUI
+import SwiftData
 
 struct IndoorMapView: View {
     @Environment(IMDFStore.self) var imdfStore
@@ -20,6 +21,14 @@ struct IndoorMapView: View {
     @State private var sheetHeight: CGFloat = 0
     @State private var animationDuration: CGFloat = 0
     @State private var selectedTeamInfo: TeamInfo?
+    
+    @Environment(\.modelContext) private var modelContext
+    @Query private var favoriteTeamInfos: [FavoriteTeamInfo]
+
+    private var isFavorite: Bool {
+        guard let teamInfo = selectedTeamInfo else { return false }
+        return favoriteTeamInfos.contains { $0.teamInfoId == teamInfo.id }
+    }
 
     @Namespace private var mapScope
     var body: some View {
@@ -80,15 +89,10 @@ struct IndoorMapView: View {
                         .stroke(polygon.strokeColor, lineWidth: polygon.lineWidth)
                 }
 
-                // annotation (Amenity, Occupant 등)
-//                ForEach(viewModel.mapMarkers) { marker in
-//                    Marker(marker.title, coordinate: marker.coordinate)
-//                        .tag(marker.id)
-//                }
-
                 // 부스 마커
                 ForEach(viewModel.teamInfos) { teamInfo in
                     Marker(teamInfo.name, coordinate: teamInfo.displayPoint)
+                        .tint(.teal)
                         .tag(teamInfo.id)
                 }
             }
@@ -98,7 +102,10 @@ struct IndoorMapView: View {
             .sheet(isPresented: $showTeamInfo) {
                 BottomSheetView(
                     sheetDetent: $sheetDetent,
-                    selectedTeamInfo: selectedTeamInfo
+                    selectedTeamInfo: selectedTeamInfo,
+                    isFavorite: isFavorite,
+                    modelContext: modelContext,
+                    favoriteTeamInfos: favoriteTeamInfos
                 )
                 .presentationDetents([.height(350), .large], selection: $sheetDetent)
                 .presentationBackgroundInteraction(.enabled)
@@ -128,7 +135,6 @@ struct IndoorMapView: View {
         }
     }
 
-
     @ViewBuilder
     func BottomFloatingToolBar(viewModel: IndoorMapViewModel) -> some View {
         VStack(spacing: 16) {
@@ -154,18 +160,39 @@ struct IndoorMapView: View {
         }
         .font(.title3)
         .foregroundStyle(Color.primary)
-        .offset(y: showTeamInfo ? -(sheetHeight - 50) : -10)
+        .offset(y: showTeamInfo ? -(sheetHeight - 30 /* 프리뷰에서는 겹쳐보일 수 있음 */ ) : -10)
         .animation(.interpolatingSpring(duration: animationDuration, bounce: 0, initialVelocity: 0), value: sheetHeight)
     }
 }
 
 struct BottomSheetView: View {
     @Binding var sheetDetent: PresentationDetent
+    @Environment(\.dismiss) var dismiss
     let selectedTeamInfo: TeamInfo?
+    let isFavorite: Bool
+    let modelContext: ModelContext
+    let favoriteTeamInfos: [FavoriteTeamInfo]
 
     var body: some View {
         if let teamInfo = selectedTeamInfo {
             ScrollView {
+                HStack {
+                    SheetIconButton(systemName: isFavorite ? "star.fill" : "star") {
+                        if isFavorite {
+                            if let favorite = favoriteTeamInfos.first(where: { $0.teamInfoId == teamInfo.id }) {
+                                modelContext.delete(favorite)
+                            }
+                        } else {
+                            let favorite = FavoriteTeamInfo(teamInfoId: teamInfo.id)
+                            modelContext.insert(favorite)
+                        }
+                    }
+
+                    Spacer()
+                    SheetIconButton(systemName: "xmark"){
+                        dismiss()
+                    }
+                }
                 VStack(alignment: .center, spacing: 16) {
                     BoothHeaderView(
                         name: teamInfo.appName,
@@ -191,11 +218,14 @@ struct BottomSheetView: View {
                         isIpad: false
                     )
                 }
-                .padding(.all, 20)
             }
+            .padding(.vertical, 16)
+            .padding(.horizontal, 26)
         }
     }
 }
+
+
 
 struct LevelInfoSheet: View {
     let levelName: String
@@ -215,7 +245,30 @@ struct LevelInfoSheet: View {
     }
 }
 
+
+struct SheetIconButton: View {
+    let systemName: String
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: systemName)
+                .font(.system(size: 17, weight: .medium))
+                .padding(12)
+                .background(.ultraThinMaterial)
+                .frame(width: 40, height: 40)
+                .clipShape(Capsule())
+        }
+        .buttonStyle(.plain)
+    }
+}
+
+
+
 #Preview {
-    IndoorMapView(selectedCategory: .constant(nil), selectedBooth: .constant(nil))
-        .environment(IMDFStore())
+    let store = IMDFStore()
+    store.loadIMDFData()
+
+    return IndoorMapView(selectedCategory: .constant(nil), selectedBooth: .constant(nil))
+        .environment(store)
 }
