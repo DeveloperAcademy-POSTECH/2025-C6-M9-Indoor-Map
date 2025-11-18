@@ -59,9 +59,12 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    let store = IMDFStore()
+    store.loadIMDFData()
+
+    return ContentView()
         .modelContainer(for: FavoriteTeamInfo.self, inMemory: true)
-        .environment(IMDFStore())
+        .environment(store)
 }
 
 

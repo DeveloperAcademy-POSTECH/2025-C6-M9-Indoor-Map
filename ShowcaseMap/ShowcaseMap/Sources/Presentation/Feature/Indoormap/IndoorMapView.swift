@@ -216,6 +216,9 @@ struct LevelInfoSheet: View {
 }
 
 #Preview {
-    IndoorMapView(selectedCategory: .constant(nil), selectedBooth: .constant(nil))
-        .environment(IMDFStore())
+    let store = IMDFStore()
+    store.loadIMDFData()
+
+    return IndoorMapView(selectedCategory: .constant(nil), selectedBooth: .constant(nil))
+        .environment(store)
 }
