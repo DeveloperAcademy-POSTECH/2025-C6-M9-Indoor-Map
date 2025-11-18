@@ -78,7 +78,13 @@ struct IndoorMapView: View {
     @ViewBuilder
     private func mapContent(viewModel: IndoorMapViewModel) -> some View {
         ZStack {
-            Map(position: .constant(viewModel.mapCameraPosition), selection: $selection, scope: mapScope) {
+            Map(position: .constant(viewModel.mapCameraPosition),
+                bounds: MapCameraBounds(
+                    minimumDistance: 5,
+                    maximumDistance: 500
+                ),
+                selection: $selection, scope: mapScope)
+            {
                 // 사용자 위치
                 UserAnnotation()
 
