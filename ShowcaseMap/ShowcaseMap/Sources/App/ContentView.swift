@@ -29,7 +29,7 @@ struct ContentView: View {
             }
 
             Tab(
-                "지도뷰",
+                "실내 지도",
                 systemImage: "map",
                 value: .map
             ) {
@@ -61,6 +61,7 @@ struct ContentView: View {
 #Preview {
     ContentView()
         .modelContainer(for: FavoriteTeamInfo.self, inMemory: true)
+        .environment(IMDFStore())
 }
 
 
