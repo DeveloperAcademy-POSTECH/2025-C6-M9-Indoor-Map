@@ -62,7 +62,7 @@ class IndoorMapViewModel {
     }
 
     func loadIMDFData() {
-        // IMDF 데이터는 이미 App에서 로드됨
+        // 데이터호출 App으로 변경
 
         Task {
             do {
