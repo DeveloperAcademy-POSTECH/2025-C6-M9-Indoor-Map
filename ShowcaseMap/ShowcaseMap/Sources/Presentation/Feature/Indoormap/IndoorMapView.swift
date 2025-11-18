@@ -6,8 +6,8 @@
 //
 
 import MapKit
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 struct IndoorMapView: View {
     @Environment(IMDFStore.self) var imdfStore
@@ -21,7 +21,7 @@ struct IndoorMapView: View {
     @State private var sheetHeight: CGFloat = 0
     @State private var animationDuration: CGFloat = 0
     @State private var selectedTeamInfo: TeamInfo?
-    
+
     @Environment(\.modelContext) private var modelContext
     @Query private var favoriteTeamInfos: [FavoriteTeamInfo]
 
@@ -95,6 +95,10 @@ struct IndoorMapView: View {
                         .stroke(polygon.strokeColor, lineWidth: polygon.lineWidth)
                 }
 
+                ForEach(viewModel.mapMarkers) { item in
+                    Marker(item.title, systemImage: item.category.iconName, coordinate: item.coordinate)
+                }
+
                 // 부스 마커
                 ForEach(viewModel.teamInfos) { teamInfo in
                     Marker(teamInfo.name, coordinate: teamInfo.displayPoint)
@@ -133,7 +137,7 @@ struct IndoorMapView: View {
             }
 
             VStack {
-                POICategoryFilterView(selectedCategory: .constant(viewModel.selectedCategory))
+                POICategoryFilterView(selectedCategory: $selectedCategory)
                     .padding(.top, 8)
 
                 Spacer()
@@ -195,7 +199,7 @@ struct BottomSheetView: View {
                     }
 
                     Spacer()
-                    SheetIconButton(systemName: "xmark"){
+                    SheetIconButton(systemName: "xmark") {
                         dismiss()
                     }
                 }
@@ -248,8 +252,6 @@ struct SheetIconButton: View {
     }
 }
 
-
-
 #Preview {
     let store = IMDFStore()
     store.loadIMDFData()
@@ -257,3 +259,14 @@ struct SheetIconButton: View {
     return IndoorMapView(selectedCategory: .constant(nil), selectedBooth: .constant(nil))
         .environment(store)
 }
+
+//
+// let bounds = MapCameraBounds(
+//    centerCoordinateBounds: MKCoordinateRegion(
+//        center: centerCoordinate,
+//        latitudinalMeters: 500,
+//        longitudinalMeters: 500
+//    ),
+//    minimumDistance: 5,
+//    maximumDistance: 1000
+// )

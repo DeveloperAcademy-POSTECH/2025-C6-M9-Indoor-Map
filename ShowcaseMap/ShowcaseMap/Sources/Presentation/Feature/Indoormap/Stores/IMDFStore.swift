@@ -99,12 +99,13 @@ class IMDFStore {
 
                 // Amenities를 마커로 추가
                 let amenities = unit.amenities
-                let occupants = unit.occupants
+//                let occupants = unit.occupants
 
                 if let category = category {
-                    // 카테고리 필터링
+                    // 카테고리 필터링 (폰부스 제외)
                     let filteredAmenities = amenities.filter { amenity in
-                        category.amenityCategories.contains(amenity.properties.category)
+                        category.amenityCategories.contains(amenity.properties.category) &&
+                            amenity.properties.category != "phone"
                     }
                     for amenity in filteredAmenities {
                         if let markerData = createMarkerData(from: amenity, category: category) {
@@ -112,26 +113,29 @@ class IMDFStore {
                         }
                     }
 
-                    // Unit 기반 카테고리 필터링
-                    if category.unitCategories.contains(unit.properties.category) {
-                        if let markerData = createMarkerDataFromUnit(unit, category: category) {
-                            markers.append(markerData)
-                        }
-                    }
+//                    // Unit 기반 카테고리 필터링
+//                    if category.unitCategories.contains(unit.properties.category) {
+//                        if let markerData = createMarkerDataFromUnit(unit, category: category) {
+//                            markers.append(markerData)
+//                        }
+//                    }
                 } else {
-                    // 모든 amenities와 occupants 표시
+                    // 모든 amenities와 occupants 표시 (phone 제외)
                     for amenity in amenities {
-                        let amenityCategory = POICategory.from(amenityCategory: amenity.properties.category)
-                        if let markerData = createMarkerData(from: amenity, category: amenityCategory) {
+                        guard amenity.properties.category != "phone" else { continue }
+                        if let amenityCategory = POICategory.from(amenityCategory: amenity.properties.category),
+                           let markerData = createMarkerData(from: amenity, category: amenityCategory)
+                        {
                             markers.append(markerData)
+                            print(markerData)
                         }
                     }
 
-                    for occupant in occupants {
-                        if let markerData = createMarkerData(from: occupant, category: nil) {
-                            markers.append(markerData)
-                        }
-                    }
+//                    for occupant in occupants {
+//                        if let markerData = createMarkerData(from: occupant, category: nil) {
+//                            markers.append(markerData)
+//                        }
+//                    }
                 }
             }
 
@@ -223,7 +227,7 @@ class IMDFStore {
         )
     }
 
-    private func createMarkerData(from amenity: Amenity, category: POICategory?) -> MapMarkerData? {
+    private func createMarkerData(from amenity: Amenity, category: POICategory) -> MapMarkerData? {
         guard amenity.coordinate.latitude != 0, amenity.coordinate.longitude != 0 else {
             return nil
         }
@@ -236,18 +240,18 @@ class IMDFStore {
         )
     }
 
-    private func createMarkerData(from occupant: Occupant, category: POICategory?) -> MapMarkerData? {
-        guard occupant.coordinate.latitude != 0, occupant.coordinate.longitude != 0 else {
-            return nil
-        }
-
-        return MapMarkerData(
-            coordinate: occupant.coordinate,
-            title: occupant.title ?? "Occupant",
-            category: category,
-            annotation: occupant
-        )
-    }
+//    private func createMarkerData(from occupant: Occupant, category: POICategory) -> MapMarkerData? {
+//        guard occupant.coordinate.latitude != 0, occupant.coordinate.longitude != 0 else {
+//            return nil
+//        }
+//
+//        return MapMarkerData(
+//            coordinate: occupant.coordinate,
+//            title: occupant.title ?? "Occupant",
+//            category: category,
+//            annotation: occupant
+//        )
+//    }
 
     private func createMarkerDataFromUnit(_ unit: Unit, category: POICategory) -> MapMarkerData? {
         // Unit의 중심점 계산
@@ -256,6 +260,8 @@ class IMDFStore {
         }
 
         let centroid = calculateCentroid(of: polygon)
+        
+        print(centroid)
 
         return MapMarkerData(
             coordinate: centroid,
@@ -313,6 +319,7 @@ struct MapMarkerData: Identifiable {
     let id = UUID()
     let coordinate: CLLocationCoordinate2D
     let title: String
-    let category: POICategory?
+    let category: POICategory
     let annotation: MKAnnotation?
 }
+
