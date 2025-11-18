@@ -42,7 +42,7 @@ enum POICategory: String, CaseIterable, Identifiable {
     var amenityCategories: [String] {
         switch self {
         case .restroom:
-            return ["restroom.male", "restroom.female", "restroom.unisex.wheelchair"]
+            return ["restroom","restroom.male", "restroom.female", "restroom.unisex.wheelchair"]
         case .elevator:
             return ["elevator"]
         case .stairs:

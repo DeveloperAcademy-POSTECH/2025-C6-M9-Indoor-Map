@@ -17,6 +17,7 @@ class IMDFStore {
     var mapPolygons: [MapPolygonData] = []
     var mapMarkers: [MapMarkerData] = []
     var fixtures: [Fixture] = []
+    var amenities: [Amenity] = []
 
     private let imdfDecoder = IMDFDecoder()
 
@@ -46,8 +47,26 @@ class IMDFStore {
             }
 
             loadFixtures()
+            loadAllAmenities()
         } catch {
             print("load IMDF Error : \(error)")
+        }
+    }
+
+    private func loadAllAmenities() {
+        amenities = []
+
+        guard let venue = venue else { return }
+
+        for (_, levels) in venue.levelsByOrdinal {
+            for level in levels {
+                for unit in level.units {
+                    for amenity in unit.amenities {
+                        guard amenity.properties.category != "phone" else { continue }
+                        amenities.append(amenity)
+                    }
+                }
+            }
         }
     }
 
@@ -260,7 +279,7 @@ class IMDFStore {
         }
 
         let centroid = calculateCentroid(of: polygon)
-        
+
         print(centroid)
 
         return MapMarkerData(
@@ -322,4 +341,3 @@ struct MapMarkerData: Identifiable {
     let category: POICategory
     let annotation: MKAnnotation?
 }
-
