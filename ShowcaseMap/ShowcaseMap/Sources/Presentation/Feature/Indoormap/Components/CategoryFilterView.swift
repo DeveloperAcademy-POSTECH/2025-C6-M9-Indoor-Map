@@ -48,19 +48,47 @@ struct CategoryButton: View {
                     .font(.system(size: 14))
 
                 Text(category.rawValue)
-                    .font(.system(size: 14, weight: .medium))
+                    .font(.system(size: 16, weight: .medium))
             }
-            .foregroundColor(isSelected ? .white : .primary)
+            //.foregroundColor(isSelected ? .white : .primary)
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
-            .background(
-                Capsule()
-                    .fill(isSelected ? Color.teal : Color(uiColor: .systemGray5))
-            )
-            .overlay(
-                Capsule()
-                    .stroke(isSelected ? Color.teal : Color.clear, lineWidth: 1)
-            )
+        }
+        .modifier(GlassButtonModifier(isSelected: isSelected))
+    }
+}
+
+struct GlassButtonModifier: ViewModifier {
+    let isSelected: Bool
+    
+    func body(content: Content) -> some View {
+        if #available(iOS 26.0, *) {
+            content
+                .buttonStyle(.glass(.clear))
+                .clipShape(Capsule())
+//                .foregroundColor(
+//                    Color.primary
+//                )
+                .foregroundStyle(
+                    isSelected
+                    ? Color.teal
+                    : Color.primary
+                    )
+//                .overlay(
+//                    Capsule()
+//                        .fill(isSelected ? Color.teal.opacity(0.50) : Color.clear)
+//                )
+        } else {
+            content
+                .background(
+                    Capsule()
+                        .fill(isSelected ? Color.teal : Color(uiColor: .systemGray5))
+                )
+                .overlay(
+                    Capsule()
+                        .stroke(isSelected ? Color.teal : Color.clear, lineWidth: 1)
+                )
+                .clipShape(Capsule())
         }
     }
 }
@@ -68,4 +96,3 @@ struct CategoryButton: View {
 #Preview {
     POICategoryFilterView(selectedCategory: .constant(.restroom))
 }
-
