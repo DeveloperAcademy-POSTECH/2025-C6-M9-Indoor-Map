@@ -143,7 +143,7 @@ struct IndoorMapView: View {
                 let nextIndex = (viewModel.selectedLevelIndex + 1) % viewModel.levels.count
                 self.viewModel?.selectedLevelIndex = nextIndex
             } label: {
-                Text(viewModel.currentLevelName)
+                Text("\(viewModel.currentLevelName)층")
                     .font(.system(size: 19, weight: .medium))
             }
             .padding(.all, 10)

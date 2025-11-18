@@ -54,7 +54,7 @@ class IndoorMapViewModel {
             return ""
         }
         let level = levels[selectedLevelIndex]
-        return level.properties.shortName.bestLocalizedValue ?? "\(level.properties.ordinal)"
+        return level.properties.shortName.bestLocalizedValue ?? "\(level.properties.ordinal + 1)"
     }
 
     init(imdfStore: IMDFStore) {

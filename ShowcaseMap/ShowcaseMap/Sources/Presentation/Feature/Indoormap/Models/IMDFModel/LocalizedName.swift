@@ -19,6 +19,6 @@ struct LocalizedName: Codable {
                 return localizedValue
             }
         }
-        return localizations["en"]
+        return localizations["ko"]
     }
 }
