@@ -84,13 +84,6 @@ struct SearchView: View {
             }
             .navigationTitle("검색")
             .navigationBarTitleDisplayMode(.automatic)
-            .navigationDestination(for: TeamInfo.self) { teamInfo in
-                BoothDetailView(
-                    teamInfo: teamInfo,
-                    tabSelection: $tabSelection,
-                    selectedBoothForMap: $selectedBoothForMap
-                )
-            }
             .task {
                 await viewModel.fetchTeamInfo()
             }
@@ -105,7 +98,10 @@ struct SearchView: View {
             isIPad: true,
             searchText: viewModel.searchText
         ) { teamInfo in
-            NavigationLink(value: teamInfo) {
+            Button {
+                selectedBoothForMap = teamInfo
+                tabSelection = .map
+            } label: {
                 BoothItemView(
                     teamInfo: teamInfo,
                     isIPad: true,
@@ -113,6 +109,7 @@ struct SearchView: View {
                     showBoothNumber: true
                 )
             }
+            .buttonStyle(.plain)
         }
     }
 
@@ -120,8 +117,10 @@ struct SearchView: View {
     private var iPhoneBoothListView: some View {
         VStack(spacing: 0) {
             ForEach(viewModel.filteredTeamInfo) { teamInfo in
-                NavigationLink(value: teamInfo) {
-                    // TODO: 지도에서 부스 클릭된 것처럼 로직 연결
+                Button {
+                    selectedBoothForMap = teamInfo
+                    tabSelection = .map
+                } label: {
                     BoothItemView(
                         teamInfo: teamInfo,
                         isIPad: false,
@@ -129,6 +128,7 @@ struct SearchView: View {
                         showBoothNumber: true
                     )
                 }
+                .buttonStyle(.plain)
 
                 if teamInfo.id != viewModel.filteredTeamInfo.last?.id {
                     Divider()
