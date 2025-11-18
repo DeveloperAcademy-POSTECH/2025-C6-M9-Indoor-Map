@@ -21,10 +21,6 @@ struct IndoorMapView: View {
     @State private var animationDuration: CGFloat = 0
     @State private var selectedTeamInfo: TeamInfo?
 
-    @State private var isLevelPickerExpanded: Bool = false
-    @State private var showLevelInfo: Bool = false
-    @State private var selectedLevelName: String = ""
-
     @Namespace private var mapScope
     var body: some View {
         Group {
@@ -39,8 +35,6 @@ struct IndoorMapView: View {
                 viewModel = IndoorMapViewModel(imdfStore: imdfStore)
                 viewModel?.loadIMDFData()
             }
-
-            selectedLevelName = viewModel?.currentLevelName ?? ""
 
             // BoothDetailView에서 상태 전달 염두
             if let booth = selectedBooth {
@@ -59,10 +53,6 @@ struct IndoorMapView: View {
                 selectedTeamInfo = viewModel?.selectBooth(withId: selectedId)
 
                 if let teamInfo = selectedTeamInfo {
-                    // 마커 선택 시 층 모드 해제
-                    isLevelPickerExpanded = false
-                    showLevelInfo = false
-
                     sheetDetent = .height(350)
                     showTeamInfo = true
 
@@ -72,17 +62,6 @@ struct IndoorMapView: View {
             } else {
                 selectedTeamInfo = nil
                 showTeamInfo = false
-            }
-        }
-        .onChange(of: isLevelPickerExpanded) { _, newValue in
-            if newValue {
-                // 층선택시 부스관련 시트 제거
-                selection = nil
-                showTeamInfo = false
-
-                // 바로 층정보 시트 표시
-                selectedLevelName = viewModel?.currentLevelName ?? ""
-                showLevelInfo = true
             }
         }
     }
@@ -136,15 +115,8 @@ struct IndoorMapView: View {
                 }.ignoresSafeArea()
             }
             .overlay(alignment: .bottomLeading) {
-                VStack(spacing: 0) {
-                    if isLevelPickerExpanded {
-                        LevelPickerOverlay(viewModel: viewModel)
-                            .padding(.bottom, 16)
-                    }
-
-                    BottomFloatingToolBar(viewModel: viewModel)
-                }
-                .padding(.leading, 20)
+                BottomFloatingToolBar(viewModel: viewModel)
+                    .padding(.leading, 20)
             }
 
             VStack {
@@ -156,83 +128,34 @@ struct IndoorMapView: View {
         }
     }
 
+
     @ViewBuilder
-    func LevelPickerOverlay(viewModel: IndoorMapViewModel) -> some View {
-        VStack(spacing: 12) {
-            // X 버튼
+    func BottomFloatingToolBar(viewModel: IndoorMapViewModel) -> some View {
+        VStack(spacing: 16) {
             Button {
-                withAnimation {
-                    isLevelPickerExpanded = false
-                    showLevelInfo = false
-                }
+                // 탭으로 5 <-> 6 층 전환
+                let nextIndex = (viewModel.selectedLevelIndex + 1) % viewModel.levels.count
+                self.viewModel?.selectedLevelIndex = nextIndex
             } label: {
-                Image(systemName: "xmark")
+                Text(viewModel.currentLevelName)
                     .font(.system(size: 19, weight: .medium))
             }
             .padding(.all, 10)
             .background(Color(.systemBackground))
             .clipShape(Circle())
 
-            // 층 버튼들
-            VStack(spacing: 4) {
-                ForEach(Array(viewModel.levels.enumerated()), id: \.offset) { index, level in
-                    let levelName = level.properties.shortName.bestLocalizedValue ?? "\(level.properties.ordinal)"
-
-                    Button {
-                        self.viewModel?.selectedLevelIndex = index
-                        selectedLevelName = levelName
-                        showLevelInfo = true
-                    } label: {
-                        Text(levelName)
-                            .font(.system(size: 19, weight: .medium))
-                            .foregroundStyle(Color.primary)
-                            .frame(width: 40, height: 40)
-                            .background(
-                                Circle()
-                                    .fill(viewModel.selectedLevelIndex == index ? Color.primary.opacity(0.2) : Color(.systemBackground))
-                            )
-                    }
-                }
+            Button {} label: {
+                Image(systemName: "location")
+                    .font(.system(size: 19, weight: .medium))
             }
-            .padding(.vertical, 6)
-            .padding(.horizontal, 4)
-            .background(
-                RoundedRectangle(cornerRadius: 26)
-                    .fill(Color(.systemBackground).opacity(0.9))
-            )
+            .padding(.all, 10)
+            .background(Color(.systemBackground))
+            .clipShape(Circle())
         }
+        .font(.title3)
         .foregroundStyle(Color.primary)
-    }
-
-    @ViewBuilder
-    func BottomFloatingToolBar(viewModel: IndoorMapViewModel) -> some View {
-        if !isLevelPickerExpanded {
-            VStack(spacing: 16) {
-                Button {
-                    withAnimation {
-                        isLevelPickerExpanded.toggle()
-                    }
-                } label: {
-                    Text(viewModel.currentLevelName)
-                        .font(.system(size: 19, weight: .medium))
-                }
-                .padding(.all, 10)
-                .background(Color(.systemBackground))
-                .clipShape(Circle())
-
-                Button {} label: {
-                    Image(systemName: "location")
-                        .font(.system(size: 19, weight: .medium))
-                }
-                .padding(.all, 10)
-                .background(Color(.systemBackground))
-                .clipShape(Circle())
-            }
-            .font(.title3)
-            .foregroundStyle(Color.primary)
-            .offset(y: showTeamInfo ? -(sheetHeight - 50) : -10)
-            .animation(.interpolatingSpring(duration: animationDuration, bounce: 0, initialVelocity: 0), value: sheetHeight)
-        }
+        .offset(y: showTeamInfo ? -(sheetHeight - 50) : -10)
+        .animation(.interpolatingSpring(duration: animationDuration, bounce: 0, initialVelocity: 0), value: sheetHeight)
     }
 }
 
