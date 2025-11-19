@@ -301,6 +301,7 @@ struct IndoorMapView: View {
                 minimumDistance: 5,
                 maximumDistance: 350
             ),
+            interactionModes: [.zoom, .pan, .rotate],
             selection: $selection, scope: mapScope)
         {
             // 사용자 위치
