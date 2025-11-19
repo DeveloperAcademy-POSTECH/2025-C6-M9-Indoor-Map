@@ -321,7 +321,7 @@ struct IndoorMapView: View {
                     .tag(marker.id)
             }
         }
-        .mapStyle(.standard)
+        .mapStyle(.standard(pointsOfInterest: .excludingAll))
         .mapControlVisibility(.hidden)
     }
 
