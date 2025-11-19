@@ -131,13 +131,6 @@ class IMDFStore {
                             markers.append(markerData)
                         }
                     }
-
-//                    // Unit 기반 카테고리 필터링
-//                    if category.unitCategories.contains(unit.properties.category) {
-//                        if let markerData = createMarkerDataFromUnit(unit, category: category) {
-//                            markers.append(markerData)
-//                        }
-//                    }
                 } else {
                     // 모든 amenities와 occupants 표시 (phone 제외)
                     for amenity in amenities {
@@ -146,15 +139,8 @@ class IMDFStore {
                            let markerData = createMarkerData(from: amenity, category: amenityCategory)
                         {
                             markers.append(markerData)
-                            print(markerData)
                         }
                     }
-
-//                    for occupant in occupants {
-//                        if let markerData = createMarkerData(from: occupant, category: nil) {
-//                            markers.append(markerData)
-//                        }
-//                    }
                 }
             }
 
@@ -250,7 +236,7 @@ class IMDFStore {
         guard amenity.coordinate.latitude != 0, amenity.coordinate.longitude != 0 else {
             return nil
         }
-        
+
         return MapMarkerData(
             coordinate: amenity.coordinate,
             title: amenity.title!,

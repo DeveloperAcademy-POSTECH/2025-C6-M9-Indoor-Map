@@ -48,7 +48,6 @@ class SearchViewModel {
             // 이름검색
             if let name = amenity.properties.name?.bestLocalizedValue,
                name.lowercased().contains(searchLowercased) {
-                print("name\n", name)
                 return true
             }
             return false
