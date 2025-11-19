@@ -111,7 +111,8 @@ struct BoothDetailView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: layout.logoSize, height: layout.logoSize)
-                .clipShape(RoundedRectangle(cornerRadius: layout.logoCornerRadius))
+                .logoStrokeBorder(cornerRadius: layout.logoCornerRadius)
+                
 
             VStack(alignment: .leading, spacing: 12) {
                 VStack(alignment: .leading, spacing: 4) {
@@ -229,7 +230,7 @@ struct AppDownloadCardView: View {
             Image(boothNumber)
                 .resizable()
                 .frame(width: 60, height: 60)
-                .clipShape(RoundedRectangle(cornerRadius: 18))
+                .logoStrokeBorder(cornerRadius: 18)
             Text(appName)
             Spacer()
             Button {

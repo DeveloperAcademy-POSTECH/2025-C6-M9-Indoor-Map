@@ -55,6 +55,6 @@ struct TeamInfo: Identifiable, Hashable, Codable {
 
 extension TeamInfo {
     var categoryLine: String {
-        "#\(category.displayName) \(category)"
+        "#\(category.displayName)"
     }
 }

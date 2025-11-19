@@ -269,14 +269,3 @@ struct SheetIconButton: View {
     return IndoorMapView(selectedCategory: .constant(nil), selectedBooth: .constant(nil))
         .environment(store)
 }
-
-//
-// let bounds = MapCameraBounds(
-//    centerCoordinateBounds: MKCoordinateRegion(
-//        center: centerCoordinate,
-//        latitudinalMeters: 500,
-//        longitudinalMeters: 500
-//    ),
-//    minimumDistance: 5,
-//    maximumDistance: 1000
-// )
