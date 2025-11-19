@@ -41,8 +41,8 @@ struct IntegrateMarker: Identifiable {
         switch type {
         case .booth:
             return .teal
-        case .amenity:
-            return .blue
+        case .amenity(let data):
+            return Color(data.category.colorName)
         }
     }
 

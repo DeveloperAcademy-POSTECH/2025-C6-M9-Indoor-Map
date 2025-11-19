@@ -21,7 +21,7 @@ enum POICategory: String, CaseIterable, Identifiable {
     var iconName: String {
         switch self {
         case .registration:
-            return "checkmark.circle.fill"
+            return "checkmark.circle"
         case .information:
             return "info.circle"
         case .restroom:
@@ -38,6 +38,29 @@ enum POICategory: String, CaseIterable, Identifiable {
             return "figure.stairs"
         case .photobooth:
             return "person.crop.square.badge.camera"
+        }
+    }
+
+    var colorName: String {
+        switch self {
+        case .registration:
+            return "registrationDesk"
+        case .information:
+            return "informationDesk"
+        case .restroom:
+            return "restroom"
+        case .breakArea:
+            return "breakArea"
+        case .dining:
+            return "diningArea"
+        case .coatRoom:
+            return "coatroom"
+        case .elevator:
+            return "transport"
+        case .stairs:
+            return "transport"
+        case .photobooth:
+            return "photobooth"
         }
     }
 
