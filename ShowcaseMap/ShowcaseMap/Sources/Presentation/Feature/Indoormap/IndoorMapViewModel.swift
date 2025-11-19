@@ -31,9 +31,10 @@ class IndoorMapViewModel {
     var selectedBooth: TeamInfo?
     var teamInfos: [TeamInfo] = []
     private var allTeamInfos: [TeamInfo] = []
+    var userLocation: CLLocationCoordinate2D?
 
     private let imdfStore: IMDFStore
-    private let locationManager = CLLocationManager()
+    private let locationService = IndoorMapLocationManager()
     private let teamRepository: TeamInfoRepository = MockTeamRepository()
 
     // 카메라 제한 설정
@@ -64,7 +65,11 @@ class IndoorMapViewModel {
 
     init(imdfStore: IMDFStore) {
         self.imdfStore = imdfStore
-        locationManager.requestWhenInUseAuthorization()
+        locationService.onLocationUpdate = { [weak self] coordinate in
+            self?.userLocation = coordinate
+        }
+        locationService.requestAuthorization()
+        locationService.startUpdating()
     }
 
     func loadIMDFData() {
@@ -157,6 +162,33 @@ class IndoorMapViewModel {
                 MapCamera(
                     centerCoordinate: coordinate,
                     distance: 175,
+                    heading: -23,
+                    pitch: 0
+                )
+            )
+        }
+    }
+
+    func moveCameraToUserLocation() {
+        switch locationService.authorizationStatus {
+        case .authorizedAlways, .authorizedWhenInUse:
+            locationService.startUpdating()
+        case .notDetermined:
+            locationService.requestAuthorization()
+        default:
+            break
+        }
+
+        guard let coordinate = userLocation ?? locationService.lastKnownLocation else {
+            locationService.requestSingleLocation()
+            return
+        }
+
+        withAnimation(.easeInOut(duration: 0.3)) {
+            mapCameraPosition = .camera(
+                MapCamera(
+                    centerCoordinate: coordinate,
+                    distance: 100,
                     heading: -23,
                     pitch: 0
                 )

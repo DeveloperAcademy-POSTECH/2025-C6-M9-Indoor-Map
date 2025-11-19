@@ -182,7 +182,9 @@ struct IndoorMapView: View {
             .applyGlassEffect() //CategoryFilterView 안에 extension으로 선언됨
             .clipShape(Circle())
 
-            Button {} label: {
+            Button {
+                viewModel.moveCameraToUserLocation()
+            } label: {
                 Image(systemName: "location")
                     .font(.system(size: 19, weight: .medium))
             }
