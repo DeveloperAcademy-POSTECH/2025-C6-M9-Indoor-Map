@@ -300,6 +300,7 @@ struct TeamIntroductionView: View {
     NavigationStack {
         BoothDetailView(
             teamInfo: TeamInfo(
+                levelId: 4,
                 boothNumber: "1",
                 name: "샘플 팀",
                 appName: "샘플앱",
@@ -308,7 +309,7 @@ struct TeamIntroductionView: View {
                 category: .productivity,
                 downloadUrl: URL(string: "https://example.com")!,
                 teamUrl: URL(string: "https://example.com")!,
-                displayPoint: []
+                displayPoint: [],
             ),
             tabSelection: .constant(.booth),
             selectedBoothForMap: .constant(nil)

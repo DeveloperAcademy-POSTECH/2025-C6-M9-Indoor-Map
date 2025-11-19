@@ -1,6 +1,7 @@
 [
   {
     "id": "c4352b6c-9db5-497a-a2da-7398440f8e4d",
+    "levelId": 4,
     "boothNumber": "1",
     "name": "Hippo",
     "appName": "Hippo",
@@ -41,6 +42,7 @@
   },
   {
     "id": "36e87346-ad49-4249-ba98-ec74a87300df",
+    "levelId": 4,
     "boothNumber": "2",
     "name": "Scenergy",
     "appName": "Scenergy",
@@ -81,6 +83,7 @@
   },
   {
     "id": "989f4d9b-d127-46e9-8b88-098d2e6b7abe",
+    "levelId": 4,
     "boothNumber": "3",
     "name": "Glayer",
     "appName": "Glayer",
@@ -121,6 +124,7 @@
   },
   {
     "id": "079818a1-dc42-476b-8067-7d67fc76f029",
+    "levelId": 4,
     "boothNumber": "4",
     "name": "Re:chain",
     "appName": "Re:chain",
@@ -157,6 +161,7 @@
   },
   {
     "id": "102ccd91-cb22-46f3-9ecb-fa88aefa07a4",
+    "levelId": 4,
     "boothNumber": "5",
     "name": "타닥 TaDak",
     "appName": "타닥 TaDak",
@@ -197,6 +202,7 @@
   },
   {
     "id": "e0a5e5ef-980b-4b52-a8b8-a7054dac6250",
+    "levelId": 4,
     "boothNumber": "6",
     "name": "버스온다",
     "appName": "버스온다",
@@ -237,6 +243,7 @@
   },
   {
     "id": "b7d22f2e-7191-44c2-bc5a-a8f62aee6a83",
+    "levelId": 4,
     "boothNumber": "7",
     "name": "찍자 ZZikZZa",
     "appName": "찍자 ZZikZZa",
@@ -277,6 +284,7 @@
   },
   {
     "id": "e93214b2-ba91-4583-aab2-1315d0b72844",
+    "levelId": 4,
     "boothNumber": "8",
     "name": "Bracket",
     "appName": "Bracket",
@@ -317,6 +325,7 @@
   },
   {
     "id": "10c1c2cc-588f-4c74-b520-f621a1f94d92",
+    "levelId": 4,
     "boothNumber": "9",
     "name": "수사24",
     "appName": "수사24",
@@ -357,6 +366,7 @@
   },
   {
     "id": "febb48a3-64e5-4f7e-abe3-4fadab55049d",
+    "levelId": 4,
     "boothNumber": "10",
     "name": "kip!",
     "appName": "kip!",
@@ -397,6 +407,7 @@
   },
   {
     "id": "0dc28198-24ec-41ba-8ee8-2d2ecd75fc76",
+    "levelId": 4,
     "boothNumber": "11",
     "name": "부메랑",
     "appName": "부메랑",
@@ -437,6 +448,7 @@
   },
   {
     "id": "a7c312b4-3049-4677-8838-53e023851a2c",
+    "levelId": 4,
     "boothNumber": "12",
     "name": "바이브 VYBE",
     "appName": "바이브 VYBE",
@@ -477,6 +489,7 @@
   },
   {
     "id": "715f229b-8944-45b2-87d8-ef42f5044150",
+    "levelId": 4,
     "boothNumber": "13",
     "name": "리드잇",
     "appName": "리드잇",
@@ -517,6 +530,7 @@
   },
   {
     "id": "e3d78d11-04e7-493a-bfb1-358d216bab10",
+    "levelId": 4,
     "boothNumber": "14",
     "name": "Audiolog",
     "appName": "Audiolog",
@@ -557,6 +571,7 @@
   },
   {
     "id": "77caf1c1-4616-42f3-86a0-e4c3dd966c81",
+    "levelId": 4,
     "boothNumber": "15",
     "name": "보소 BOSO",
     "appName": "보소 BOSO",
@@ -597,6 +612,7 @@
   },
   {
     "id": "23bef1ef-6b4b-4ddb-be7a-99f9fbfc466d",
+    "levelId": 4,
     "boothNumber": "16",
     "name": "Anggle",
     "appName": "Anggle",
@@ -637,6 +653,7 @@
   },
   {
     "id": "ae5b8563-11f3-4b01-a2e7-8bb656fc5f27",
+    "levelId": 4,
     "boothNumber": "17",
     "name": "탭탭 TapTap",
     "appName": "탭탭 TapTap",
@@ -677,6 +694,7 @@
   },
   {
     "id": "bc0bfc3a-ccb0-491a-b5b9-edfa6c4beb0e",
+    "levelId": 4,
     "boothNumber": "18",
     "name": "WoA",
     "appName": "WoA",
@@ -717,6 +735,7 @@
   },
   {
     "id": "ed9c0934-57e5-400e-9426-5bb474425e90",
+    "levelId": 4,
     "boothNumber": "19",
     "name": "Stash",
     "appName": "Stash",
@@ -749,6 +768,7 @@
   },
   {
     "id": "ee61bd8f-595e-405b-88a1-e1360cf62002",
+    "levelId": 4,
     "boothNumber": "20",
     "name": "스틸워크",
     "appName": "스틸워크",
@@ -789,6 +809,7 @@
   },
   {
     "id": "2086cc56-7ac4-40d4-8d84-8709563d2d34",
+    "levelId": 4,
     "boothNumber": "21",
     "name": "키치 Keychy",
     "appName": "키치 Keychy",
@@ -829,6 +850,7 @@
   },
   {
     "id": "0b73e0a2-1029-4e1c-bdd6-0ecaa4bd42df",
+    "levelId": 4,
     "boothNumber": "22",
     "name": "뱉어 BeTTrr",
     "appName": "뱉어 BeTTrr",
@@ -867,9 +889,9 @@
       36.014493
     ]
   },
-  
   {
     "id": "18657b88-d72e-47fb-9f88-5758ef47e42c",
+    "levelId": 4,
     "boothNumber": "23",
     "name": "AINO",
     "appName": "AINO",
@@ -910,6 +932,7 @@
   },
   {
     "id": "0ea3bd45-0829-4772-a71e-a3741078878d",
+    "levelId": 4,
     "boothNumber": "24",
     "name": "BabeMoA",
     "appName": "BabeMoA",
@@ -946,6 +969,7 @@
   },
   {
     "id": "3056b853-7f86-4563-9ae6-6ff417869cfd",
+    "levelId": 4,
     "boothNumber": "25",
     "name": "이고약",
     "appName": "이고약",
@@ -986,6 +1010,7 @@
   },
   {
     "id": "c9fd7b5b-a86c-439a-8a16-7a7320912dae",
+    "levelId": 4,
     "boothNumber": "26",
     "name": "디렉트 DirAct",
     "appName": "디렉트 DirAct",
@@ -1026,6 +1051,7 @@
   },
   {
     "id": "e46daecd-94ed-4ff0-a562-dbb1eeddee55",
+    "levelId": 4,
     "boothNumber": "27",
     "name": "FindU",
     "appName": "FindU",
@@ -1066,6 +1092,7 @@
   },
   {
     "id": "490c5809-4dcf-4062-8d82-11100a13ff56",
+    "levelId": 4,
     "boothNumber": "28",
     "name": "어디로드",
     "appName": "어디로드",
@@ -1106,6 +1133,7 @@
   },
   {
     "id": "f6cb89bb-3ee8-4f35-b310-a53bb200817b",
+    "levelId": 4,
     "boothNumber": "29",
     "name": "픽픽 PicPeek",
     "appName": "픽픽 PicPeek",
@@ -1146,6 +1174,7 @@
   },
   {
     "id": "f085629d-1993-4722-8dc3-8ef76143c8f5",
+    "levelId": 4,
     "boothNumber": "30",
     "name": "Re:Chord",
     "appName": "Re:Chord",

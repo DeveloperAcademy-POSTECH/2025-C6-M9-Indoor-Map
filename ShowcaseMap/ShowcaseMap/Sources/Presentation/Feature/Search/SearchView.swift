@@ -13,6 +13,7 @@ struct SearchView: View {
 
     @State private var viewModel = SearchViewModel()
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(IMDFStore.self) private var imdfStore
     var onCategorySelected: ((POICategory?) -> Void)?
 
     var body: some View {
@@ -27,27 +28,63 @@ struct SearchView: View {
                             .foregroundStyle(Color.primary)
 
                         VStack(alignment: .leading, spacing: layout.ListSpacing) {
-                            ForEach(viewModel.filteredAmenities) { category in
-                                Button {
-                                    onCategorySelected?(category.toPOICategory)
-                                } label: {
-                                    HStack(alignment: .center, spacing: 10) {
-                                        Image(systemName: category.symbolName)
-                                            .font(.system(.title2))
-                                            .foregroundStyle(category.foregroundColor)
-                                            .frame(width: 48, height: 48)
-                                            .background(category.backgroundColor)
-                                            .clipShape(Circle())
+                            // 검색어가 없으면 카테고리 목록, 있으면 amenity 검색 결과
+                            if viewModel.searchText.isEmpty {
+                                // 기존 카테고리 목록
+                                ForEach(AmenityCategory.allCases) { category in
+                                    Button {
+                                        onCategorySelected?(category.toPOICategory)
+                                    } label: {
+                                        HStack(alignment: .center, spacing: 10) {
+                                            Image(systemName: category.symbolName)
+                                                .font(.system(.title2))
+                                                .foregroundStyle(category.foregroundColor)
+                                                .frame(width: 48, height: 48)
+                                                .background(category.backgroundColor)
+                                                .clipShape(Circle())
 
-                                        Text(category.displayName)
-                                            .font(.body)
-                                            .foregroundStyle(Color.primary)
+                                            Text(category.displayName)
+                                                .font(.body)
+                                                .foregroundStyle(Color.primary)
 
-                                        Spacer() // 버튼영역 넓히기 위함
+                                            Spacer()
+                                        }
+                                        .contentShape(Rectangle())
                                     }
-                                    .contentShape(Rectangle())
+                                    .buttonStyle(.plain)
                                 }
-                                .buttonStyle(.plain)
+                            } else {
+                                // Amenity 검색 결과
+                                ForEach(viewModel.filteredAmenities, id: \.identifier) { amenity in
+                                    if let poiCategory = POICategory.from(amenityCategory: amenity.properties.category) {
+                                        Button {
+                                            onCategorySelected?(poiCategory)
+                                        } label: {
+                                            HStack(alignment: .center, spacing: 10) {
+                                                Image(systemName: poiCategory.iconName)
+                                                    .font(.system(.title2))
+                                                    .foregroundStyle(Color.teal)
+                                                    .frame(width: 48, height: 48)
+                                                    .background(Color.teal.opacity(0.1))
+                                                    .clipShape(Circle())
+
+                                                VStack(alignment: .leading, spacing: 4) {
+                                                    Text(amenity.properties.name?.bestLocalizedValue ?? amenity.title ?? "편의시설")
+                                                        .font(.body)
+                                                        .foregroundStyle(Color.primary)
+
+                                                    Text(poiCategory.rawValue)
+                                                        .font(.caption)
+                                                        .foregroundStyle(Color.secondary)
+                                                }
+
+                                                Spacer() // 버튼영역 넓히기 위함
+                                            }
+                                            .contentShape(Rectangle())
+                                        }
+                                        .buttonStyle(.plain)
+                                    }
+                                }
                             }
                         }
                     }
@@ -88,6 +125,12 @@ struct SearchView: View {
             .navigationBarTitleDisplayMode(.automatic)
             .task {
                 await viewModel.fetchTeamInfo()
+            }
+            .onAppear {
+                viewModel.currentLevelAmenities = imdfStore.amenities
+            }
+            .onChange(of: imdfStore.amenities) { _, newAmenities in
+                viewModel.currentLevelAmenities = newAmenities
             }
         }
         .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always))
@@ -141,7 +184,6 @@ struct SearchView: View {
         .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 }
-
 
 #Preview {
     NavigationStack {
