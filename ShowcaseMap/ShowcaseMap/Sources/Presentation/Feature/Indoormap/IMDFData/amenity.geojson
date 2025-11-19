@@ -806,7 +806,7 @@
         "accessibility": null,
         "name": {
           "en": "DiningArea",
-          "ko": "취식공간"
+          "ko": "취식공간1"
         },
         "alt_name": null,
         "hours": null,
@@ -862,7 +862,7 @@
         "accessibility": null,
         "name": {
           "en": "RegistrationDesk",
-          "ko": "등록데스크"
+          "ko": "등록데스크1"
         },
         "alt_name": null,
         "hours": null,
@@ -890,7 +890,7 @@
         "accessibility": null,
         "name": {
           "en": "RegistrationDesk",
-          "ko": "등록데스크"
+          "ko": "등록데스크2"
         },
         "alt_name": null,
         "hours": null,
@@ -918,7 +918,7 @@
         "accessibility": null,
         "name": {
           "en": "DiningArea",
-          "ko": "취식공간"
+          "ko": "취식공간2"
         },
         "alt_name": null,
         "hours": null,
@@ -946,7 +946,7 @@
         "accessibility": null,
         "name": {
           "en": "DiningArea",
-          "ko": "취식공간"
+          "ko": "취식공간3"
         },
         "alt_name": null,
         "hours": null,
@@ -974,7 +974,7 @@
         "accessibility": null,
         "name": {
           "en": "BreakArea",
-          "ko": "휴식공간"
+          "ko": "휴식공간1"
           
         },
         "alt_name": null,
@@ -1062,7 +1062,7 @@
         "accessibility": null,
         "name": {
           "en": "BreakArea",
-          "ko": "휴식공간"
+          "ko": "휴식공간2"
           
         },
         "alt_name": null,
