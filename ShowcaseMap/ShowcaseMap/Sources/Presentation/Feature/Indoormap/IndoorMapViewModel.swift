@@ -25,6 +25,9 @@ class IndoorMapViewModel {
     var selectedCategory: POICategory? {
         didSet {
             updateMapData()
+            if selectedCategory != nil {
+                handleCategorySelection()
+            }
         }
     }
 
@@ -189,6 +192,46 @@ class IndoorMapViewModel {
                 MapCamera(
                     centerCoordinate: coordinate,
                     distance: 100,
+                    heading: -23,
+                    pitch: 0
+                )
+            )
+        }
+    }
+
+    /// 카테고리 선택 시 해당 시설물로 이동로직
+    func handleCategorySelection() {
+        guard let category = selectedCategory else { return }
+
+        // 1차적으로 현재층에서 찾기
+        let currentOrdinal = levels[selectedLevelIndex].properties.ordinal
+        if let coordinate = findFirstAmenity(for: category, in: currentOrdinal) {
+            moveCameraToAmenity(coordinate: coordinate)
+            return
+        }
+
+        // 2차로 다른층에서 찾기
+        for (index, level) in levels.enumerated() {
+            let ordinal = level.properties.ordinal
+            if let coordinate = findFirstAmenity(for: category, in: ordinal) {
+                selectedLevelIndex = index
+                moveCameraToAmenity(coordinate: coordinate)
+                return
+            }
+        }
+    }
+
+    private func findFirstAmenity(for category: POICategory, in ordinal: Int) -> CLLocationCoordinate2D? {
+        let data = imdfStore.getMapData(for: ordinal, category: category)
+        return data.markers.first?.coordinate
+    }
+
+    func moveCameraToAmenity(coordinate: CLLocationCoordinate2D) {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            mapCameraPosition = .camera(
+                MapCamera(
+                    centerCoordinate: coordinate,
+                    distance: 250,
                     heading: -23,
                     pitch: 0
                 )
