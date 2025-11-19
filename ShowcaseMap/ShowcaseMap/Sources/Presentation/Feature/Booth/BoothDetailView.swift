@@ -112,7 +112,6 @@ struct BoothDetailView: View {
                 .scaledToFit()
                 .frame(width: layout.logoSize, height: layout.logoSize)
                 .logoStrokeBorder(cornerRadius: layout.logoCornerRadius)
-                
 
             VStack(alignment: .leading, spacing: 12) {
                 VStack(alignment: .leading, spacing: 4) {
@@ -136,7 +135,6 @@ struct BoothDetailView: View {
                         .font(.subheadline)
                         .foregroundStyle(Color(.tertiaryLabel))
                 }
-                Spacer()
 
                 Button {
                     print(teamInfo.members)
@@ -288,12 +286,14 @@ struct TeamIntroductionView: View {
                     .font(isIpad ? .body : .subheadline)
                     .listRowBackground(Color(.quaternarySystemFill))
             }
-            .scaledToFit()
+            .frame(height: CGFloat(members.count * 50 + 60))
             .listStyle(.insetGrouped)
+            .scrollDisabled(true)
             .padding(.all, -16) // insetgrouped가 padding내장
             .scrollContentBackground(.hidden)
         }
         .padding(.top, 16)
+        .padding(.bottom, 24)
     }
 }
 

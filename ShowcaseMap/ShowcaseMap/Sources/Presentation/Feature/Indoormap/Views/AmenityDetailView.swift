@@ -10,15 +10,19 @@ import SwiftUI
 
 struct AmenityDetailView: View {
     let amenityData: MapMarkerData
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
         VStack(spacing: 16) {
             // 닫기 버튼
+
             HStack {
                 Spacer()
-                SheetIconButton(systemName: "xmark") {
-                    dismiss()
+                if horizontalSizeClass == .compact {
+                    SheetIconButton(systemName: "xmark") {
+                        dismiss()
+                    }
                 }
             }
 
