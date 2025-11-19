@@ -22,14 +22,15 @@ struct AmenityDetailView: View {
                 }
             }
 
-            VStack(spacing: 12) {
+            VStack(spacing: 2) {
                 Text(amenityData.title)
-                    .font(.title2)
-                    .fontWeight(.semibold)
+                    .font(.title)
+                    .foregroundStyle(Color.primary)
+                    .bold()
 
-                Text(amenityData.category.rawValue)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                Text("편의시설")
+                    .font(.callout)
+                    .foregroundStyle(Color.secondary)
             }
 
             Spacer()
