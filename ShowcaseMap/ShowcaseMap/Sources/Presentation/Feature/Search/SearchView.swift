@@ -11,6 +11,7 @@ struct SearchView: View {
     @Binding var tabSelection: TabIdentifier
     @Binding var selectedBoothForMap: TeamInfo?
     @Binding var selectedAmenityForMap: Amenity?
+    @Binding var selectedFloorOrdinal: Int?
 
     @State private var viewModel = SearchViewModel()
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -60,6 +61,7 @@ struct SearchView: View {
                                     if let poiCategory = POICategory.from(amenityCategory: amenity.properties.category) {
                                         Button {
                                             selectedAmenityForMap = amenity
+                                            selectedFloorOrdinal = findFloorOrdinal(for: amenity)
                                             tabSelection = .map
                                         } label: {
                                             HStack(alignment: .center, spacing: 10) {
@@ -147,6 +149,7 @@ struct SearchView: View {
         ) { teamInfo in
             Button {
                 selectedBoothForMap = teamInfo
+                selectedFloorOrdinal = teamInfo.levelId
                 tabSelection = .map
             } label: {
                 BoothItemView(
@@ -166,6 +169,7 @@ struct SearchView: View {
             ForEach(viewModel.filteredTeamInfo) { teamInfo in
                 Button {
                     selectedBoothForMap = teamInfo
+                    selectedFloorOrdinal = teamInfo.levelId
                     tabSelection = .map
                 } label: {
                     BoothItemView(
@@ -193,6 +197,7 @@ struct SearchView: View {
             tabSelection: .constant(.search),
             selectedBoothForMap: .constant(nil),
             selectedAmenityForMap: .constant(nil),
+            selectedFloorOrdinal: .constant(nil),
             onCategorySelected: nil
         )
     }
@@ -201,6 +206,18 @@ struct SearchView: View {
 extension SearchView {
     private var layout: DeviceLayout {
         DeviceLayout(isIPad: horizontalSizeClass == .regular)
+    }
+
+    /// Amenity가 속한 층 찾기
+    private func findFloorOrdinal(for amenity: Amenity) -> Int? {
+        for level in imdfStore.levels {
+            for unit in level.units {
+                if unit.amenities.contains(where: { $0.identifier == amenity.identifier }) {
+                    return level.properties.ordinal
+                }
+            }
+        }
+        return nil
     }
 }
 

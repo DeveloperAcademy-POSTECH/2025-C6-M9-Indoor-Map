@@ -16,6 +16,7 @@ struct IndoorMapView: View {
     @Binding var selectedCategory: POICategory?
     @Binding var selectedBooth: TeamInfo?
     @Binding var selectedAmenity: Amenity?
+    @Binding var selectedFloorOrdinal: Int?
 
     @State private var showMarkerDetail: Bool = false
     @State private var sheetDetent: PresentationDetent = .height(350)
@@ -44,6 +45,13 @@ struct IndoorMapView: View {
             if viewModel == nil {
                 viewModel = IndoorMapViewModel(imdfStore: imdfStore)
                 viewModel?.loadIMDFData()
+            }
+        }
+        .onChange(of: selectedFloorOrdinal) { _, newOrdinal in
+            if let ordinal = newOrdinal,
+               let levelIndex = viewModel?.levels.firstIndex(where: { $0.properties.ordinal == ordinal }) {
+                viewModel?.selectedLevelIndex = levelIndex
+                selectedFloorOrdinal = nil
             }
         }
         .onChange(of: selectedBooth) { _, newValue in
@@ -98,7 +106,7 @@ struct IndoorMapView: View {
                 // Polygons (Unit, Level 등)
                 ForEach(viewModel.mapPolygons) { polygon in
                     MapPolygon(coordinates: polygon.coordinates)
-                        .foregroundStyle(polygon.fillColor ?? Color.clear)
+                        .foregroundStyle(polygon.fillColor)
                         .stroke(polygon.strokeColor, lineWidth: polygon.lineWidth)
                 }
 
@@ -274,7 +282,8 @@ struct SheetIconButton: View {
     return IndoorMapView(
         selectedCategory: .constant(nil),
         selectedBooth: .constant(nil),
-        selectedAmenity: .constant(nil)
+        selectedAmenity: .constant(nil),
+        selectedFloorOrdinal: .constant(nil)
     )
     .environment(store)
 }
