@@ -93,7 +93,7 @@ struct IndoorMapView: View {
                 // Polygons (Unit, Level 등)
                 ForEach(viewModel.mapPolygons) { polygon in
                     MapPolygon(coordinates: polygon.coordinates)
-                        .foregroundStyle(polygon.fillColor)
+                        .foregroundStyle(polygon.fillColor ?? Color.clear)
                         .stroke(polygon.strokeColor, lineWidth: polygon.lineWidth)
                 }
 

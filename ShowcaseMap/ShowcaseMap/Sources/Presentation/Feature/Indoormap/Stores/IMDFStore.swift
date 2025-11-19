@@ -175,9 +175,9 @@ class IMDFStore {
                 }
                 polygons.append(MapPolygonData(
                     coordinates: coordinates,
-                    fillColor: Color.gray.opacity(0.2),
-                    strokeColor: Color.gray,
-                    lineWidth: 0.3
+                    fillColor: Color.deskFill,
+                    strokeColor: Color.deskFill,
+                    lineWidth: 0.01
                 ))
             }
         }
@@ -193,24 +193,32 @@ class IMDFStore {
 
         if let unit = feature as? Unit {
             switch unit.properties.category {
-            case "elevator", "escalator", "stairs":
+            case "unspecified":
+                fillColor = Color(uiColor: UIColor(named: "NonPublicFill") ?? .orange)
+                strokeColor = Color(uiColor: UIColor(named: "UnitStroke") ?? .gray)
+                lineWidth = 1.3
+            case "elevator", "stairs":
                 fillColor = Color(uiColor: UIColor(named: "ElevatorFill") ?? .gray)
                 strokeColor = Color(uiColor: UIColor(named: "UnitStroke") ?? .gray)
                 lineWidth = 1.3
             case "restroom", "restroom.male", "restroom.female", "restroom.unisex.wheelchair":
-                fillColor = Color(uiColor: UIColor(named: "RestroomFill") ?? .gray)
-                strokeColor = Color(uiColor: UIColor(named: "UnitStroke") ?? .gray)
-                lineWidth = 1.3
-            case "room":
                 fillColor = Color(uiColor: UIColor(named: "RoomFill") ?? .gray)
                 strokeColor = Color(uiColor: UIColor(named: "UnitStroke") ?? .gray)
                 lineWidth = 1.3
-            case "nonpublic":
-                fillColor = Color(uiColor: UIColor(named: "NonPublicFill") ?? .gray)
+            case "room", "auditorium", "conferenceroom", "phoneroom":
+                fillColor = Color(uiColor: UIColor(named: "RoomFill") ?? .gray)
                 strokeColor = Color(uiColor: UIColor(named: "UnitStroke") ?? .gray)
                 lineWidth = 1.3
             case "walkway":
                 fillColor = Color(uiColor: UIColor(named: "WalkwayFill") ?? .gray)
+                strokeColor = Color(uiColor: UIColor(named: "UnitStroke") ?? .gray)
+                lineWidth = 1.3
+            case "lounge", "lobby", "kitchen", "storage":
+                fillColor = Color(uiColor: UIColor(named: "LoungeFill") ?? .gray)
+                strokeColor = Color(uiColor: UIColor(named: "LoungeStroke") ?? .gray)
+                lineWidth = 1.3
+            case "structure":
+                fillColor = Color(uiColor: UIColor(named: "StructureFill") ?? .gray)
                 strokeColor = Color(uiColor: UIColor(named: "UnitStroke") ?? .gray)
                 lineWidth = 1.3
             default:

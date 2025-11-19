@@ -50,6 +50,9 @@ class IndoorMapViewModel {
         return imdfStore.levels
     }
 
+    var fixtures : [Fixture] {
+        return imdfStore.fixtures
+    }
     var currentLevelName: String {
         guard !levels.isEmpty, selectedLevelIndex < levels.count else {
             return ""
