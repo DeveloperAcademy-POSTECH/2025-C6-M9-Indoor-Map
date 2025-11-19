@@ -50,9 +50,10 @@ class IndoorMapViewModel {
         return imdfStore.levels
     }
 
-    var fixtures : [Fixture] {
+    var fixtures: [Fixture] {
         return imdfStore.fixtures
     }
+
     var currentLevelName: String {
         guard !levels.isEmpty, selectedLevelIndex < levels.count else {
             return ""
@@ -123,16 +124,18 @@ class IndoorMapViewModel {
             )
         })
 
-        // Booth추가
-        markers.append(contentsOf: teamInfos.map { teamInfo in
-            IntegrateMarker(
-                id: teamInfo.id,
-                type: .booth(teamInfo),
-                coordinate: teamInfo.displayPoint,
-                title: teamInfo.name
-            )
-        })
-        
+        // Booth추가 (카테고리에 포함되지않아서 체크하면 사라짐)
+        if selectedCategory == nil {
+            markers.append(contentsOf: teamInfos.map { teamInfo in
+                IntegrateMarker(
+                    id: teamInfo.id,
+                    type: .booth(teamInfo),
+                    coordinate: teamInfo.displayPoint,
+                    title: teamInfo.name
+                )
+            })
+        }
+
         // 추가
 
         integrateMarkers = markers
