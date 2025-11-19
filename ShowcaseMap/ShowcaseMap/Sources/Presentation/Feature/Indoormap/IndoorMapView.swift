@@ -178,7 +178,7 @@ struct IndoorMapView: View {
                 Text("\(viewModel.currentLevelName)층")
                     .font(.system(size: 19, weight: .medium))
             }
-            .padding(.all, 10)
+            .padding(.all, 13)
             .applyGlassEffect() //CategoryFilterView 안에 extension으로 선언됨
             .clipShape(Circle())
 
@@ -186,13 +186,13 @@ struct IndoorMapView: View {
                 Image(systemName: "location")
                     .font(.system(size: 19, weight: .medium))
             }
-            .padding(.all, 10)
+            .padding(.all, 13)
             .applyGlassEffect()
             .clipShape(Circle())
         }
         .font(.title3)
         .foregroundStyle(Color.primary)
-        .offset(y: showMarkerDetail ? -(sheetHeight - 30 /* 프리뷰에서는 겹쳐보일 수 있음 */ ) : -10)
+        .offset(y: showMarkerDetail ? -(sheetHeight - 30 /* 프리뷰에서는 겹쳐보일 수 있음 */ ) : -30)
         .animation(.interpolatingSpring(duration: animationDuration, bounce: 0, initialVelocity: 0), value: sheetHeight)
     }
 }
