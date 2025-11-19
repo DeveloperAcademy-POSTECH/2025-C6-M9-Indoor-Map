@@ -246,6 +246,7 @@ class IMDFStore {
         }
 
         return MapMarkerData(
+            id: amenity.identifier,
             coordinate: amenity.coordinate,
             title: amenity.title!,
             category: category
@@ -276,6 +277,7 @@ class IMDFStore {
         print(centroid)
 
         return MapMarkerData(
+            id: unit.identifier,
             coordinate: centroid,
             title: category.rawValue,
             category: category
@@ -327,7 +329,7 @@ struct MapPolygonData: Identifiable {
 }
 
 struct MapMarkerData: Identifiable {
-    let id = UUID()
+    let id: UUID
     let coordinate: CLLocationCoordinate2D
     let title: String
     let category: POICategory

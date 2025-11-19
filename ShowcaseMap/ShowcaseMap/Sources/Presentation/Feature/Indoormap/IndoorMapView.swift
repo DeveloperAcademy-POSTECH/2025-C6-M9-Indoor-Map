@@ -15,6 +15,7 @@ struct IndoorMapView: View {
     @State private var selection: UUID?
     @Binding var selectedCategory: POICategory?
     @Binding var selectedBooth: TeamInfo?
+    @Binding var selectedAmenity: Amenity?
 
     @State private var showMarkerDetail: Bool = false
     @State private var sheetDetent: PresentationDetent = .height(350)
@@ -44,11 +45,17 @@ struct IndoorMapView: View {
                 viewModel = IndoorMapViewModel(imdfStore: imdfStore)
                 viewModel?.loadIMDFData()
             }
-
-            // BoothDetailView에서 상태 전달 염두
-            if let booth = selectedBooth {
+        }
+        .onChange(of: selectedBooth) { _, newValue in
+            if let booth = newValue {
                 selection = booth.id
                 selectedBooth = nil
+            }
+        }
+        .onChange(of: selectedAmenity) { _, newValue in
+            if let amenity = newValue {
+                selection = amenity.identifier
+                selectedAmenity = nil
             }
         }
         .onChange(of: selectedCategory) { _, newValue in
@@ -65,10 +72,8 @@ struct IndoorMapView: View {
                     sheetDetent = .height(350)
                     showMarkerDetail = true
 
-                    // Booth 마커일 경우 카메라 이동
-                    if marker.isBooth {
-                        viewModel?.moveCameraToSelectedBooth(coordinate: marker.coordinate)
-                    }
+                    // 마커 선택 시 카메라 이동
+                    viewModel?.moveCameraToSelectedBooth(coordinate: marker.coordinate)
                 }
             } else {
                 selectedMarker = nil
@@ -101,7 +106,7 @@ struct IndoorMapView: View {
                 ForEach(viewModel.integrateMarkers) { marker in
                     Marker(marker.title, systemImage: marker.iconName, coordinate: marker.coordinate)
                         .tint(marker.tintColor)
-                    
+                        .tag(marker.id)
                 }
             }
             .mapStyle(.standard)
@@ -266,6 +271,10 @@ struct SheetIconButton: View {
     let store = IMDFStore()
     store.loadIMDFData()
 
-    return IndoorMapView(selectedCategory: .constant(nil), selectedBooth: .constant(nil))
-        .environment(store)
+    return IndoorMapView(
+        selectedCategory: .constant(nil),
+        selectedBooth: .constant(nil),
+        selectedAmenity: .constant(nil)
+    )
+    .environment(store)
 }

@@ -14,6 +14,7 @@ struct ContentView: View {
     @State private var tabSelection: TabIdentifier = .map
     @State private var selectedCategory: POICategory? = nil
     @State private var selectedBoothForMap: TeamInfo?
+    @State private var selectedAmenityForMap: Amenity?
 
     var body: some View {
         TabView(selection: $tabSelection) {
@@ -35,7 +36,8 @@ struct ContentView: View {
             ) {
                 IndoorMapView(
                     selectedCategory: $selectedCategory,
-                    selectedBooth: $selectedBoothForMap
+                    selectedBooth: $selectedBoothForMap,
+                    selectedAmenity: $selectedAmenityForMap
                 )
             }
 
@@ -48,6 +50,7 @@ struct ContentView: View {
                 SearchView(
                     tabSelection: $tabSelection,
                     selectedBoothForMap: $selectedBoothForMap,
+                    selectedAmenityForMap: $selectedAmenityForMap,
                     onCategorySelected: { category in
                         selectedCategory = category
                         tabSelection = .map

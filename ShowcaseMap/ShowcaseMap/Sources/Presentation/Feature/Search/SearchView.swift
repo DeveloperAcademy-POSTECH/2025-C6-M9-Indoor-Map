@@ -10,6 +10,7 @@ import SwiftUI
 struct SearchView: View {
     @Binding var tabSelection: TabIdentifier
     @Binding var selectedBoothForMap: TeamInfo?
+    @Binding var selectedAmenityForMap: Amenity?
 
     @State private var viewModel = SearchViewModel()
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -58,7 +59,8 @@ struct SearchView: View {
                                 ForEach(viewModel.filteredAmenities, id: \.identifier) { amenity in
                                     if let poiCategory = POICategory.from(amenityCategory: amenity.properties.category) {
                                         Button {
-                                            onCategorySelected?(poiCategory)
+                                            selectedAmenityForMap = amenity
+                                            tabSelection = .map
                                         } label: {
                                             HStack(alignment: .center, spacing: 10) {
                                                 Image(systemName: poiCategory.iconName)
@@ -190,6 +192,7 @@ struct SearchView: View {
         SearchView(
             tabSelection: .constant(.search),
             selectedBoothForMap: .constant(nil),
+            selectedAmenityForMap: .constant(nil),
             onCategorySelected: nil
         )
     }

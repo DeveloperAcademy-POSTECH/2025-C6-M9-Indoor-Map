@@ -42,6 +42,7 @@ struct AmenityDetailView: View {
 #Preview {
     AmenityDetailView(
         amenityData: MapMarkerData(
+            id: UUID(),
             coordinate: .init(latitude: 36.014267, longitude: 129.325778),
             title: "화장실",
             category: .restroom
