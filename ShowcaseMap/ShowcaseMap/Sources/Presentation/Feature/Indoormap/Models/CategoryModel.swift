@@ -41,6 +41,29 @@ enum POICategory: String, CaseIterable, Identifiable {
         }
     }
 
+    var colorName: String {
+        switch self {
+        case .registration:
+            return "registrationDesk"
+        case .information:
+            return "informationDesk"
+        case .restroom:
+            return "restroom"
+        case .breakArea:
+            return "breakArea"
+        case .dining:
+            return "diningArea"
+        case .coatRoom:
+            return "coatroom"
+        case .elevator:
+            return "transport"
+        case .stairs:
+            return "transport"
+        case .photobooth:
+            return "photobooth"
+        }
+    }
+
     // Amenity 카테고리와 매핑
     var amenityCategories: [String] {
         switch self {
