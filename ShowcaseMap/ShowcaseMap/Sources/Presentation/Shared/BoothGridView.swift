@@ -44,7 +44,7 @@ struct BoothItemView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: style.logoSize, height: style.logoSize)
-                .clipShape(RoundedRectangle(cornerRadius: style.logoRadius))
+                .logoStrokeBorder(cornerRadius: style.logoRadius)
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(teamInfo.appName)
