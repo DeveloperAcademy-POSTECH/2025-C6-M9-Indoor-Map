@@ -42,7 +42,7 @@ enum POICategory: String, CaseIterable, Identifiable {
     var amenityCategories: [String] {
         switch self {
         case .restroom:
-            return ["restroom","restroom.male", "restroom.female", "restroom.unisex.wheelchair"]
+            return ["restroom", "restroom.male", "restroom.female", "restroom.unisex.wheelchair"]
         case .elevator:
             return ["elevator"]
         case .stairs:
@@ -68,7 +68,7 @@ enum POICategory: String, CaseIterable, Identifiable {
         return !amenityCategories.isEmpty || !unitCategories.isEmpty
     }
 
-    // Helper method to get category from amenity category string
+    // Amenity -> POICategory
     static func from(amenityCategory: String) -> POICategory? {
         for category in POICategory.allCases {
             if category.amenityCategories.contains(amenityCategory) {
@@ -78,7 +78,7 @@ enum POICategory: String, CaseIterable, Identifiable {
         return nil
     }
 
-    // Helper method to get category from unit category string
+    // Unit -< POICategory
     static func from(unitCategory: String) -> POICategory? {
         for category in POICategory.allCases {
             if category.unitCategories.contains(unitCategory) {

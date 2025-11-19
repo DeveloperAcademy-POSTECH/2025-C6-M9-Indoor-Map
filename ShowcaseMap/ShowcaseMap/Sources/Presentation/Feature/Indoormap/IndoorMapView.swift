@@ -16,17 +16,17 @@ struct IndoorMapView: View {
     @Binding var selectedCategory: POICategory?
     @Binding var selectedBooth: TeamInfo?
 
-    @State private var showTeamInfo: Bool = false
+    @State private var showMarkerDetail: Bool = false
     @State private var sheetDetent: PresentationDetent = .height(350)
     @State private var sheetHeight: CGFloat = 0
     @State private var animationDuration: CGFloat = 0
-    @State private var selectedTeamInfo: TeamInfo?
+    @State private var selectedMarker: IntegrateMarker?
 
     @Environment(\.modelContext) private var modelContext
     @Query private var favoriteTeamInfos: [FavoriteTeamInfo]
 
     private var isFavorite: Bool {
-        guard let teamInfo = selectedTeamInfo else { return false }
+        guard let teamInfo = selectedMarker?.teamInfo else { return false }
         return favoriteTeamInfos.contains { $0.teamInfoId == teamInfo.id }
     }
 
@@ -59,18 +59,20 @@ struct IndoorMapView: View {
         }
         .onChange(of: selection) { _, newValue in
             if let selectedId = newValue {
-                selectedTeamInfo = viewModel?.selectBooth(withId: selectedId)
+                selectedMarker = viewModel?.selectMarker(withId: selectedId)
 
-                if let teamInfo = selectedTeamInfo {
+                if let marker = selectedMarker {
                     sheetDetent = .height(350)
-                    showTeamInfo = true
+                    showMarkerDetail = true
 
-                    // 탭한 마커 중심으로 카메라 이동
-                    viewModel?.moveCameraToSelectedBooth(coordinate: teamInfo.displayPoint)
+                    // Booth 마커일 경우 카메라 이동
+                    if marker.isBooth {
+                        viewModel?.moveCameraToSelectedBooth(coordinate: marker.coordinate)
+                    }
                 }
             } else {
-                selectedTeamInfo = nil
-                showTeamInfo = false
+                selectedMarker = nil
+                showMarkerDetail = false
             }
         }
     }
@@ -81,7 +83,7 @@ struct IndoorMapView: View {
             Map(position: .constant(viewModel.mapCameraPosition),
                 bounds: MapCameraBounds(
                     minimumDistance: 5,
-                    maximumDistance: 500
+                    maximumDistance: 350
                 ),
                 selection: $selection, scope: mapScope)
             {
@@ -95,31 +97,38 @@ struct IndoorMapView: View {
                         .stroke(polygon.strokeColor, lineWidth: polygon.lineWidth)
                 }
 
-                ForEach(viewModel.mapMarkers) { item in
-                    Marker(item.title, systemImage: item.category.iconName, coordinate: item.coordinate)
-                }
-
-                // 부스 마커
-                ForEach(viewModel.teamInfos) { teamInfo in
-                    Marker(teamInfo.name, coordinate: teamInfo.displayPoint)
-                        .tint(.teal)
-                        .tag(teamInfo.id)
+                // 통합 마커 (Booth + Amenity)
+                ForEach(viewModel.integrateMarkers) { marker in
+                    Marker(marker.title, systemImage: marker.iconName, coordinate: marker.coordinate)
+                        .tint(marker.tintColor)
+                    
                 }
             }
             .mapStyle(.standard)
             .mapControlVisibility(.hidden)
             .ignoresSafeArea()
-            .sheet(isPresented: $showTeamInfo) {
-                BottomSheetView(
-                    sheetDetent: $sheetDetent,
-                    selectedTeamInfo: selectedTeamInfo,
-                    isFavorite: isFavorite,
-                    modelContext: modelContext,
-                    favoriteTeamInfos: favoriteTeamInfos
-                )
-                .presentationDetents([.height(350), .large], selection: $sheetDetent)
+            .sheet(isPresented: $showMarkerDetail) {
+                Group {
+                    if let marker = selectedMarker {
+                        switch marker.type {
+
+                        case .booth(let teamInfo):
+                            BottomSheetView(
+                                sheetDetent: $sheetDetent,
+                                selectedTeamInfo: teamInfo,
+                                isFavorite: isFavorite,
+                                modelContext: modelContext,
+                                favoriteTeamInfos: favoriteTeamInfos
+                            )
+                            .presentationDetents([.height(350), .large], selection: $sheetDetent)
+
+                        case .amenity(let amenityData):
+                            AmenityDetailView(amenityData: amenityData)
+                                .presentationDetents([.height(350)])
+                        }
+                    }
+                }
                 .presentationBackgroundInteraction(.enabled)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .onGeometryChange(for: CGFloat.self) {
                     max(min($0.size.height, 350), 0)
                 } action: { oldValue, newValue in
@@ -128,8 +137,8 @@ struct IndoorMapView: View {
                     let diff = abs(newValue - oldValue)
                     let duration = max(min(diff / 100, 0.3), 0)
                     animationDuration = duration
-
-                }.ignoresSafeArea()
+                }
+                .ignoresSafeArea()
             }
             .overlay(alignment: .bottomLeading) {
                 BottomFloatingToolBar(viewModel: viewModel)
@@ -170,7 +179,7 @@ struct IndoorMapView: View {
         }
         .font(.title3)
         .foregroundStyle(Color.primary)
-        .offset(y: showTeamInfo ? -(sheetHeight - 30 /* 프리뷰에서는 겹쳐보일 수 있음 */ ) : -10)
+        .offset(y: showMarkerDetail ? -(sheetHeight - 30 /* 프리뷰에서는 겹쳐보일 수 있음 */ ) : -10)
         .animation(.interpolatingSpring(duration: animationDuration, bounce: 0, initialVelocity: 0), value: sheetHeight)
     }
 }

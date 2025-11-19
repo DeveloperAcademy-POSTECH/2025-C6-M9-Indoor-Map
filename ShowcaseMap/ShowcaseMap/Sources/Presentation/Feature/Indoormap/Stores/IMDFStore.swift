@@ -250,12 +250,11 @@ class IMDFStore {
         guard amenity.coordinate.latitude != 0, amenity.coordinate.longitude != 0 else {
             return nil
         }
-
+        
         return MapMarkerData(
             coordinate: amenity.coordinate,
-            title: amenity.title ?? "Amenity",
-            category: category,
-            annotation: amenity
+            title: amenity.title!,
+            category: category
         )
     }
 
@@ -285,8 +284,7 @@ class IMDFStore {
         return MapMarkerData(
             coordinate: centroid,
             title: category.rawValue,
-            category: category,
-            annotation: nil
+            category: category
         )
     }
 
@@ -339,5 +337,4 @@ struct MapMarkerData: Identifiable {
     let coordinate: CLLocationCoordinate2D
     let title: String
     let category: POICategory
-    let annotation: MKAnnotation?
 }
