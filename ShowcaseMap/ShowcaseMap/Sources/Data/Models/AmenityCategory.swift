@@ -36,7 +36,7 @@ enum AmenityCategory: String, CaseIterable, Identifiable, Codable {
     var symbolName: String {
         switch self {
         case .registrationDesk:
-            return "checkmark.circle"
+            return "person.text.rectangle"
         case .informationDesk:
             return "info.circle"
         case .restroom:
