@@ -17,6 +17,7 @@ class IMDFStore {
     var mapPolygons: [MapPolygonData] = []
     var mapMarkers: [MapMarkerData] = []
     var fixtures: [Fixture] = []
+    var amenities: [Amenity] = []
 
     private let imdfDecoder = IMDFDecoder()
 
@@ -46,8 +47,26 @@ class IMDFStore {
             }
 
             loadFixtures()
+            loadAllAmenities()
         } catch {
             print("load IMDF Error : \(error)")
+        }
+    }
+
+    private func loadAllAmenities() {
+        amenities = []
+
+        guard let venue = venue else { return }
+
+        for (_, levels) in venue.levelsByOrdinal {
+            for level in levels {
+                for unit in level.units {
+                    for amenity in unit.amenities {
+                        guard amenity.properties.category != "phone" else { continue }
+                        amenities.append(amenity)
+                    }
+                }
+            }
         }
     }
 
@@ -99,36 +118,26 @@ class IMDFStore {
 
                 // Amenities를 마커로 추가
                 let amenities = unit.amenities
-                let occupants = unit.occupants
+//                let occupants = unit.occupants
 
                 if let category = category {
-                    // 카테고리 필터링
+                    // 카테고리 필터링 (폰부스 제외)
                     let filteredAmenities = amenities.filter { amenity in
-                        category.amenityCategories.contains(amenity.properties.category)
+                        category.amenityCategories.contains(amenity.properties.category) &&
+                            amenity.properties.category != "phone"
                     }
                     for amenity in filteredAmenities {
                         if let markerData = createMarkerData(from: amenity, category: category) {
                             markers.append(markerData)
                         }
                     }
-
-                    // Unit 기반 카테고리 필터링
-                    if category.unitCategories.contains(unit.properties.category) {
-                        if let markerData = createMarkerDataFromUnit(unit, category: category) {
-                            markers.append(markerData)
-                        }
-                    }
                 } else {
-                    // 모든 amenities와 occupants 표시
+                    // 모든 amenities와 occupants 표시 (phone 제외)
                     for amenity in amenities {
-                        let amenityCategory = POICategory.from(amenityCategory: amenity.properties.category)
-                        if let markerData = createMarkerData(from: amenity, category: amenityCategory) {
-                            markers.append(markerData)
-                        }
-                    }
-
-                    for occupant in occupants {
-                        if let markerData = createMarkerData(from: occupant, category: nil) {
+                        guard amenity.properties.category != "phone" else { continue }
+                        if let amenityCategory = POICategory.from(amenityCategory: amenity.properties.category),
+                           let markerData = createMarkerData(from: amenity, category: amenityCategory)
+                        {
                             markers.append(markerData)
                         }
                     }
@@ -153,14 +162,17 @@ class IMDFStore {
         }
 
         // Fixtures를 polygon으로 변환
+        let currentLevelId = levels.first?.identifier.uuidString.lowercased()
+
         for fixture in fixtures {
+            guard fixture.levelId.lowercased() == currentLevelId else { continue }
+
             if let firstPolygon = fixture.geometry.coordinates.first,
                let firstRing = firstPolygon.first
             {
                 let coordinates = firstRing.map { point in
                     CLLocationCoordinate2D(latitude: point[1], longitude: point[0])
                 }
-
                 polygons.append(MapPolygonData(
                     coordinates: coordinates,
                     fillColor: Color.gray.opacity(0.2),
@@ -220,31 +232,30 @@ class IMDFStore {
         )
     }
 
-    private func createMarkerData(from amenity: Amenity, category: POICategory?) -> MapMarkerData? {
+    private func createMarkerData(from amenity: Amenity, category: POICategory) -> MapMarkerData? {
         guard amenity.coordinate.latitude != 0, amenity.coordinate.longitude != 0 else {
             return nil
         }
 
         return MapMarkerData(
             coordinate: amenity.coordinate,
-            title: amenity.title ?? "Amenity",
-            category: category,
-            annotation: amenity
+            title: amenity.title!,
+            category: category
         )
     }
 
-    private func createMarkerData(from occupant: Occupant, category: POICategory?) -> MapMarkerData? {
-        guard occupant.coordinate.latitude != 0, occupant.coordinate.longitude != 0 else {
-            return nil
-        }
-
-        return MapMarkerData(
-            coordinate: occupant.coordinate,
-            title: occupant.title ?? "Occupant",
-            category: category,
-            annotation: occupant
-        )
-    }
+//    private func createMarkerData(from occupant: Occupant, category: POICategory) -> MapMarkerData? {
+//        guard occupant.coordinate.latitude != 0, occupant.coordinate.longitude != 0 else {
+//            return nil
+//        }
+//
+//        return MapMarkerData(
+//            coordinate: occupant.coordinate,
+//            title: occupant.title ?? "Occupant",
+//            category: category,
+//            annotation: occupant
+//        )
+//    }
 
     private func createMarkerDataFromUnit(_ unit: Unit, category: POICategory) -> MapMarkerData? {
         // Unit의 중심점 계산
@@ -254,11 +265,12 @@ class IMDFStore {
 
         let centroid = calculateCentroid(of: polygon)
 
+        print(centroid)
+
         return MapMarkerData(
             coordinate: centroid,
             title: category.rawValue,
-            category: category,
-            annotation: nil
+            category: category
         )
     }
 
@@ -310,6 +322,5 @@ struct MapMarkerData: Identifiable {
     let id = UUID()
     let coordinate: CLLocationCoordinate2D
     let title: String
-    let category: POICategory?
-    let annotation: MKAnnotation?
+    let category: POICategory
 }

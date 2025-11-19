@@ -14,6 +14,7 @@ import SwiftUI
 class IndoorMapViewModel {
     var mapPolygons: [MapPolygonData] = []
     var mapMarkers: [MapMarkerData] = []
+    var integrateMarkers: [IntegrateMarker] = []
     var mapCameraPosition: MapCameraPosition = .automatic
     var selectedLevelIndex: Int = 0 {
         didSet {
@@ -29,6 +30,7 @@ class IndoorMapViewModel {
 
     var selectedBooth: TeamInfo?
     var teamInfos: [TeamInfo] = []
+    private var allTeamInfos: [TeamInfo] = []
 
     private let imdfStore: IMDFStore
     private let locationManager = CLLocationManager()
@@ -53,7 +55,7 @@ class IndoorMapViewModel {
             return ""
         }
         let level = levels[selectedLevelIndex]
-        return level.properties.shortName.bestLocalizedValue ?? "\(level.properties.ordinal)"
+        return level.properties.shortName.bestLocalizedValue ?? "\(level.properties.ordinal + 1)"
     }
 
     init(imdfStore: IMDFStore) {
@@ -64,7 +66,8 @@ class IndoorMapViewModel {
     func loadIMDFData() {
         Task {
             do {
-                teamInfos = try await teamRepository.fetchTeamInfo()
+                allTeamInfos = try await teamRepository.fetchTeamInfo()
+                updateMapData()
             } catch {
                 print("Failed to load team info: \(error)")
             }
@@ -88,8 +91,6 @@ class IndoorMapViewModel {
         } else if !levels.isEmpty {
             selectedLevelIndex = 0
         }
-
-        updateMapData()
     }
 
     private func updateMapData() {
@@ -103,11 +104,45 @@ class IndoorMapViewModel {
         let data = imdfStore.getMapData(for: ordinal, category: selectedCategory)
         mapPolygons = data.polygons
         mapMarkers = data.markers
+
+        teamInfos = allTeamInfos.filter { $0.levelId == ordinal }
+
+        // 부스를 포함한 시설물들 다포함한 마커 생성
+        var markers: [IntegrateMarker] = []
+
+        // Amenity추가
+        markers.append(contentsOf: data.markers.map { markerData in
+            IntegrateMarker(
+                id: markerData.id,
+                type: .amenity(markerData),
+                coordinate: markerData.coordinate,
+                title: markerData.title
+            )
+        })
+
+        // Booth추가
+        markers.append(contentsOf: teamInfos.map { teamInfo in
+            IntegrateMarker(
+                id: teamInfo.id,
+                type: .booth(teamInfo),
+                coordinate: teamInfo.displayPoint,
+                title: teamInfo.name
+            )
+        })
+        
+        // 추가
+
+        integrateMarkers = markers
     }
 
     // 지금은 TeamInfo만이지만 추후 확장 예정
     func selectBooth(withId id: UUID) -> TeamInfo? {
         return teamInfos.first { $0.id == id }
+    }
+
+    /// 통합 마커 선택
+    func selectMarker(withId id: UUID) -> IntegrateMarker? {
+        return integrateMarkers.first { $0.id == id }
     }
 
     func moveCameraToSelectedBooth(coordinate: CLLocationCoordinate2D) {

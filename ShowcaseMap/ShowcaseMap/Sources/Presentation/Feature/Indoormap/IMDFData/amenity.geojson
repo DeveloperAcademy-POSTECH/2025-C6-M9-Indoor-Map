@@ -10,7 +10,7 @@
         "accessibility": null,
         "name": {
           "en": "Stairwell 1",
-          "ko": "계단 1"
+          "ko": "5층 계단"
         },
         "alt_name": null,
         "hours": null,
@@ -35,7 +35,7 @@
       "id": "47e9c5a1-7b0f-4d2e-9c8d-3a5f8e6c7d12",
       "feature_type": "amenity",
       "properties": {
-        "category": "stairs",
+        "category": "stairsNotNow",
         "accessibility": null,
         "name": {
           "en": "Stairwell 2",
@@ -64,7 +64,7 @@
       "id": "d1f8a7e3-4c9b-4f0e-8d6a-5b3c2e1f4a79",
       "feature_type": "amenity",
       "properties": {
-        "category": "stairs",
+        "category": "elevatorNotNow",
         "accessibility": null,
         "name": {
           "en": "Stairwell 3",
@@ -93,7 +93,7 @@
       "id": "2b4d6c8f-e1a3-4b7d-9f5c-8e3a2f0d1b47",
       "feature_type": "amenity",
       "properties": {
-        "category": "stairs",
+        "category": "elevatorNotNow",
         "accessibility": null,
         "name": {
           "en": "Stairwell 4",
@@ -122,7 +122,7 @@
       "id": "c9a0b3f5-6d2e-4e8c-a7b1-9f5d3e4c0a68",
       "feature_type": "amenity",
       "properties": {
-        "category": "stairs",
+        "category": "elevatorNotNow",
         "accessibility": null,
         "name": {
           "en": "Stairwell 5",
@@ -155,7 +155,7 @@
         "accessibility": null,
         "name": {
           "en": "Stairwell 6",
-          "ko": "계단 6"
+          "ko": "6층 계단"
         },
         "alt_name": null,
         "hours": null,
@@ -183,7 +183,9 @@
         "category": "restroom.unisex.wheelchair",
         "accessibility": null,
         "name": {
-          "en": "Restroom(wheelchair)"
+          "en": "Restroom(wheelchair)",
+          "ko": "5층 장애인 화장실"
+          
         },
         "alt_name": null,
         "hours": null,
@@ -211,7 +213,8 @@
         "category": "restroom.unisex.wheelchair",
         "accessibility": null,
         "name": {
-          "en": "Restroom(wheelchair)"
+          "en": "Restroom(wheelchair)",
+          "ko": "6층 장애인 화장실"
         },
         "alt_name": null,
         "hours": null,
@@ -236,11 +239,11 @@
       "id": "5f4a1f2d-dde8-4f4b-9d9a-1c51cc0c3f8d",
       "feature_type": "amenity",
       "properties": {
-        "category": "restroom.male",
+        "category": "restroom",
         "accessibility": null,
         "name": {
-          "en": "Restroom(Men)",
-          "ko": "남자화장실"
+          "en": "Restroom",
+          "ko": "6층 화장실"
         },
         "alt_name": null,
         "hours": null,
@@ -255,8 +258,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          129.3259046,
-          36.0140698
+            129.3258764,
+          36.01406045
         ]
       }
     },
@@ -265,11 +268,11 @@
       "id": "a046159f-1199-4459-b47b-c408cd100f2b",
       "feature_type": "amenity",
       "properties": {
-        "category": "restroom.male",
+        "category": "restroom",
         "accessibility": null,
         "name": {
-          "en": "Restroom(Man)",
-          "ko": "남자화장실"
+          "en": "Restroom",
+          "ko": "5층 화장실"
         },
         "alt_name": null,
         "hours": null,
@@ -284,65 +287,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          129.3258947,
-          36.0140695
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "c3f0e84c-7e3b-4a4c-8b4d-2e6fd7d933af",
-      "feature_type": "amenity",
-      "properties": {
-        "category": "restroom.female",
-        "accessibility": null,
-        "name": {
-          "en": "Restroom(Woman)",
-          "ko": "여자화장실"
-        },
-        "alt_name": null,
-        "hours": null,
-        "phone": null,
-        "website": null,
-        "unit_ids": [
-          "859ef9af-65c9-4d1d-8def-f77d711e97ba"
-        ],
-        "address_id": "dc65079c-8ec3-46cb-8895-cb844f6c7112",
-        "correlation_id": null
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          129.3258581,
-          36.0140514
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "0cf8c5fd-ef4e-4c77-a1bd-1b2f2d9ea45a",
-      "feature_type": "amenity",
-      "properties": {
-        "category": "restroom.female",
-        "accessibility": null,
-        "name": {
-          "en": "Family Restroom"
-        },
-        "alt_name": null,
-        "hours": null,
-        "phone": null,
-        "website": null,
-        "unit_ids": [
-          "4c7bab2e-e4b0-44bf-b475-9d44a626142f"
-        ],
-        "address_id": "dc65079c-8ec3-46cb-8895-cb844f6c7112",
-        "correlation_id": null
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          129.3258581,
-          36.0140514
+            129.32587505,
+            36.0140617
         ]
       }
     },
@@ -523,7 +469,7 @@
       "id": "c703488a-40be-4df4-91d6-441f233f361a",
       "feature_type": "amenity",
       "properties": {
-        "category": "elevator",
+        "category": "elevatorNotNow",
         "level_id": "c8a71e5c-9907-4247-aa34-b653d4eff8d9",
         "display_point": {
           "type": "Point",
@@ -533,8 +479,8 @@
           ]
         },
         "name": {
-          "en": "Elevator - Level 1",
-          "ko": "엘레베이터 - Level 1"
+          "en": "1F Elevator",
+          "ko": "1층 엘레베이터"
         },
         "alt_name": null,
         "hours": null,
@@ -550,45 +496,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          129.3258277,
-          36.0141412
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "d945b036-2a28-4bc4-a8e8-29b555feb971",
-      "feature_type": "amenity",
-      "properties": {
-        "category": "elevator",
-        "level_id": "c8a71e5c-9907-4247-aa34-b653d4eff8d9",
-        "display_point": {
-          "type": "Point",
-          "coordinates": [
-            129.3258525,
-            36.0141496
-          ]
-        },
-        "name": {
-          "en": "Elevator 2 - Level 1",
-          "ko": "엘레베이터 2 - Level 1"
-        },
-        "alt_name": null,
-        "hours": null,
-        "phone": null,
-        "website": null,
-        "unit_ids": [
-          "057406cb-6633-4e1a-9cca-b90ddc6bea84"
-        ],
-        "address_id": null,
-        "correlation_id": null,
-        "accessibility": null
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          129.3258525,
-          36.0141496
+          129.3258401,
+          36.0141454
         ]
       }
     },
@@ -597,7 +506,7 @@
       "id": "e8b1d15d-898d-47e7-887e-b710006026f6",
       "feature_type": "amenity",
       "properties": {
-        "category": "elevator",
+        "category": "elevatorNotNow",
         "level_id": "3bf68384-6c73-4b9a-a396-cf4be4081a16",
         "display_point": {
           "type": "Point",
@@ -634,7 +543,7 @@
       "id": "581a32a9-1c8e-4cb8-8d6e-c2d334e13554",
       "feature_type": "amenity",
       "properties": {
-        "category": "elevator",
+        "category": "elevatorNotNow",
         "level_id": "3bf68384-6c73-4b9a-a396-cf4be4081a16",
         "display_point": {
           "type": "Point",
@@ -671,7 +580,7 @@
       "id": "6389049a-2227-47fd-974b-f8f4ef77cd73",
       "feature_type": "amenity",
       "properties": {
-        "category": "elevator",
+        "category": "elevatorNotNow",
         "level_id": "858b3048-0671-4922-8d1b-5238dd98044d",
         "display_point": {
           "type": "Point",
@@ -708,7 +617,7 @@
       "id": "4e922626-a7de-4ae0-8133-31273e89c1d1",
       "feature_type": "amenity",
       "properties": {
-        "category": "elevator",
+        "category": "elevatorNotNow",
         "level_id": "858b3048-0671-4922-8d1b-5238dd98044d",
         "display_point": {
           "type": "Point",
@@ -745,7 +654,7 @@
       "id": "8c5832c2-9b82-462c-9618-2ad76440de88",
       "feature_type": "amenity",
       "properties": {
-        "category": "elevator",
+        "category": "elevatorNotNow",
         "level_id": "a9b7f6ca-56fa-44d2-9b54-85d152b3d892",
         "display_point": {
           "type": "Point",
@@ -782,7 +691,7 @@
       "id": "846253b1-c873-4a27-9f88-2fe58ec4d7aa",
       "feature_type": "amenity",
       "properties": {
-        "category": "elevator",
+        "category": "elevatorNotNow",
         "level_id": "a9b7f6ca-56fa-44d2-9b54-85d152b3d892",
         "display_point": {
           "type": "Point",
@@ -824,13 +733,13 @@
         "display_point": {
           "type": "Point",
           "coordinates": [
-            129.3258277,
-            36.0141412
+            129.3258401,
+            36.0141454
           ]
         },
         "name": {
-          "en": "Elevator - Level 6",
-          "ko": "엘레베이터 - Level 6"
+          "en": "6F Elevator",
+          "ko": "6층 엘레베이터"
         },
         "alt_name": null,
         "hours": null,
@@ -846,45 +755,8 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          129.3258277,
-          36.0141412
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": "8dcf6c8f-ffa2-4bf4-a788-95d5118c15a7",
-      "feature_type": "amenity",
-      "properties": {
-        "category": "elevator",
-        "level_id": "87f7a8b3-0ccc-4a1e-86e4-1d9602dcb96f",
-        "display_point": {
-          "type": "Point",
-          "coordinates": [
-            129.3258525,
-            36.0141496
-          ]
-        },
-        "name": {
-          "en": "Elevator 2 - Level 6",
-          "ko": "엘레베이터 2 - Level 6"
-        },
-        "alt_name": null,
-        "hours": null,
-        "phone": null,
-        "website": null,
-        "unit_ids": [
-          "e49cf1bd-8c52-492d-bbe7-7ad534d63251"
-        ],
-        "address_id": null,
-        "correlation_id": null,
-        "accessibility": null
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          129.3258525,
-          36.0141496
+          129.3258401,
+          36.0141454
         ]
       }
     },
@@ -898,13 +770,13 @@
         "display_point": {
           "type": "Point",
           "coordinates": [
-            129.325828,
-            36.014141
+            129.32584,
+            36.0141455
           ]
         },
         "name": {
-          "en": "Elevator - Level 5",
-          "ko": "엘레베이터 - Level 5"
+          "en": "5F Elevator",
+          "ko": "5층 엘레베이터"
         },
         "alt_name": null,
         "hours": null,
@@ -920,47 +792,10 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          129.325828,
-          36.014141
+          129.32584,
+          36.0141455
         ]
       }
     },
-    {
-      "type": "Feature",
-      "id": "bb2b77ed-090a-410a-909a-39d24eaafa87",
-      "feature_type": "amenity",
-      "properties": {
-        "category": "elevator",
-        "level_id": "90005828-dce9-49ff-be8c-d392a8254e77",
-        "display_point": {
-          "type": "Point",
-          "coordinates": [
-            129.325852,
-            36.01415
-          ]
-        },
-        "name": {
-          "en": "Elevator 2 - Level 5",
-          "ko": "엘레베이터 2 - Level 5"
-        },
-        "alt_name": null,
-        "hours": null,
-        "phone": null,
-        "website": null,
-        "unit_ids": [
-          "50ffbd8d-aca3-471b-9cab-590c6fb22210"
-        ],
-        "address_id": null,
-        "correlation_id": null,
-        "accessibility": null
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          129.325852,
-          36.01415
-        ]
-      }
-    }
   ]
 }

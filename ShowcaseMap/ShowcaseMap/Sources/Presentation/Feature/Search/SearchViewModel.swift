@@ -12,7 +12,8 @@ import Foundation
 class SearchViewModel {
     var searchText: String = ""
     var teamInfoList: [TeamInfo] = []
-    
+    var currentLevelAmenities: [Amenity] = []
+
     private let repository: TeamInfoRepository
     
     init(repository: TeamInfoRepository = MockTeamRepository()) {
@@ -39,12 +40,17 @@ class SearchViewModel {
     }
     
     // 편의시설 검색
-    var filteredAmenities: [AmenityCategory] {
-        guard !searchText.isEmpty else { return AmenityCategory.allCases }
-        
+    var filteredAmenities: [Amenity] {
+        guard !searchText.isEmpty else { return [] }
+
         let searchLowercased = searchText.lowercased()
-        return AmenityCategory.allCases.filter { category in
-            category.displayName.lowercased().contains(searchLowercased)
+        return currentLevelAmenities.filter { amenity in
+            // 이름검색
+            if let name = amenity.properties.name?.bestLocalizedValue,
+               name.lowercased().contains(searchLowercased) {
+                return true
+            }
+            return false
         }
     }
     
