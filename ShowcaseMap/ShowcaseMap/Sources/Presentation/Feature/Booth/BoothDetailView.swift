@@ -213,7 +213,7 @@ struct AppDescriptionView: View {
 
             Text(categoryLine)
                 .font(.subheadline)
-                .foregroundStyle(Color(.tertiaryLabel))
+                .foregroundStyle(Color(.secondaryLabel))
         }
     }
 }
