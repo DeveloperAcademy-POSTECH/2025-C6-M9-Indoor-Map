@@ -50,7 +50,9 @@ struct BoothDetailView: View {
                     selectedBoothForMap = teamInfo
                     tabSelection = .map
                 } label: {
-                    Map(position: $miniMapCameraPosition) {
+                    Map(position: $miniMapCameraPosition,
+                        interactionModes: [.zoom, .pan, .rotate])
+                    {
                         // 실내지도
                         ForEach(miniMapPolygons) { polygon in
                             MapPolygon(coordinates: polygon.coordinates)
@@ -60,6 +62,7 @@ struct BoothDetailView: View {
                         // 실제 주인공
                         Marker(teamInfo.appName, coordinate: teamInfo.displayPoint)
                     }
+                    .mapStyle(.standard(pointsOfInterest: .excludingAll))
                     .mapControlVisibility(.hidden)
                     .frame(height: 180)
                     .clipShape(RoundedRectangle(cornerRadius: 16))
