@@ -29,5 +29,9 @@ class Feature<Properties: Decodable>: NSObject, IMDFDecodableFeature {
         
         super.init()
     }
+    
+    deinit {
+        print("Feature deinitialized")
+    }
 }
 
