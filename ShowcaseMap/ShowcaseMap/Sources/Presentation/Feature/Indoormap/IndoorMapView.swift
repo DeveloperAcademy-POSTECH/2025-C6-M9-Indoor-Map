@@ -49,7 +49,8 @@ struct IndoorMapView: View {
         }
         .onChange(of: selectedFloorOrdinal) { _, newOrdinal in
             if let ordinal = newOrdinal,
-               let levelIndex = viewModel?.levels.firstIndex(where: { $0.properties.ordinal == ordinal }) {
+               let levelIndex = viewModel?.levels.firstIndex(where: { $0.properties.ordinal == ordinal })
+            {
                 viewModel?.selectedLevelIndex = levelIndex
                 selectedFloorOrdinal = nil
             }
@@ -58,12 +59,14 @@ struct IndoorMapView: View {
             if let booth = newValue {
                 selection = booth.id
                 selectedBooth = nil
+                selectedCategory = nil
             }
         }
         .onChange(of: selectedAmenity) { _, newValue in
             if let amenity = newValue {
                 selection = amenity.identifier
                 selectedAmenity = nil
+                selectedCategory = nil
             }
         }
         .onChange(of: selectedCategory) { _, newValue in
@@ -124,7 +127,6 @@ struct IndoorMapView: View {
                 Group {
                     if let marker = selectedMarker {
                         switch marker.type {
-
                         case .booth(let teamInfo):
                             BottomSheetView(
                                 sheetDetent: $sheetDetent,
@@ -179,7 +181,7 @@ struct IndoorMapView: View {
                     .font(.system(size: 19, weight: .medium))
             }
             .padding(.all, 13)
-            .applyGlassEffect() //CategoryFilterView 안에 extension으로 선언됨
+            .applyGlassEffect() // CategoryFilterView 안에 extension으로 선언됨
             .clipShape(Circle())
 
             Button {
@@ -198,7 +200,6 @@ struct IndoorMapView: View {
         .animation(.interpolatingSpring(duration: animationDuration, bounce: 0, initialVelocity: 0), value: sheetHeight)
     }
 }
-
 
 struct BottomSheetView: View {
     @Binding var sheetDetent: PresentationDetent

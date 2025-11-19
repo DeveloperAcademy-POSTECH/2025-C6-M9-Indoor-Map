@@ -797,5 +797,291 @@
         ]
       }
     },
+    {
+      "type": "Feature",
+      "id": "5f4a1f2d-dde8-4f4b-9d9a-1c51cc0c3f82",
+      "feature_type": "amenity",
+      "properties": {
+        "category": "diningarea",
+        "accessibility": null,
+        "name": {
+          "en": "DiningArea",
+          "ko": "취식공간1"
+        },
+        "alt_name": null,
+        "hours": null,
+        "phone": null,
+        "website": null,
+        "unit_ids": [
+          "0b2edfe6-0954-4d91-bf8a-a7a2b895cc32"
+        ],
+        "address_id": "dc65079c-8ec3-46cb-8895-cb844f6c7112",
+        "correlation_id": null
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          129.325706,36.014282
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "5f4a1f2d-dde8-4f4b-9d9a-1c51cc0c3f83",
+      "feature_type": "amenity",
+      "properties": {
+        "category": "coatroom",
+        "accessibility": null,
+        "name": {
+          "en": "Coatroom",
+          "ko": "코트룸"
+        },
+        "alt_name": null,
+        "hours": null,
+        "phone": null,
+        "website": null,
+        "unit_ids": [
+          "0b2edfe6-0954-4d91-bf8a-a7a2b895cc32"
+        ],
+        "address_id": "dc65079c-8ec3-46cb-8895-cb844f6c7112",
+        "correlation_id": null
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          129.325750,36.014176
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "5f4a1f2d-dde8-4f4b-9d9a-1c51cc0c3f84",
+      "feature_type": "amenity",
+      "properties": {
+        "category": "registrationdesk",
+        "accessibility": null,
+        "name": {
+          "en": "RegistrationDesk",
+          "ko": "등록데스크1"
+        },
+        "alt_name": null,
+        "hours": null,
+        "phone": null,
+        "website": null,
+        "unit_ids": [
+          "0b2edfe6-0954-4d91-bf8a-a7a2b895cc32"
+        ],
+        "address_id": "dc65079c-8ec3-46cb-8895-cb844f6c7112",
+        "correlation_id": null
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          129.325857,36.014186
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "5f4a1f2d-dde8-4f4b-9d9a-1c51cc0c3f85",
+      "feature_type": "amenity",
+      "properties": {
+        "category": "registrationdesk",
+        "accessibility": null,
+        "name": {
+          "en": "RegistrationDesk",
+          "ko": "등록데스크2"
+        },
+        "alt_name": null,
+        "hours": null,
+        "phone": null,
+        "website": null,
+        "unit_ids": [
+          "0b2edfe6-0954-4d91-bf8a-a7a2b895cc32"
+        ],
+        "address_id": "dc65079c-8ec3-46cb-8895-cb844f6c7112",
+        "correlation_id": null
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          129.325794,36.014164
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "5f4a1f2d-dde8-4f4b-9d9a-1c51cc0c3f86",
+      "feature_type": "amenity",
+      "properties": {
+        "category": "diningarea",
+        "accessibility": null,
+        "name": {
+          "en": "DiningArea",
+          "ko": "취식공간2"
+        },
+        "alt_name": null,
+        "hours": null,
+        "phone": null,
+        "website": null,
+        "unit_ids": [
+          "0b2edfe6-0954-4d91-bf8a-a7a2b895cc32"
+        ],
+        "address_id": "dc65079c-8ec3-46cb-8895-cb844f6c7112",
+        "correlation_id": null
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          129.325914,36.014217
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "5f4a1f2d-dde8-4f4b-9d9a-1c51cc0c3f87",
+      "feature_type": "amenity",
+      "properties": {
+        "category": "diningarea",
+        "accessibility": null,
+        "name": {
+          "en": "DiningArea",
+          "ko": "취식공간3"
+        },
+        "alt_name": null,
+        "hours": null,
+        "phone": null,
+        "website": null,
+        "unit_ids": [
+          "0b2edfe6-0954-4d91-bf8a-a7a2b895cc32"
+        ],
+        "address_id": "dc65079c-8ec3-46cb-8895-cb844f6c7112",
+        "correlation_id": null
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          129.325941,36.014033
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b94fb497-db45-49b2-a223-ae7105febf01",
+      "feature_type": "amenity",
+      "properties": {
+        "category": "breakarea",
+        "accessibility": null,
+        "name": {
+          "en": "BreakArea",
+          "ko": "휴식공간1"
+          
+        },
+        "alt_name": null,
+        "hours": null,
+        "phone": null,
+        "website": null,
+        "unit_ids": [
+          "6dfd5562-fd29-43fd-9cee-c1fec9523f43"
+        ],
+        "address_id": "dc65079c-8ec3-46cb-8895-cb844f6c7112",
+        "correlation_id": null
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          129.3257640,
+          36.014237
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b94fb497-db45-49b2-a223-ae7105febf05",
+      "feature_type": "amenity",
+      "properties": {
+        "category": "photobooth",
+        "accessibility": null,
+        "name": {
+          "en": "PhotoBooth",
+          "ko": "포토부스"
+          
+        },
+        "alt_name": null,
+        "hours": null,
+        "phone": null,
+        "website": null,
+        "unit_ids": [
+          "6dfd5562-fd29-43fd-9cee-c1fec9523f43"
+        ],
+        "address_id": "dc65079c-8ec3-46cb-8895-cb844f6c7112",
+        "correlation_id": null
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          129.3257901,36.014247
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "b94fb497-db45-49b2-a223-ae7105febf02",
+      "feature_type": "amenity",
+      "properties": {
+        "category": "informationdesk",
+        "accessibility": null,
+        "name": {
+          "en": "InformationDesk",
+          "ko": "안내데스크"
+          
+        },
+        "alt_name": null,
+        "hours": null,
+        "phone": null,
+        "website": null,
+        "unit_ids": [
+          "6dfd5562-fd29-43fd-9cee-c1fec9523f43"
+        ],
+        "address_id": "dc65079c-8ec3-46cb-8895-cb844f6c7112",
+        "correlation_id": null
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          129.325818,36.014256
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "6dfd5562-fd29-43fd-9cee-c1fec9523f43",
+      "feature_type": "amenity",
+      "properties": {
+        "category": "breakarea",
+        "accessibility": null,
+        "name": {
+          "en": "BreakArea",
+          "ko": "휴식공간2"
+          
+        },
+        "alt_name": null,
+        "hours": null,
+        "phone": null,
+        "website": null,
+        "unit_ids": [
+          "0b2edfe6-0954-4d91-bf8a-a7a2b895cc32"
+        ],
+        "address_id": "dc65079c-8ec3-46cb-8895-cb844f6c7112",
+        "correlation_id": null
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          129.325979,36.014088
+        ]
+      }
+    },
+  
   ]
 }

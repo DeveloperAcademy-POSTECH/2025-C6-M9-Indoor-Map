@@ -12,24 +12,19 @@ struct POICategoryFilterView: View {
 
     private var sortedCategories: [POICategory] {
         // 엘베/계단은 항상 표시되므로 필터 버튼에서 제외
-        let visibleCategories = POICategory.allCases.filter { $0 != .elevator && $0 != .stairs }
-
-        guard let selected = selectedCategory else {
-            return Array(visibleCategories)
-        }
-
+        let visibleCategories = POICategory.allCases.filter { $0 != .elevator && $0 != .stairs && $0 != .photobooth }
         return visibleCategories
     }
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
-                ForEach(sortedCategories) { category in
+                ForEach(self.sortedCategories) { category in
                     CategoryButton(
                         category: category,
-                        isSelected: selectedCategory == category
+                        isSelected: self.selectedCategory == category
                     ) {
-                        toggleCategory(category)
+                        self.toggleCategory(category)
                     }
                 }
             }
@@ -40,10 +35,10 @@ struct POICategoryFilterView: View {
 
     private func toggleCategory(_ category: POICategory) {
         withAnimation {
-            if selectedCategory == category {
-                selectedCategory = nil
+            if self.selectedCategory == category {
+                self.selectedCategory = nil
             } else {
-                selectedCategory = category
+                self.selectedCategory = category
             }
         }
     }
@@ -55,14 +50,14 @@ struct CategoryButton: View {
     let action: () -> Void
 
     var body: some View {
-        Button(action: action) {
+        Button(action: self.action) {
             HStack(spacing: 6) {
-                Image(systemName: category.iconName)
+                Image(systemName: self.category.iconName)
                     .font(.system(size: 14))
-                Text(category.rawValue)
+                Text(self.category.rawValue)
                     .font(.system(size: 16, weight: .medium))
             }
-            .foregroundStyle(isSelected ? .teal : .primary)
+            .foregroundStyle(self.isSelected ? .teal : .primary)
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
             .applyGlassEffect()
@@ -85,5 +80,5 @@ extension View {
 
 #Preview {
     @Previewable @State var selectedCategory: POICategory? = nil
-        POICategoryFilterView(selectedCategory: $selectedCategory)
+    POICategoryFilterView(selectedCategory: $selectedCategory)
 }
