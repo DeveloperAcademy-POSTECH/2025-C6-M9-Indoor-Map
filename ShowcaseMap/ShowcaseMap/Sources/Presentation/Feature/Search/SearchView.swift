@@ -18,6 +18,12 @@ struct SearchView: View {
     @Environment(IMDFStore.self) private var imdfStore
     var onCategorySelected: ((POICategory?) -> Void)?
 
+    private var sortedCategories: [AmenityCategory] {
+        // 엘베 계단 제거
+        let visibleCategories = AmenityCategory.allCases.filter { $0 != .elevator && $0 != .stairs }
+        return visibleCategories
+    }
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -33,7 +39,7 @@ struct SearchView: View {
                             // 검색어가 없으면 카테고리 목록, 있으면 amenity 검색 결과
                             if viewModel.searchText.isEmpty {
                                 // 기존 카테고리 목록
-                                ForEach(AmenityCategory.allCases) { category in
+                                ForEach(sortedCategories) { category in
                                     Button {
                                         onCategorySelected?(category.toPOICategory)
                                     } label: {
