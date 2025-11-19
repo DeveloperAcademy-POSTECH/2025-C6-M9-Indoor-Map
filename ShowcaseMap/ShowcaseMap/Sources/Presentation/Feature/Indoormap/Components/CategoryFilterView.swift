@@ -10,10 +10,21 @@ import SwiftUI
 struct POICategoryFilterView: View {
     @Binding var selectedCategory: POICategory?
 
+    private var sortedCategories: [POICategory] {
+        // 엘베/계단은 항상 표시되므로 필터 버튼에서 제외
+        let visibleCategories = POICategory.allCases.filter { $0 != .elevator && $0 != .stairs }
+
+        guard let selected = selectedCategory else {
+            return Array(visibleCategories)
+        }
+
+        return visibleCategories
+    }
+
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
-                ForEach(POICategory.allCases) { category in
+                ForEach(sortedCategories) { category in
                     CategoryButton(
                         category: category,
                         isSelected: selectedCategory == category
