@@ -28,10 +28,12 @@ struct POICategoryFilterView: View {
     }
 
     private func toggleCategory(_ category: POICategory) {
-        if selectedCategory == category {
-            selectedCategory = nil
-        } else {
-            selectedCategory = category
+        withAnimation {
+            if selectedCategory == category {
+                selectedCategory = nil
+            } else {
+                selectedCategory = category
+            }
         }
     }
 }
@@ -46,31 +48,31 @@ struct CategoryButton: View {
             HStack(spacing: 6) {
                 Image(systemName: category.iconName)
                     .font(.system(size: 14))
-
                 Text(category.rawValue)
-                    .font(.system(size: 14, weight: .medium))
-
-                if isSelected {
-                    Image(systemName: "checkmark")
-                        .font(.system(size: 12, weight: .bold))
-                }
+                    .font(.system(size: 16, weight: .medium))
             }
-            .foregroundColor(isSelected ? .white : .primary)
+            .foregroundStyle(isSelected ? .teal : .primary)
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
-            .background(
-                Capsule()
-                    .fill(isSelected ? Color.blue : Color(uiColor: .systemGray5))
-            )
-            .overlay(
-                Capsule()
-                    .stroke(isSelected ? Color.blue : Color.clear, lineWidth: 1)
-            )
+            .applyGlassEffect()
+            .clipShape(.capsule)
+        }
+        .buttonStyle(.plain)
+    }
+}
+
+extension View {
+    @ViewBuilder
+    func applyGlassEffect() -> some View {
+        if #available(iOS 26.0, *) {
+            self.glassEffect()
+        } else {
+            self.background(.ultraThinMaterial).clipShape(.capsule)
         }
     }
 }
 
 #Preview {
-    POICategoryFilterView(selectedCategory: .constant(.restroom))
+    @Previewable @State var selectedCategory: POICategory? = nil
+        POICategoryFilterView(selectedCategory: $selectedCategory)
 }
-

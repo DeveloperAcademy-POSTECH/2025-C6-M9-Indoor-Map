@@ -166,7 +166,7 @@ struct IndoorMapView: View {
                     .font(.system(size: 19, weight: .medium))
             }
             .padding(.all, 10)
-            .background(Color(.systemBackground))
+            .applyGlassEffect() //CategoryFilterView 안에 extension으로 선언됨
             .clipShape(Circle())
 
             Button {} label: {
@@ -174,7 +174,7 @@ struct IndoorMapView: View {
                     .font(.system(size: 19, weight: .medium))
             }
             .padding(.all, 10)
-            .background(Color(.systemBackground))
+            .applyGlassEffect()
             .clipShape(Circle())
         }
         .font(.title3)
@@ -183,6 +183,7 @@ struct IndoorMapView: View {
         .animation(.interpolatingSpring(duration: animationDuration, bounce: 0, initialVelocity: 0), value: sheetHeight)
     }
 }
+
 
 struct BottomSheetView: View {
     @Binding var sheetDetent: PresentationDetent
