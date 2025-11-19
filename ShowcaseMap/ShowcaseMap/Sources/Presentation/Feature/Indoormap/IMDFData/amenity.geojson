@@ -480,7 +480,7 @@
         },
         "name": {
           "en": "1F Elevator",
-          "ko": "1층 엘레베이터"
+          "ko": "1층 엘리베이터"
         },
         "alt_name": null,
         "hours": null,
@@ -517,7 +517,7 @@
         },
         "name": {
           "en": "Elevator - Level 2",
-          "ko": "엘레베이터 - Level 2"
+          "ko": "엘리베이터 - Level 2"
         },
         "alt_name": null,
         "hours": null,
@@ -554,7 +554,7 @@
         },
         "name": {
           "en": "Elevator 2 - Level 2",
-          "ko": "엘레베이터 2 - Level 2"
+          "ko": "엘리베이터 2 - Level 2"
         },
         "alt_name": null,
         "hours": null,
@@ -591,7 +591,7 @@
         },
         "name": {
           "en": "Elevator - Level 3",
-          "ko": "엘레베이터 - Level 3"
+          "ko": "엘리베이터 - Level 3"
         },
         "alt_name": null,
         "hours": null,
@@ -628,7 +628,7 @@
         },
         "name": {
           "en": "Elevator 2 - Level 3",
-          "ko": "엘레베이터 2 - Level 3"
+          "ko": "엘리베이터 2 - Level 3"
         },
         "alt_name": null,
         "hours": null,
@@ -665,7 +665,7 @@
         },
         "name": {
           "en": "Elevator - Level 4",
-          "ko": "엘레베이터 - Level 4"
+          "ko": "엘리베이터 - Level 4"
         },
         "alt_name": null,
         "hours": null,
@@ -702,7 +702,7 @@
         },
         "name": {
           "en": "Elevator 2 - Level 4",
-          "ko": "엘레베이터 2 - Level 4"
+          "ko": "엘리베이터 2 - Level 4"
         },
         "alt_name": null,
         "hours": null,
@@ -739,7 +739,7 @@
         },
         "name": {
           "en": "6F Elevator",
-          "ko": "6층 엘레베이터"
+          "ko": "6층 엘리베이터"
         },
         "alt_name": null,
         "hours": null,
@@ -776,7 +776,7 @@
         },
         "name": {
           "en": "5F Elevator",
-          "ko": "5층 엘레베이터"
+          "ko": "5층 엘리베이터"
         },
         "alt_name": null,
         "hours": null,
