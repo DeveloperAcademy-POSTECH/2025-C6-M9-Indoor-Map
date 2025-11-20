@@ -57,4 +57,10 @@ extension TeamInfo {
     var categoryLine: String {
         "#\(category.displayName)"
     }
+
+    var teamMemberString: String {
+        return members
+            .map { "\($0.name)(\($0.id))" }
+            .joined(separator: ", ")
+    }
 }

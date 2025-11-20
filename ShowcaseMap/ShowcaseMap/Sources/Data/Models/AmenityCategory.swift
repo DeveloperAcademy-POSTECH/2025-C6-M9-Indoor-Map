@@ -46,7 +46,7 @@ enum AmenityCategory: String, CaseIterable, Identifiable, Codable {
         case .diningArea:
             return "fork.knife"
         case .coatroom:
-            return "jacket.fill"
+            return "cabinet"
         case .elevator:
             return "arrow.up.arrow.down.square"
         case .stairs:

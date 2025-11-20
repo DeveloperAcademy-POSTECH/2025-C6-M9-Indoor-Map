@@ -60,7 +60,8 @@ struct ContentView: View {
                     }
                 )
             }
-        }.ignoresSafeArea()
+        }
+        .ignoresSafeArea()
     }
 }
 
@@ -72,7 +73,6 @@ struct ContentView: View {
         .modelContainer(for: FavoriteTeamInfo.self, inMemory: true)
         .environment(store)
 }
-
 
 enum TabIdentifier: String, CaseIterable {
     case booth

@@ -3,7 +3,7 @@
     "id": "c4352b6c-9db5-497a-a2da-7398440f8e4d",
     "levelId": 4,
     "boothNumber": "1",
-    "name": "Hippo",
+    "name": "TeleVision",
     "appName": "Hippo",
     "appDescription": "멸균 수술 환경에서 의료진이 직접 수술 보조 자료를 다루기 어려운 문제를 해결하기 위해, 환자 맞춤형 3D 모델을 공유된 몰입형 환경에서 조작할 수 있도록 지원함으로써 수술 퍼포먼스를 향상시킬 수 있는 앱.",
     "members": [
@@ -44,7 +44,7 @@
     "id": "36e87346-ad49-4249-ba98-ec74a87300df",
     "levelId": 4,
     "boothNumber": "2",
-    "name": "Scenergy",
+    "name": "악착 AKCK",
     "appName": "Scenergy",
     "appDescription": "영화 시나리오에서 씬리스트 작성에 필요한 정보를 추출 및 편집해 씬리스트를 CSV파일로 내보내는 앱",
     "members": [
@@ -74,7 +74,7 @@
       }
     ],
     "category": "productivity",
-    "downloadUrl": "https://example.com",
+    "downloadUrl": "https://apps.apple.com/kr/app/scenergy/id6754666956?l=en-GB&mt=12",
     "teamUrl": "https://www.notion.so/posacademy/SCENERGY-2ae2b843d5af804fa3dbc5be9fddc1a2?source=copy_link",
     "display_point": [
       129.325939,
@@ -85,7 +85,7 @@
     "id": "989f4d9b-d127-46e9-8b88-098d2e6b7abe",
     "levelId": 4,
     "boothNumber": "3",
-    "name": "Glayer",
+    "name": "Walkie Talkie",
     "appName": "Glayer",
     "appDescription": "3D 공간에 2D 이미지를 다층적으로 배치하고, 사운드를 더해 영화의 무드와 공간을 구성하는 앱",
     "members": [
@@ -115,7 +115,7 @@
       }
     ],
     "category": "graphicsAndDesign",
-    "downloadUrl": "https://example.com",
+    "downloadUrl": "https://apps.apple.com/kr/app/glayer/id6753275782",
     "teamUrl": "https://www.notion.so/posacademy/Glayer-29b2b843d5af8009bc47cf2cdf689843?source=copy_link",
     "display_point": [
       129.325947,
@@ -126,7 +126,7 @@
     "id": "079818a1-dc42-476b-8067-7d67fc76f029",
     "levelId": 4,
     "boothNumber": "4",
-    "name": "Re:chain",
+    "name": "빚음 Visiom",
     "appName": "Re:chain",
     "appDescription": "과학수사관이 3D로 스캔된 범죄현장을 Vision Pro의 몰입형 공간에서 피의자의 시선으로 동선을 재현하고, 시각화하여 범죄 재구성하는 과정을 지원하는 과학수사 보조 앱",
     "members": [
@@ -163,7 +163,7 @@
     "id": "102ccd91-cb22-46f3-9ecb-fa88aefa07a4",
     "levelId": 4,
     "boothNumber": "5",
-    "name": "타닥 TaDak",
+    "name": "불그레",
     "appName": "타닥 TaDak",
     "appDescription": "백색 소음을 즐기는 사용자가 자신의 취향과 목적에 맞게 소리를 여러 레이어로 쌓고, 공간 속에 자유롭게 배치하여 자신만의 사운드 환경을 만들어 즐길 수 있는 앱",
     "members": [
@@ -193,7 +193,7 @@
       }
     ],
     "category": "lifestyle",
-    "downloadUrl": "https://example.com",
+    "downloadUrl": "https://apps.apple.com/kr/app/%ED%83%80%EB%8B%A5-%EB%82%98%EB%A7%8C%EC%9D%98-%EB%B0%B1%EC%83%89%EC%86%8C%EC%9D%8C-%ED%94%8C%EB%A0%88%EC%9D%B4%EC%96%B4/id6754827360",
     "teamUrl": "https://www.notion.so/posacademy/TaDak-29b2b843d5af80b3bcc4cb236fac6351?source=copy_link",
     "display_point": [
       129.32583,
@@ -204,7 +204,7 @@
     "id": "e0a5e5ef-980b-4b52-a8b8-a7054dac6250",
     "levelId": 4,
     "boothNumber": "6",
-    "name": "버스온다",
+    "name": "OffStage",
     "appName": "버스온다",
     "appDescription": "실시간 버스 도착 예정 시간를 알려주고, Vision 인식으로 내가 탈 버스와 일치하는지 확인해서 저시력자도 버스 탑승을 놓치지 않는 앱",
     "members": [
@@ -234,7 +234,7 @@
       }
     ],
     "category": "navigation",
-    "downloadUrl": "https://example.com",
+    "downloadUrl": "https://apple.co/4pgtcBI",
     "teamUrl": "https://www.notion.so/posacademy/2a72b843d5af8005aeb7ffe20daebd95?source=copy_link",
     "display_point": [
       129.325789,
@@ -245,7 +245,7 @@
     "id": "b7d22f2e-7191-44c2-bc5a-a8f62aee6a83",
     "levelId": 4,
     "boothNumber": "7",
-    "name": "찍자 ZZikZZa",
+    "name": "Queendom",
     "appName": "찍자 ZZikZZa",
     "appDescription": "찍는 사람의 촬영 화면을 찍히는 사람이 자신의 휴대폰에서 실시간으로 함께 보고 시각적 가이드를 공유해, 더 원활하고 정확한 소통을 돕는 카메라 앱",
     "members": [
@@ -286,7 +286,7 @@
     "id": "e93214b2-ba91-4583-aab2-1315d0b72844",
     "levelId": 4,
     "boothNumber": "8",
-    "name": "Bracket",
+    "name": "떳떳 하우스 (Honest House)",
     "appName": "Bracket",
     "appDescription": "DSLR/미러리스 카메라 사용자가 온전히 순간에 집중하며 촬영할 수 있도록 미리 설정한 프리셋이 셔터를 누를 때마다 자동 변경되는 ‘Tri-Shot’을 이용하고 촬영한 사진을 Ai로 그룹화하여 베스트샷을 쉽게 고를 수 있는 앱",
     "members": [
@@ -327,7 +327,7 @@
     "id": "10c1c2cc-588f-4c74-b520-f621a1f94d92",
     "levelId": 4,
     "boothNumber": "9",
-    "name": "수사24",
+    "name": "왕꿈틀이:DreamWorms",
     "appName": "수사24",
     "appDescription": "형사들의 신속하고 정확한 추적수사를 위해 피의자 통신 기록과 활동 패턴을 실시간 분석하고 수사 전략을 제안하는 ‘지리적 프로파일링’ 앱",
     "members": [
@@ -368,7 +368,7 @@
     "id": "febb48a3-64e5-4f7e-abe3-4fadab55049d",
     "levelId": 4,
     "boothNumber": "10",
-    "name": "kip!",
+    "name": "TnT",
     "appName": "kip!",
     "appDescription": "기억하고 싶은 정보가 담긴 스크린샷이나 링크를 복사하면 온 디바이스 AI가 내용을 정리해주고, 이를 일정 시간과 연관 장소 기반으로 리마인더를 주는 앱",
     "members": [
@@ -409,7 +409,7 @@
     "id": "0dc28198-24ec-41ba-8ee8-2d2ecd75fc76",
     "levelId": 4,
     "boothNumber": "11",
-    "name": "부메랑",
+    "name": "HmH 함함",
     "appName": "부메랑",
     "appDescription": "전/월세 임대차 계약이 서툰 사회초년생을 위해 OCR 기반 서류의 위험요소를 분석해주어 불안감을 해소시켜주고 안전한 부동산 계약을 도와주는 앱",
     "members": [
@@ -439,7 +439,7 @@
       }
     ],
     "category": "lifestyle",
-    "downloadUrl": "https://example.com",
+    "downloadUrl": "https://apps.apple.com/us/app/%EB%B6%80%EB%A9%94%EB%9E%91-%EB%B6%80%EB%8F%99%EC%82%B0-%EB%A9%94%EC%9D%B4%ED%8A%B8%EB%9E%91/id6754898424",
     "teamUrl": "https://www.notion.so/posacademy/29b2b843d5af803d94f3ccf182ea82ce?source=copy_link",
     "display_point": [
       129.325716,
@@ -450,7 +450,7 @@
     "id": "a7c312b4-3049-4677-8838-53e023851a2c",
     "levelId": 4,
     "boothNumber": "12",
-    "name": "바이브 VYBE",
+    "name": "WWAI (Work With AI)",
     "appName": "바이브 VYBE",
     "appDescription": "대화로 만드는 나만의 iOS 앱! AI와 대화를 통해 아이디어를 구체화하여 개발에 필요한문서를 자동으로 생성하고, AI 개발 과정을 시각적으로보여주는 바이브 코딩 어시스턴트 “VYBE”",
     "members": [
@@ -480,7 +480,7 @@
       }
     ],
     "category": "productivity",
-    "downloadUrl": "https://example.com",
+    "downloadUrl": "https://creative-centaur-903.notion.site/VYBE-2aaffe12c864800ebe2cc382a8d72984?pvs=74",
     "teamUrl": "https://www.notion.so/posacademy/VYBE-29b2b843d5af802f96dde21b8d44e6f4?source=copy_link",
     "display_point": [
       129.325704,
@@ -491,7 +491,7 @@
     "id": "715f229b-8944-45b2-87d8-ef42f5044150",
     "levelId": 4,
     "boothNumber": "13",
-    "name": "리드잇",
+    "name": "Finale",
     "appName": "리드잇",
     "appDescription": "AI를 통해 사용자의 영어 읽기 실력과 약한 부분을 학습하여 사용자 맞춤형 읽기 자료를 통해 영어를 공부하는, AI 맞춤형 영어 학습 앱",
     "members": [
@@ -532,7 +532,7 @@
     "id": "e3d78d11-04e7-493a-bfb1-358d216bab10",
     "levelId": 4,
     "boothNumber": "14",
-    "name": "Audiolog",
+    "name": "비하인드유 BehindU",
     "appName": "Audiolog",
     "appDescription": "사진으로 순간을 기록하고 회상하기 어려운 시각장애인이소리로 하루를 기록하고, 공간음향과 AI 검색으로 다시 그 날을 떠올릴 수 있는 청각 기반 추억 기록 앱",
     "members": [
@@ -562,7 +562,7 @@
       }
     ],
     "category": "lifestyle",
-    "downloadUrl": "https://example.com",
+    "downloadUrl": "https://apps.apple.com/us/app/audiolog/id6754697861",
     "teamUrl": "https://www.notion.so/posacademy/Audiolog-2a92b843d5af803f882ee2aa18492f3b?source=copy_link",
     "display_point": [
       129.325613,
@@ -573,7 +573,7 @@
     "id": "77caf1c1-4616-42f3-86a0-e4c3dd966c81",
     "levelId": 4,
     "boothNumber": "15",
-    "name": "보소 BOSO",
+    "name": "오프녹 Openock",
     "appName": "보소 BOSO",
     "appDescription": "청각장애인이 맥북으로 재생되는 영상의 소리를 실시간 자막과 시각적 효과로 확인하며, 몰입감 있게 시청할 수 있도록 도와주는 앱",
     "members": [
@@ -603,7 +603,7 @@
       }
     ],
     "category": "utility",
-    "downloadUrl": "https://example.com",
+    "downloadUrl": "https://apps.apple.com/kr/app/%EB%B3%B4%EC%86%8C-boso/id6754626482?mt=12",
     "teamUrl": "https://www.notion.so/posacademy/BOSO-29b2b843d5af807f815ad7778b5f7ab9?source=copy_link",
     "display_point": [
       129.325618,
@@ -614,7 +614,7 @@
     "id": "23bef1ef-6b4b-4ddb-be7a-99f9fbfc466d",
     "levelId": 4,
     "boothNumber": "16",
-    "name": "Anggle",
+    "name": "가챠! Gacha!",
     "appName": "Anggle",
     "appDescription": "전방십자인대 파열 경험자가 재활 과정에서 무릎 관절 가동 범위(ROM)와 통증을 측정 및 기록하고, 회복을 한 눈에 파악할 수 있는 무릎 재활 기록 앱입니다.",
     "members": [
@@ -644,7 +644,7 @@
       }
     ],
     "category": "healthAndFitness",
-    "downloadUrl": "https://example.com",
+    "downloadUrl": "https://apps.apple.com/kr/app/앙글/id6755084318",
     "teamUrl": "https://www.notion.so/posacademy/2a62b843d5af804f8ad6c7521e6bfc70?source=copy_link",
     "display_point": [
       129.325585,
@@ -655,8 +655,8 @@
     "id": "ae5b8563-11f3-4b01-a2e7-8bb656fc5f27",
     "levelId": 4,
     "boothNumber": "17",
-    "name": "탭탭 TapTap",
-    "appName": "탭탭 TapTap",
+    "name": "Team NBS",
+    "appName": "탭탭",
     "appDescription": "기사 읽기부터 스크랩까지 모바일에서 한번에,읽으며 바로 생각을 기록하는 뉴스 정리 앱",
     "members": [
       {
@@ -685,7 +685,7 @@
       }
     ],
     "category": "news",
-    "downloadUrl": "https://example.com",
+    "downloadUrl": "https://apps.apple.com/kr/app/%ED%83%AD%ED%83%AD-taptap/id6754357960",
     "teamUrl": "https://www.notion.so/posacademy/TapTap-29b2b843d5af805cb9b0c535ad6f80ec?source=copy_link",
     "display_point": [
       129.325669,
@@ -696,7 +696,7 @@
     "id": "bc0bfc3a-ccb0-491a-b5b9-edfa6c4beb0e",
     "levelId": 4,
     "boothNumber": "18",
-    "name": "WoA",
+    "name": "Last Dance",
     "appName": "WoA",
     "appDescription": "전시장에서 작품을 ‘찍는 순간’ 감상을 작가에게 1:1로 전달해, 사라지는 감정을 작가에게 즉시 연결시켜주는 앱",
     "members": [
@@ -726,7 +726,7 @@
       }
     ],
     "category": "entertainment",
-    "downloadUrl": "https://example.com",
+    "downloadUrl": "https://apps.apple.com/kr/app/여운/id6754415794",
     "teamUrl": "https://www.notion.so/posacademy/2a72b843d5af8054ba1dd052b682ee83?source=copy_link",
     "display_point": [
       129.325606,
@@ -737,7 +737,7 @@
     "id": "ed9c0934-57e5-400e-9426-5bb474425e90",
     "levelId": 4,
     "boothNumber": "19",
-    "name": "Stash",
+    "name": "APEX",
     "appName": "Stash",
     "appDescription": "사람별로 손쉽게 메모하는 나만의 비즈니스 채팅방",
     "members": [
@@ -759,7 +759,7 @@
       }
     ],
     "category": "productivity",
-    "downloadUrl": "https://example.com",
+    "downloadUrl": "https://apps.apple.com/kr/app/stash-%EB%82%98%EB%A7%8C%EC%9D%98-%EB%B9%84%EC%A6%88%EB%8B%88%EC%8A%A4-%EC%B1%84%ED%8C%85%EB%B0%A9/id6753748056",
     "teamUrl": "https://www.notion.so/posacademy/Stash-29b2b843d5af8005b5b1d1efe23e49f0?source=copy_link",
     "display_point": [
       129.325642,
@@ -770,7 +770,7 @@
     "id": "ee61bd8f-595e-405b-88a1-e1360cf62002",
     "levelId": 4,
     "boothNumber": "20",
-    "name": "스틸워크",
+    "name": "DANDAN",
     "appName": "스틸워크",
     "appDescription": "걸어서 참여하는 철길숲 팀 점령전을 통해 포항 철길숲 이용자의 더 즐거운 산책을 돕는 앱",
     "members": [
@@ -800,7 +800,7 @@
       }
     ],
     "category": "lifestyle",
-    "downloadUrl": "https://example.com",
+    "downloadUrl": "https://apps.apple.com/kr/app/%EC%8A%A4%ED%8B%B8%EC%9B%8C%ED%81%AC/id6755058480",
     "teamUrl": "https://www.notion.so/posacademy/2a92b843d5af80aa918bedc0082e9553?source=copy_link",
     "display_point": [
       129.325668,
@@ -811,7 +811,7 @@
     "id": "2086cc56-7ac4-40d4-8d84-8709563d2d34",
     "levelId": 4,
     "boothNumber": "21",
-    "name": "키치 Keychy",
+    "name": "no pain, yes gain.",
     "appName": "키치 Keychy",
     "appDescription": "손끝으로 즐길 수 있는 나만의 디지털 키링을 만들고 모으고 나누는 새로운 문화를 제공하는 비주얼 소셜 앱",
     "members": [
@@ -852,8 +852,8 @@
     "id": "0b73e0a2-1029-4e1c-bdd6-0ecaa4bd42df",
     "levelId": 4,
     "boothNumber": "22",
-    "name": "뱉어 BeTTrr",
-    "appName": "뱉어 BeTTrr",
+    "name": "Team D.U.",
+    "appName": "뱉어 BETTrR",
     "appDescription": "중∙고등학생이 영어 수행평가 스크립트를 문장 분할을 통해 쉽게 외울 수 있게 하고, 녹음 분석으로 틀린 부분만 뽑아낸 피드백으로 효율적인 암기를 돕는 앱",
     "members": [
       {
@@ -882,7 +882,7 @@
       }
     ],
     "category": "education",
-    "downloadUrl": "https://example.com",
+    "downloadUrl": "https://apps.apple.com/kr/app/bettrr/id6754756492",
     "teamUrl": "https://www.notion.so/posacademy/BETTrR-2aa2b843d5af807db2a3f44354bd1ecc?source=copy_link",
     "display_point": [
       129.325745,
@@ -893,7 +893,7 @@
     "id": "18657b88-d72e-47fb-9f88-5758ef47e42c",
     "levelId": 4,
     "boothNumber": "23",
-    "name": "AINO",
+    "name": "A-ISCREEM",
     "appName": "AINO",
     "appDescription": "아이패드로 유튜브 강의를 들으며 공부하는 대학생의 몰입이 깨지지 않도록 AI가 요약하고 핵심 키워드를 보여주면서 바로 질문할 수 있는 앱",
     "members": [
@@ -923,7 +923,7 @@
       }
     ],
     "category": "productivity",
-    "downloadUrl": "https://example.com",
+    "downloadUrl": "https://apps.apple.com/kr/app/aino-%EC%95%84%EC%9D%B4%EB%85%B8-ai-%ED%95%99%EC%8A%B5%EB%85%B8%ED%8A%B8/id6754547683",
     "teamUrl": "https://www.notion.so/posacademy/AINO-29b2b843d5af80729872eba1217e4980?source=copy_link",
     "display_point": [
       129.325708,
@@ -934,7 +934,7 @@
     "id": "0ea3bd45-0829-4772-a71e-a3741078878d",
     "levelId": 4,
     "boothNumber": "24",
-    "name": "BabeMoA",
+    "name": "YesAgile",
     "appName": "BabeMoA",
     "appDescription": "놓치기 쉬운 아이와의 소중한 순간들을 간편하게 기록하여, 추억을 되새길 수 있도록 도와주는 앱",
     "members": [
@@ -971,7 +971,7 @@
     "id": "3056b853-7f86-4563-9ae6-6ff417869cfd",
     "levelId": 4,
     "boothNumber": "25",
-    "name": "이고약",
+    "name": "PhD",
     "appName": "이고약",
     "appDescription": "한국약을 기준으로 주요 성분을 비교하여 비슷하거나 동일한 해외약을 찾아주며, 약사와 소통할 수 있도록 추가적인 정보를 제공하여 사용자의 해외 약국 이용 경험을 돕는 앱",
     "members": [
@@ -1001,7 +1001,7 @@
       }
     ],
     "category": "medical",
-    "downloadUrl": "https://example.com",
+    "downloadUrl": "https://apps.apple.com/kr/app/egoyak/id6754235544",
     "teamUrl": "https://www.notion.so/posacademy/29b2b843d5af80a9bb44d3237174cdda?source=copy_link",
     "display_point": [
       129.32575,
@@ -1012,7 +1012,7 @@
     "id": "c9fd7b5b-a86c-439a-8a16-7a7320912dae",
     "levelId": 4,
     "boothNumber": "26",
-    "name": "디렉트 DirAct",
+    "name": "DirAct Crew",
     "appName": "디렉트 DirAct",
     "appDescription": "댄스팀이 단체 연습 후 연습영상을 바탕으로 피드백을 주고 받을 때,디렉터가 영상에 타임라인별로 피드백을 남기고,팀원은 해당 피드백을 영상과 함께 직관적으로 확인함으로써 안무 연습의 효율을 높여주는 앱",
     "members": [
@@ -1042,7 +1042,7 @@
       }
     ],
     "category": "productivity",
-    "downloadUrl": "https://example.com",
+    "downloadUrl": "https://apps.apple.com/kr/app/diract/id6754757174",
     "teamUrl": "https://www.notion.so/posacademy/DirAct-29b2b843d5af80eaae7dc43c360ea76c?source=copy_link",
     "display_point": [
       129.325735,
@@ -1053,7 +1053,7 @@
     "id": "e46daecd-94ed-4ff0-a562-dbb1eeddee55",
     "levelId": 4,
     "boothNumber": "27",
-    "name": "FindU",
+    "name": "ToI Story",
     "appName": "FindU",
     "appDescription": "실내지도를 활용하여 IoT 기기를 지닌 병동 환자의 위치를 병동 간호사에게 리스트 형태로 제공하는 환자 위치 관리 앱",
     "members": [
@@ -1094,7 +1094,7 @@
     "id": "490c5809-4dcf-4062-8d82-11100a13ff56",
     "levelId": 4,
     "boothNumber": "28",
-    "name": "어디로드",
+    "name": "Untitled",
     "appName": "어디로드",
     "appDescription": "지도 앱의 복잡한 화면이 어려운 중장년층을 위해 길찾기에 필요한 정보만 단계별 카드로 제공하여 목적지까지 쉽게 안내하는 대중교통 길찾기 앱",
     "members": [
@@ -1124,7 +1124,7 @@
       }
     ],
     "category": "navigation",
-    "downloadUrl": "https://example.com",
+    "downloadUrl": "https://apps.apple.com/kr/app/어디로드/id6754306704",
     "teamUrl": "https://www.notion.so/posacademy/2a22b843d5af8056a16ded3f022c9b73?source=copy_link",
     "display_point": [
       129.325767,
@@ -1135,7 +1135,7 @@
     "id": "f6cb89bb-3ee8-4f35-b310-a53bb200817b",
     "levelId": 4,
     "boothNumber": "29",
-    "name": "픽픽 PicPeek",
+    "name": "돈독 DonDog",
     "appName": "픽픽 PicPeek",
     "appDescription": "부모와 자녀가 자신의 사진으로 만든 스티커를 통해 글로 전하기 힘든 마음을 서로에게 쉽고 재밌게 표현하는 일상 사진 기반 1:1 소통앱",
     "members": [
@@ -1176,7 +1176,7 @@
     "id": "f085629d-1993-4722-8dc3-8ef76143c8f5",
     "levelId": 4,
     "boothNumber": "30",
-    "name": "Re:Chord",
+    "name": "GMG",
     "appName": "Re:Chord",
     "appDescription": "흥얼거린 멜로디에 어울리는 코드를 AI가 추천하여 작곡 과정을 도와주는 앱",
     "members": [
@@ -1206,7 +1206,7 @@
       }
     ],
     "category": "music",
-    "downloadUrl": "https://example.com",
+    "downloadUrl": "https://apps.apple.com/app/id6754222735",
     "teamUrl": "https://www.notion.so/posacademy/Re-chord-29b2b843d5af80e38ba0f20ccf4abf8e?source=copy_link",
     "display_point": [
       129.325887,

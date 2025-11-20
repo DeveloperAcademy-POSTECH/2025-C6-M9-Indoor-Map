@@ -16,7 +16,6 @@ struct AmenityDetailView: View {
     var body: some View {
         VStack(spacing: 16) {
             // 닫기 버튼
-
             HStack {
                 Spacer()
                 if horizontalSizeClass == .compact {
@@ -39,7 +38,7 @@ struct AmenityDetailView: View {
 
             Spacer()
         }
-        .padding(.vertical, 16)
+        .padding(.vertical, horizontalSizeClass == .regular ? 0 : 16)
         .padding(.horizontal, 26)
     }
 }
