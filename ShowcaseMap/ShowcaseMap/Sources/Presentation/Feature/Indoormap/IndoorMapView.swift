@@ -233,7 +233,7 @@ struct IndoorMapView: View {
             .padding(.horizontal, 16)
             .padding(.top, 16)
 
-            AmenityDetailView(amenityData: amenityData)
+            AmenityDetailView(amenityData: amenityData,selection: $selection)
                 .padding(.horizontal, 16)
         }
     }
@@ -255,12 +255,13 @@ struct IndoorMapView: View {
                                     selectedTeamInfo: teamInfo,
                                     isFavorite: isFavorite,
                                     modelContext: modelContext,
-                                    favoriteTeamInfos: favoriteTeamInfos
+                                    favoriteTeamInfos: favoriteTeamInfos,
+                                    selection: $selection
                                 )
                                 .presentationDetents([.height(350), .large], selection: $sheetDetent)
 
                             case .amenity(let amenityData):
-                                AmenityDetailView(amenityData: amenityData)
+                                AmenityDetailView(amenityData: amenityData,selection: $selection)
                                     .presentationDetents([.height(350)])
                             }
                         }
@@ -362,6 +363,7 @@ struct BottomSheetView: View {
     let isFavorite: Bool
     let modelContext: ModelContext
     let favoriteTeamInfos: [FavoriteTeamInfo]
+    @Binding var selection: UUID?
 
     var body: some View {
         if let teamInfo = selectedTeamInfo {
@@ -380,6 +382,7 @@ struct BottomSheetView: View {
 
                     Spacer()
                     SheetIconButton(systemName: "xmark") {
+                        selection = nil
                         dismiss()
                     }
                 }
