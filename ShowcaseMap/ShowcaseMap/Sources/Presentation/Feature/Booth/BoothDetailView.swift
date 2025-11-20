@@ -13,6 +13,7 @@ struct BoothDetailView: View {
     let teamInfo: TeamInfo
     @Binding var tabSelection: TabIdentifier
     @Binding var selectedBoothForMap: TeamInfo?
+    @Binding var selectedFloorOrdinal: Int?
 
     @Environment(IMDFStore.self) var imdfStore
     @State private var miniMapPolygons: [MapPolygonData] = []
@@ -47,6 +48,7 @@ struct BoothDetailView: View {
 
                 Button {
                     selectedBoothForMap = teamInfo
+                    selectedFloorOrdinal = teamInfo.levelId
                     tabSelection = .map
                 } label: {
                     Map(position: $miniMapCameraPosition,
@@ -327,7 +329,8 @@ struct TeamIntroductionView: View {
                 displayPoint: [],
             ),
             tabSelection: .constant(.booth),
-            selectedBoothForMap: .constant(nil)
+            selectedBoothForMap: .constant(nil),
+            selectedFloorOrdinal: .constant(nil)
         )
         .environment(IMDFStore())
     }

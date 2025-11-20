@@ -11,6 +11,7 @@ import SwiftUI
 struct BoothListView: View {
     @Binding var tabSelection: TabIdentifier
     @Binding var selectedBoothForMap: TeamInfo?
+    @Binding var selectedFloorOrdinal: Int?
 
     @State private var viewModel = BoothListViewModel()
     @State private var selectedCategory: AppCategory?
@@ -60,7 +61,8 @@ struct BoothListView: View {
                 BoothDetailView(
                     teamInfo: teamInfo,
                     tabSelection: $tabSelection,
-                    selectedBoothForMap: $selectedBoothForMap
+                    selectedBoothForMap: $selectedBoothForMap,
+                    selectedFloorOrdinal: $selectedFloorOrdinal
                 )
             }
             .task {
@@ -98,7 +100,8 @@ struct BoothListView: View {
 #Preview {
     BoothListView(
         tabSelection: .constant(.booth),
-        selectedBoothForMap: .constant(nil)
+        selectedBoothForMap: .constant(nil),
+        selectedFloorOrdinal: .constant(nil)
     )
     .modelContainer(for: FavoriteTeamInfo.self, inMemory: true)
 }

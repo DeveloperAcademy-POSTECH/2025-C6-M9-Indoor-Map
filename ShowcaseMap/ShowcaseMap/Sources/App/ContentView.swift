@@ -26,7 +26,8 @@ struct ContentView: View {
             ) {
                 BoothListView(
                     tabSelection: $tabSelection,
-                    selectedBoothForMap: $selectedBoothForMap
+                    selectedBoothForMap: $selectedBoothForMap,
+                    selectedFloorOrdinal: $selectedFloorOrdinal
                 )
             }
 
