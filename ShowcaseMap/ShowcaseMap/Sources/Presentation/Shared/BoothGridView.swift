@@ -39,7 +39,7 @@ struct BoothItemView: View {
     var body: some View {
         let style = BoothItemStyle(isIPad: isIPad)
 
-        HStack(alignment: style.alignment, spacing: style.itemSpacing) {
+        HStack(alignment: .center , spacing: style.itemSpacing) {
             Image(teamInfo.boothNumber)
                 .resizable()
                 .scaledToFit()
@@ -49,6 +49,7 @@ struct BoothItemView: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(teamInfo.appName)
                     .font(style.titleFont)
+                    .fontWeight(.semibold)
                     .foregroundStyle(Color.primary)
 
                 HStack(alignment: .center, spacing: 4) {
@@ -69,7 +70,7 @@ struct BoothItemView: View {
                 .multilineTextAlignment(.leading)
 
                 if isIPad {
-                    Spacer()
+                    Color.clear.frame(height:12)
 
                     Text(teamInfo.appDescription)
                         .font(.callout)
@@ -101,9 +102,6 @@ private struct BoothItemStyle {
         isIPad ? 16 : 8
     }
 
-    var alignment: VerticalAlignment {
-        isIPad ? .top : .center
-    }
 
     var contentPadding: CGFloat {
         isIPad ? 0 : 14

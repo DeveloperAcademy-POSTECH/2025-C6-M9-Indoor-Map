@@ -13,6 +13,7 @@ struct BoothDetailView: View {
     let teamInfo: TeamInfo
     @Binding var tabSelection: TabIdentifier
     @Binding var selectedBoothForMap: TeamInfo?
+    @Binding var selectedFloorOrdinal: Int?
 
     @Environment(IMDFStore.self) var imdfStore
     @State private var miniMapPolygons: [MapPolygonData] = []
@@ -38,16 +39,16 @@ struct BoothDetailView: View {
                 } else {
                     iPhoneHeaderView
                 }
-
                 TeamIntroductionView(
                     teamName: teamInfo.name,
                     teamUrl: teamInfo.teamUrl,
-                    members: teamInfo.members,
+                    members: teamInfo.teamMemberString,
                     isIpad: layout.isIPad
                 )
 
                 Button {
                     selectedBoothForMap = teamInfo
+                    selectedFloorOrdinal = teamInfo.levelId
                     tabSelection = .map
                 } label: {
                     Map(position: $miniMapCameraPosition,
@@ -133,20 +134,19 @@ struct BoothDetailView: View {
                         .font(.body)
                         .foregroundStyle(Color.primary)
                         .lineLimit(3)
+                        .fixedSize(horizontal: false, vertical: true)
 
                     Text(teamInfo.categoryLine)
                         .font(.subheadline)
-                        .foregroundStyle(Color(.tertiaryLabel))
+                        .foregroundStyle(Color(.secondaryLabel))
                 }
 
-                Button {
-                    print(teamInfo.members)
-                    // TODO: teaminfo.appUrl 사용
-                } label: {
+                Color.clear.frame(height: 12)
+
+                Link(destination: teamInfo.downloadUrl) {
                     HStack(spacing: 0) {
                         Text("앱 다운로드")
                             .font(.body)
-
                         Image(systemName: "arrow.up.forward")
                     }
                 }
@@ -164,7 +164,7 @@ struct BoothDetailView: View {
     @ViewBuilder
     private var iPhoneHeaderView: some View {
         BoothHeaderView(
-            name: teamInfo.name,
+            name: teamInfo.appName,
             boothNumber: teamInfo.boothNumber
         )
 
@@ -174,10 +174,7 @@ struct BoothDetailView: View {
                 categoryLine: teamInfo.categoryLine
             )
 
-            AppDownloadCardView(appName: teamInfo.appName, boothNumber: teamInfo.boothNumber) {
-                print(teamInfo.members)
-                // TODO: teaminfo.appUrl 사용
-            }
+            AppDownloadCardView(appName: teamInfo.appName, boothNumber: teamInfo.boothNumber, downloadUrl: teamInfo.downloadUrl)
         }
     }
 }
@@ -209,7 +206,7 @@ struct AppDescriptionView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text(description)
-                .font(.subheadline)
+                .font(.body)
                 .foregroundStyle(Color.primary)
 
             Text(categoryLine)
@@ -223,7 +220,7 @@ struct AppDescriptionView: View {
 struct AppDownloadCardView: View {
     let appName: String
     let boothNumber: String
-    let onDownloadTap: () -> Void
+    let downloadUrl: URL
 
     var body: some View {
         HStack(spacing: 12) {
@@ -234,18 +231,18 @@ struct AppDownloadCardView: View {
                 .logoStrokeBorder(cornerRadius: 18)
             Text(appName)
             Spacer()
-            Button {
-                onDownloadTap()
-            } label: {
+
+            Link(destination: downloadUrl) {
                 Text("받기")
-                    .font(.subheadline)
-                    .foregroundStyle(Color.teal)
-                    .padding(.vertical, 4)
-                    .padding(.horizontal, 13)
-                    .background(Color.downloadBtn)
-                    .clipShape(.capsule)
             }
+            .font(.subheadline)
+            .foregroundStyle(Color.teal)
+            .padding(.vertical, 4)
+            .padding(.horizontal, 13)
+            .background(Color.downloadBtn)
+            .clipShape(.capsule)
         }
+
         .padding(.all, 12)
         .background(Color.quatFill)
         .clipShape(RoundedRectangle(cornerRadius: 24))
@@ -256,45 +253,61 @@ struct AppDownloadCardView: View {
 struct TeamIntroductionView: View {
     let teamName: String
     let teamUrl: URL
-    let members: [Learner]
+    let members: String
     let isIpad: Bool
+    let isSheet: Bool = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("팀소개")
-                .font(isIpad ? .title2 : .title3)
+            Text("팀 소개")
+                .font(isIpad ? .title3 : .title3)
+                .fontWeight(.semibold)
                 .foregroundStyle(Color.primary)
-            HStack {
-                Text("팀 이름")
-                    .font(isIpad ? .headline : .subheadline)
-                    .foregroundStyle(Color.gray)
-                Spacer()
-                Text(teamName)
-                    .font(isIpad ? .headline : .subheadline)
-                    .foregroundStyle(Color.primary)
-            }
 
             HStack {
                 Text("팀 및 프로젝트 설명")
-                    .font(isIpad ? .headline : .subheadline)
+//                    .font(isIpad ? .headline : .subheadline)
+                    .fontWeight(.medium)
                     .foregroundStyle(Color.gray)
+
                 Spacer()
                 Link("NotionLink", destination: teamUrl)
-                    .font(isIpad ? .headline : .subheadline)
+//                    .font(isIpad ? .headline : .subheadline)
+                    .fontWeight(.regular)
                     .foregroundStyle(Color.teal)
                     .underline()
             }
-            List(members) { member in
-                Text("\(member.name)(\(member.id))")
-                    .font(isIpad ? .body : .subheadline)
-                    .listRowBackground(Color(.quaternarySystemFill))
+
+            HStack {
+                Text("팀명")
+//                    .font(isIpad ? .headline : .subheadline)
+                    .fontWeight(.medium)
+                    .foregroundStyle(Color.gray)
+
+                Spacer()
+                Text(teamName)
+//                    .font(isIpad ? .headline : .subheadline)
+                    .fontWeight(.regular)
+                    .foregroundStyle(Color.primary)
             }
-            .frame(height: CGFloat(members.count * 50 + 60))
-            .listStyle(.insetGrouped)
-            .scrollDisabled(true)
-            .padding(.all, -16) // insetgrouped가 padding내장
-            .scrollContentBackground(.hidden)
+
+            HStack(alignment: .top) {
+                Text("팀원")
+//                    .font(isIpad ? .headline : .subheadline)
+                    .fontWeight(.medium)
+                    .foregroundStyle(Color.gray)
+                Spacer()
+                Text(members)
+//                    .font(isIpad ? .headline : .subheadline)
+                    .fontWeight(.regular)
+                    .foregroundStyle(Color.primary)
+                    .multilineTextAlignment(.trailing)
+                    .lineLimit(nil)
+                    .fixedSize(horizontal: false, vertical: true)
+                    
+            }
         }
+        .font(.subheadline)
         .padding(.top, 16)
         .padding(.bottom, 24)
     }
@@ -316,7 +329,8 @@ struct TeamIntroductionView: View {
                 displayPoint: [],
             ),
             tabSelection: .constant(.booth),
-            selectedBoothForMap: .constant(nil)
+            selectedBoothForMap: .constant(nil),
+            selectedFloorOrdinal: .constant(nil)
         )
         .environment(IMDFStore())
     }

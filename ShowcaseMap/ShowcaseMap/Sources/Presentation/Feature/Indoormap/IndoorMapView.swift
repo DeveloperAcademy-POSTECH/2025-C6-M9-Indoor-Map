@@ -142,14 +142,16 @@ struct IndoorMapView: View {
                 }
                 Spacer()
             }
-        }.overlay(alignment: .center) {
+        }
+        .mapScope(mapScope)
+        .overlay(alignment: .center) {
             GeometryReader { geo in
                 let sheetWidth = geo.size.width * 0.30
                 let fullHeight = geo.size.height
                 let sheetHeight = fullHeight
                 iPadSidePanel
                     .frame(width: sheetWidth, height: sheetHeight)
-                    .background(RoundedRectangle(cornerRadius: 34).fill(.ultraThinMaterial))
+                    .background(RoundedRectangle(cornerRadius: 34).fill(.ultraThickMaterial))
                     .shadow(color: .black.opacity(0.1), radius: 15, x: 0, y: 0)
 
             }.padding(.horizontal, 32)
@@ -179,7 +181,7 @@ struct IndoorMapView: View {
 
     @ViewBuilder
     private func iPadBoothDetailPanel(teamInfo: TeamInfo) -> some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 0) {
             HStack {
                 Spacer()
                 SheetIconButton(systemName: "xmark") {
@@ -203,15 +205,14 @@ struct IndoorMapView: View {
 
                 AppDownloadCardView(
                     appName: teamInfo.appName,
-                    boothNumber: teamInfo.boothNumber
-                ) {
-                    print("다운로드 탭")
-                }
+                    boothNumber: teamInfo.boothNumber,
+                    downloadUrl: teamInfo.downloadUrl
+                )
 
                 TeamIntroductionView(
                     teamName: teamInfo.name,
                     teamUrl: teamInfo.teamUrl,
-                    members: teamInfo.members,
+                    members: teamInfo.teamMemberString,
                     isIpad: true
                 )
             }
@@ -221,7 +222,7 @@ struct IndoorMapView: View {
 
     @ViewBuilder
     private func iPadAmenityDetailPanel(amenityData: MapMarkerData) -> some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 0) {
             HStack {
                 Spacer()
                 SheetIconButton(systemName: "xmark") {
@@ -232,7 +233,7 @@ struct IndoorMapView: View {
             .padding(.horizontal, 16)
             .padding(.top, 16)
 
-            AmenityDetailView(amenityData: amenityData)
+            AmenityDetailView(amenityData: amenityData,selection: $selection)
                 .padding(.horizontal, 16)
         }
     }
@@ -254,12 +255,13 @@ struct IndoorMapView: View {
                                     selectedTeamInfo: teamInfo,
                                     isFavorite: isFavorite,
                                     modelContext: modelContext,
-                                    favoriteTeamInfos: favoriteTeamInfos
+                                    favoriteTeamInfos: favoriteTeamInfos,
+                                    selection: $selection
                                 )
                                 .presentationDetents([.height(350), .large], selection: $sheetDetent)
 
                             case .amenity(let amenityData):
-                                AmenityDetailView(amenityData: amenityData)
+                                AmenityDetailView(amenityData: amenityData,selection: $selection)
                                     .presentationDetents([.height(350)])
                             }
                         }
@@ -281,7 +283,7 @@ struct IndoorMapView: View {
                         .padding(.leading, 20)
                         .offset(y: showMarkerDetail ? -(sheetHeight - 30) : -30)
                         .animation(.interpolatingSpring(duration: animationDuration, bounce: 0, initialVelocity: 0), value: sheetHeight)
-                }
+                }.mapScope(mapScope)
 
             VStack {
                 POICategoryFilterView(selectedCategory: $selectedCategory)
@@ -336,21 +338,18 @@ struct IndoorMapView: View {
                 Text("\(viewModel.currentLevelName)층")
                     .font(.system(size: 19, weight: .medium))
             }
-            .padding(.all, 13)
+            .frame(width: 48, height: 48)
             .applyGlassEffect() // CategoryFilterView 안에 extension으로 선언됨
             .clipShape(Circle())
 
-            Button {
-                viewModel.moveCameraToUserLocation()
-            } label: {
-                Image(systemName: "location")
-                    .font(.system(size: 19, weight: .medium))
-            }
-            .padding(.all, 13)
-            .applyGlassEffect()
-            .clipShape(Circle())
+            MapUserLocationButton(scope: mapScope)
+//                .buttonBorderShape(.circle)
+                .clipShape(Circle())
+                .frame(width: 48, height: 48)
+//                .tint(Color.primary)
+                .clipShape(Circle())
+                .applyGlassEffect()
         }
-        .font(.title3)
         .foregroundStyle(Color.primary)
     }
 }
@@ -364,6 +363,7 @@ struct BottomSheetView: View {
     let isFavorite: Bool
     let modelContext: ModelContext
     let favoriteTeamInfos: [FavoriteTeamInfo]
+    @Binding var selection: UUID?
 
     var body: some View {
         if let teamInfo = selectedTeamInfo {
@@ -382,6 +382,7 @@ struct BottomSheetView: View {
 
                     Spacer()
                     SheetIconButton(systemName: "xmark") {
+                        selection = nil
                         dismiss()
                     }
                 }
@@ -398,15 +399,14 @@ struct BottomSheetView: View {
 
                     AppDownloadCardView(
                         appName: teamInfo.appName,
-                        boothNumber: teamInfo.boothNumber
-                    ) {
-                        print("다운로드 탭")
-                    }
+                        boothNumber: teamInfo.boothNumber,
+                        downloadUrl: teamInfo.downloadUrl
+                    )
 
                     TeamIntroductionView(
                         teamName: teamInfo.name,
                         teamUrl: teamInfo.teamUrl,
-                        members: teamInfo.members,
+                        members: teamInfo.teamMemberString,
                         isIpad: false
                     )
                 }
@@ -444,10 +444,6 @@ private enum SidePanelContent {
 
 private struct DeviceLayout {
     let isIPad: Bool
-
-    var sidePanelWidth: CGFloat {
-        isIPad ? UIScreen.main.bounds.width * 0.3 : 0
-    }
 }
 
 #Preview {

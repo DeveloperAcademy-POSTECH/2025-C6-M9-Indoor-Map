@@ -139,7 +139,7 @@ class IndoorMapViewModel {
                     id: teamInfo.id,
                     type: .booth(teamInfo),
                     coordinate: teamInfo.displayPoint,
-                    title: teamInfo.name
+                    title: teamInfo.appName
                 )
             })
         }
@@ -165,33 +165,6 @@ class IndoorMapViewModel {
                 MapCamera(
                     centerCoordinate: coordinate,
                     distance: 175,
-                    heading: -23,
-                    pitch: 0
-                )
-            )
-        }
-    }
-
-    func moveCameraToUserLocation() {
-        switch locationService.authorizationStatus {
-        case .authorizedAlways, .authorizedWhenInUse:
-            locationService.startUpdating()
-        case .notDetermined:
-            locationService.requestAuthorization()
-        default:
-            break
-        }
-
-        guard let coordinate = userLocation ?? locationService.lastKnownLocation else {
-            locationService.requestSingleLocation()
-            return
-        }
-
-        withAnimation(.easeInOut(duration: 0.3)) {
-            mapCameraPosition = .camera(
-                MapCamera(
-                    centerCoordinate: coordinate,
-                    distance: 100,
                     heading: -23,
                     pitch: 0
                 )

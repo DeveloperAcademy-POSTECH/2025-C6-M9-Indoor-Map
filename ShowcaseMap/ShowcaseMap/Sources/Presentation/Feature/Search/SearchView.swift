@@ -128,6 +128,7 @@ struct SearchView: View {
                         }
                     }
                 }
+                .padding(.top,16)
                 .padding(.horizontal, layout.horizontalPadding)
                 .safeAreaPadding(.bottom, 100)
             }
@@ -231,7 +232,7 @@ private struct DeviceLayout {
     let isIPad: Bool
 
     var horizontalPadding: CGFloat {
-        isIPad ? 32 : 15
+        isIPad ? 32 : 20
     }
 
     var ListSpacing: CGFloat {
