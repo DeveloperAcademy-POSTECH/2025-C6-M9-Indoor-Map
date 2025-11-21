@@ -4,10 +4,10 @@ final class IndoorMapLocationManager: NSObject, CLLocationManagerDelegate {
     private let locationManager = CLLocationManager()
     private(set) var lastKnownLocation: CLLocationCoordinate2D?
     private(set) var lastKnownFloor: Int?
+    private var singleLocationCompletion: ((Int?) -> Void)?
 
     var onAuthorizationChange: ((CLAuthorizationStatus) -> Void)?
     var onLocationUpdate: ((CLLocationCoordinate2D) -> Void)?
-    var onFloorUpdate: ((Int?) -> Void)?
 
     override init() {
         super.init()
@@ -31,7 +31,8 @@ final class IndoorMapLocationManager: NSObject, CLLocationManagerDelegate {
         locationManager.stopUpdatingLocation()
     }
 
-    func requestSingleLocation() {
+    func requestSingleLocation(completion: @escaping (Int?) -> Void) {
+        singleLocationCompletion = completion
         locationManager.requestLocation()
     }
 
@@ -54,7 +55,8 @@ final class IndoorMapLocationManager: NSObject, CLLocationManagerDelegate {
         if let floorLevel {
             lastKnownFloor = floorLevel
         }
-        onFloorUpdate?(floorLevel)
+        singleLocationCompletion?(floorLevel)
+        singleLocationCompletion = nil
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
