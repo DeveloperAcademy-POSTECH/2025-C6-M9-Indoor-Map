@@ -24,6 +24,10 @@ struct IndoorMapView: View {
     @State private var animationDuration: CGFloat = 0
     @State private var selectedMarker: IntegrateMarker?
 
+    // MapUserLocationButton 추적상태
+    @State private var trackingMode: LocationTrackingMode = .idle
+    @State private var mapCameraPosition: MapCameraPosition = .automatic
+
     @Environment(\.modelContext) private var modelContext
     @Query private var favoriteTeamInfos: [FavoriteTeamInfo]
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -132,6 +136,11 @@ struct IndoorMapView: View {
                 } else {
                     showMarkerDetail = false
                 }
+            }
+        }
+        .onChange(of: viewModel?.mapCameraPosition) { _, newPosition in
+            if let newPosition = newPosition {
+                mapCameraPosition = newPosition
             }
         }
     }
@@ -311,7 +320,7 @@ struct IndoorMapView: View {
     @ViewBuilder
     private func mapView(viewModel: IndoorMapViewModel) -> some View {
         Map(
-            position: .constant(viewModel.mapCameraPosition),
+            position: $mapCameraPosition,
             bounds: mapCameraBounds,
             interactionModes: [.zoom, .pan, .rotate],
             selection: $selection,
@@ -347,15 +356,18 @@ struct IndoorMapView: View {
                 self.viewModel?.selectedLevelIndex = nextIndex
             } label: {
                 Text("\(viewModel.currentLevelName)층")
-                    .font(.system(size: 18, weight: .medium))
             }
             .floatingButtonStyle()
+            .foregroundStyle(Color.primary)
 
-            MapUserLocationButton(scope: mapScope)
-                .floatingButtonStyle()
-                .tint(Color.blue)
+            CustomMapUserLocationButton(
+                trackingMode: $trackingMode,
+                mapCameraPosition: $mapCameraPosition
+            ) {
+                // TODO: 층변환 감지
+            }
+            .floatingButtonStyle()
         }
-        .foregroundStyle(Color.primary)
     }
 }
 
@@ -457,6 +469,13 @@ private struct DeviceLayout {
     var longitudinalMeters: CGFloat {
         isIPad ? 40 : 60
     }
+}
+
+// 위치 추적 모드
+enum LocationTrackingMode {
+    case idle
+    case follow
+    case followWithHeading
 }
 
 #Preview {
