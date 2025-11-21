@@ -24,7 +24,7 @@ struct AppTeamListView: View {
                 }
             }
         }
-        .navigationTitle("만든 사람들")
+        .navigationTitle(isIpad ? "" : "만든 사람들")
         .navigationBarTitleDisplayMode(.inline)
     }
 
