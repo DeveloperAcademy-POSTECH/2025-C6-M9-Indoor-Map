@@ -155,13 +155,11 @@ struct CategoryFilterView: View {
                     }
                 }
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal, layout.horizontalPadding)
         }
-        .padding(.top, 12)
-//        .padding(.trailing, -layout.horizontalPadding)
+        .padding(.top, layout.topPadding)
     }
 }
-
 
 extension BoothListView {
     private var layout: DeviceLayout {
@@ -177,7 +175,11 @@ private struct DeviceLayout {
     }
 
     var horizontalPadding: CGFloat {
-        isIPad ? 32 : 15
+        isIPad ? 32 : 16
+    }
+
+    var topPadding: CGFloat {
+        isIPad ? 0 : 12
     }
 }
 
