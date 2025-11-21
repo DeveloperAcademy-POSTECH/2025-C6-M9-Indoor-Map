@@ -181,6 +181,8 @@ struct IndoorMapView: View {
 
     @ViewBuilder
     private func iPadBoothDetailPanel(teamInfo: TeamInfo) -> some View {
+        @State var showAppDownloadAlert = false
+
         VStack(alignment: .leading, spacing: 0) {
             HStack {
                 Spacer()
@@ -206,7 +208,8 @@ struct IndoorMapView: View {
                 AppDownloadCardView(
                     appName: teamInfo.appName,
                     boothNumber: teamInfo.boothNumber,
-                    downloadUrl: teamInfo.downloadUrl
+                    downloadUrl: teamInfo.downloadUrl,
+                    showAlert: $showAppDownloadAlert
                 )
 
                 TeamIntroductionView(
@@ -217,6 +220,10 @@ struct IndoorMapView: View {
                 )
             }
             .padding(.horizontal, 16)
+        }
+        .alert("해당 앱은 현재 내부 관계자 대상으로만 제공됩니다.",
+               isPresented: $showAppDownloadAlert) {
+            Button("확인", role: .cancel) {}
         }
     }
 
@@ -365,6 +372,8 @@ struct BottomSheetView: View {
     let favoriteTeamInfos: [FavoriteTeamInfo]
     @Binding var selection: UUID?
 
+    @State private var showAppDownloadAlert = false
+
     var body: some View {
         if let teamInfo = selectedTeamInfo {
             ScrollView {
@@ -400,7 +409,8 @@ struct BottomSheetView: View {
                     AppDownloadCardView(
                         appName: teamInfo.appName,
                         boothNumber: teamInfo.boothNumber,
-                        downloadUrl: teamInfo.downloadUrl
+                        downloadUrl: teamInfo.downloadUrl,
+                        showAlert: $showAppDownloadAlert
                     )
 
                     TeamIntroductionView(
@@ -413,6 +423,9 @@ struct BottomSheetView: View {
             }
             .padding(.vertical, 16)
             .padding(.horizontal, 26)
+            .alert("해당 앱은 현재 내부 관계자 대상으로만 제공됩니다.", isPresented: $showAppDownloadAlert) {
+                Button("확인", role: .cancel) {}
+            }
         }
     }
 }

@@ -23,6 +23,8 @@ struct BoothDetailView: View {
     @Query private var favoriteTeamInfos: [FavoriteTeamInfo]
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
+    @State private var showAppDownloadAlert = false
+
     private var isFavorite: Bool {
         favoriteTeamInfos.contains { $0.teamInfoId == teamInfo.id }
     }
@@ -106,6 +108,9 @@ struct BoothDetailView: View {
                 }
             }
         }
+        .alert("해당 앱은 현재 내부 관계자 대상으로만 제공되고 있습니다.", isPresented: $showAppDownloadAlert) {
+            Button("확인", role: .cancel) {}
+        }
     }
 
     @ViewBuilder
@@ -143,18 +148,24 @@ struct BoothDetailView: View {
 
                 Color.clear.frame(height: 12)
 
-                Link(destination: teamInfo.downloadUrl) {
-                    HStack(spacing: 0) {
-                        Text("앱 다운로드")
-                            .font(.body)
-                        Image(systemName: "arrow.up.forward")
+                if let downloadUrl = teamInfo.downloadUrl {
+                    Link(destination: downloadUrl) {
+                        HStack(spacing: 0) {
+                            Text("앱 다운로드")
+                            Image(systemName: "arrow.up.forward")
+                        }
                     }
+                    .downloadButtonStyle(isLarge: true)
+                } else {
+                    Button {
+                        showAppDownloadAlert = true
+                    } label: {
+                        HStack(spacing: 0) {
+                            Text("앱 다운로드")
+                            Image(systemName: "arrow.up.forward")
+                        }
+                    }.downloadButtonStyle(isLarge: true)
                 }
-                .foregroundStyle(Color.teal)
-                .padding(.vertical, 14)
-                .padding(.horizontal, 20)
-                .background(Color.downloadBtn)
-                .clipShape(Capsule())
             }
 
             Spacer()
@@ -174,7 +185,7 @@ struct BoothDetailView: View {
                 categoryLine: teamInfo.categoryLine
             )
 
-            AppDownloadCardView(appName: teamInfo.appName, boothNumber: teamInfo.boothNumber, downloadUrl: teamInfo.downloadUrl)
+            AppDownloadCardView(appName: teamInfo.appName, boothNumber: teamInfo.boothNumber, downloadUrl: teamInfo.downloadUrl, showAlert: $showAppDownloadAlert)
         }
     }
 }
@@ -220,27 +231,27 @@ struct AppDescriptionView: View {
 struct AppDownloadCardView: View {
     let appName: String
     let boothNumber: String
-    let downloadUrl: URL
+    let downloadUrl: URL?
+    @Binding var showAlert: Bool
 
     var body: some View {
         HStack(spacing: 12) {
-            // TODO: 이미지 변경 필요
             Image(boothNumber)
                 .resizable()
                 .frame(width: 60, height: 60)
                 .logoStrokeBorder(cornerRadius: 18)
             Text(appName)
             Spacer()
-
-            Link(destination: downloadUrl) {
-                Text("받기")
+            if let downloadUrl {
+                Link(destination: downloadUrl) {
+                    Text("받기")
+                }
+                .downloadButtonStyle()
+            } else {
+                Button("받기") {
+                    showAlert = true
+                }.downloadButtonStyle()
             }
-            .font(.subheadline)
-            .foregroundStyle(Color.teal)
-            .padding(.vertical, 4)
-            .padding(.horizontal, 13)
-            .background(Color.downloadBtn)
-            .clipShape(.capsule)
         }
 
         .padding(.all, 12)
@@ -266,13 +277,11 @@ struct TeamIntroductionView: View {
 
             HStack {
                 Text("팀 및 프로젝트 설명")
-//                    .font(isIpad ? .headline : .subheadline)
                     .fontWeight(.medium)
                     .foregroundStyle(Color.gray)
 
                 Spacer()
                 Link("NotionLink", destination: teamUrl)
-//                    .font(isIpad ? .headline : .subheadline)
                     .fontWeight(.regular)
                     .foregroundStyle(Color.teal)
                     .underline()
@@ -280,31 +289,26 @@ struct TeamIntroductionView: View {
 
             HStack {
                 Text("팀명")
-//                    .font(isIpad ? .headline : .subheadline)
                     .fontWeight(.medium)
                     .foregroundStyle(Color.gray)
 
                 Spacer()
                 Text(teamName)
-//                    .font(isIpad ? .headline : .subheadline)
                     .fontWeight(.regular)
                     .foregroundStyle(Color.primary)
             }
 
             HStack(alignment: .top) {
                 Text("팀원")
-//                    .font(isIpad ? .headline : .subheadline)
                     .fontWeight(.medium)
                     .foregroundStyle(Color.gray)
                 Spacer()
                 Text(members)
-//                    .font(isIpad ? .headline : .subheadline)
                     .fontWeight(.regular)
                     .foregroundStyle(Color.primary)
                     .multilineTextAlignment(.trailing)
                     .lineLimit(nil)
                     .fixedSize(horizontal: false, vertical: true)
-                    
             }
         }
         .font(.subheadline)
@@ -354,5 +358,16 @@ private struct DeviceLayout {
 
     var logoCornerRadius: CGFloat {
         isIPad ? 38 : 18
+    }
+}
+
+private extension View {
+    func downloadButtonStyle(isLarge: Bool = false) -> some View {
+        font(isLarge ? .body : .subheadline)
+            .foregroundStyle(Color.teal)
+            .padding(.vertical, isLarge ? 14 : 4)
+            .padding(.horizontal, isLarge ? 20 : 13)
+            .background(Color.downloadBtn)
+            .clipShape(Capsule())
     }
 }
