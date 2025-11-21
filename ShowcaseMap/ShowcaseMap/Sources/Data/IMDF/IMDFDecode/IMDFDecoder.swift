@@ -1,3 +1,11 @@
+//
+//  IMDFDecoder.swift
+//  ShowcaseMap
+//
+//  Created by bishoe01 on 11/17/25.
+//
+
+
 import Foundation
 import MapKit
 

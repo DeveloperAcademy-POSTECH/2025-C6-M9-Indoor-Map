@@ -46,8 +46,6 @@ struct IntegrateMarker: Identifiable {
         }
     }
 
-    // MARK: - Type-Safe Accessors
-
     /// Booth 타입일 경우 TeamInfo 반환
     var teamInfo: TeamInfo? {
         if case .booth(let info) = type {
