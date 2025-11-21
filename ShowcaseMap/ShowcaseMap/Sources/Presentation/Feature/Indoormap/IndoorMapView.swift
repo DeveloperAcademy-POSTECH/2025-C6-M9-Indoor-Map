@@ -40,6 +40,18 @@ struct IndoorMapView: View {
         DeviceLayout(isIPad: horizontalSizeClass == .regular)
     }
 
+    private var mapCameraBounds: MapCameraBounds {
+        MapCameraBounds(
+            centerCoordinateBounds: MKCoordinateRegion(
+                center: MapConstants.centerCoordinate,
+                latitudinalMeters: layout.latitudinalMeters,
+                longitudinalMeters: layout.longitudinalMeters
+            ),
+            minimumDistance: MapConstants.minimunDistance,
+            maximumDistance: MapConstants.maximumDistance
+        )
+    }
+
     @Namespace private var mapScope
     var body: some View {
         Group {
@@ -233,7 +245,7 @@ struct IndoorMapView: View {
             .padding(.horizontal, 16)
             .padding(.top, 16)
 
-            AmenityDetailView(amenityData: amenityData,selection: $selection)
+            AmenityDetailView(amenityData: amenityData, selection: $selection)
                 .padding(.horizontal, 16)
         }
     }
@@ -261,7 +273,7 @@ struct IndoorMapView: View {
                                 .presentationDetents([.height(350), .large], selection: $sheetDetent)
 
                             case .amenity(let amenityData):
-                                AmenityDetailView(amenityData: amenityData,selection: $selection)
+                                AmenityDetailView(amenityData: amenityData, selection: $selection)
                                     .presentationDetents([.height(350)])
                             }
                         }
@@ -298,14 +310,13 @@ struct IndoorMapView: View {
 
     @ViewBuilder
     private func mapView(viewModel: IndoorMapViewModel) -> some View {
-        Map(position: .constant(viewModel.mapCameraPosition),
-            bounds: MapCameraBounds(
-                minimumDistance: 5,
-                maximumDistance: 350
-            ),
+        Map(
+            position: .constant(viewModel.mapCameraPosition),
+            bounds: mapCameraBounds,
             interactionModes: [.zoom, .pan, .rotate],
-            selection: $selection, scope: mapScope)
-        {
+            selection: $selection,
+            scope: mapScope
+        ) {
             // 사용자 위치
             UserAnnotation()
 
@@ -346,7 +357,7 @@ struct IndoorMapView: View {
 //                .buttonBorderShape(.circle)
                 .clipShape(Circle())
                 .frame(width: 48, height: 48)
-//                .tint(Color.primary)
+                .foregroundStyle(Color.primary, Color.clear)
                 .clipShape(Circle())
                 .applyGlassEffect()
         }
@@ -444,6 +455,14 @@ private enum SidePanelContent {
 
 private struct DeviceLayout {
     let isIPad: Bool
+
+    var latitudinalMeters: CGFloat {
+        isIPad ? 30 : 70
+    }
+
+    var longitudinalMeters: CGFloat {
+        isIPad ? 40 : 60
+    }
 }
 
 #Preview {
@@ -457,4 +476,12 @@ private struct DeviceLayout {
         selectedFloorOrdinal: .constant(nil)
     )
     .environment(store)
+}
+
+enum MapConstants {
+    static let centerCoordinate = CLLocationCoordinate2D(latitude:
+        36.014267, longitude: 129.325778)
+
+    static let minimunDistance: CGFloat = 5
+    static let maximumDistance: CGFloat = 350
 }

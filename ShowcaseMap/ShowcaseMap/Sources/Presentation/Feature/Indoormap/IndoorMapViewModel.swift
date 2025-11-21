@@ -40,16 +40,6 @@ class IndoorMapViewModel {
     private let locationService = IndoorMapLocationManager()
     private let teamRepository: TeamInfoRepository = MockTeamRepository()
 
-    // 카메라 제한 설정
-    private let centerCoordinate = CLLocationCoordinate2D(latitude: 36.014267, longitude: 129.325778)
-    private let minZoomDistance: CLLocationDistance = 10
-    private let maxZoomDistance: CLLocationDistance = 250
-    private let cameraBoundary = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 36.014267, longitude: 129.325778),
-        latitudinalMeters: 180,
-        longitudinalMeters: 80
-    )
-
     var levels: [Level] {
         return imdfStore.levels
     }
@@ -85,10 +75,9 @@ class IndoorMapViewModel {
             }
         }
 
-        let centerCoordinate = CLLocationCoordinate2D(latitude: 36.014267, longitude: 129.325778)
         mapCameraPosition = .camera(
             MapCamera(
-                centerCoordinate: centerCoordinate,
+                centerCoordinate: MapConstants.centerCoordinate,
                 distance: 250,
                 heading: -23,
                 pitch: 0
