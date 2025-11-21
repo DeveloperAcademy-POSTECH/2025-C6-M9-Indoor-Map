@@ -37,6 +37,27 @@ struct BoothListView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
+                if !layout.isIPad {
+                    HStack {
+                        Text("부스")
+                            .font(.system(size: 28, weight: .bold))
+                        Spacer()
+                        NavigationLink(value: AppTeamMemberNavigation()) {
+                            HStack {
+                                Image(systemName: "person.2.fill")
+                                    .font(.caption2)
+                                Text("만든 사람들")
+                                    .font(.caption)
+                                    .fontWeight(.medium)
+                            }
+                            .foregroundStyle(Color(.secondaryLabel))
+                        }.buttonStyle(.plain)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.top, 12)
+                    .padding(.horizontal, layout.horizontalPadding)
+                }
+
                 VStack(spacing: layout.categorySpacing) {
                     CategoryFilterView(
                         selectedCategory: $selectedCategory,
@@ -54,9 +75,37 @@ struct BoothListView: View {
                 }
                 .safeAreaPadding(.bottom, 100)
             }
-            .navigationTitle(layout.isIPad ? "" : "부스")
-            .navigationBarTitleDisplayMode(.large)
-            .toolbarTitleDisplayMode(.inline)
+            .toolbar {
+                if layout.isIPad {
+                    if #available(iOS 26.0, *) {
+                        ToolbarItemGroup(placement: .topBarTrailing) {
+                            NavigationLink(value: AppTeamMemberNavigation()) {
+                                HStack {
+                                    Image(systemName: "person.2.fill")
+                                        .font(.caption2)
+                                    Text("만든 사람들")
+                                        .font(.caption)
+                                        .fontWeight(.medium)
+                                }
+                            }.buttonStyle(.plain)
+                                .padding(.trailing, 32)
+                        }
+                        .sharedBackgroundVisibility(.hidden)
+                    } else {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            NavigationLink(value: AppTeamMemberNavigation()) {
+                                HStack {
+                                    Image(systemName: "person.2.fill")
+                                        .font(.caption2)
+                                    Text("만든 사람들")
+                                        .font(.caption)
+                                        .fontWeight(.medium)
+                                }
+                            }.buttonStyle(.plain)
+                        }
+                    }
+                }
+            }
             .navigationDestination(for: TeamInfo.self) { teamInfo in
                 BoothDetailView(
                     teamInfo: teamInfo,
@@ -64,6 +113,9 @@ struct BoothListView: View {
                     selectedBoothForMap: $selectedBoothForMap,
                     selectedFloorOrdinal: $selectedFloorOrdinal
                 )
+            }
+            .navigationDestination(for: AppTeamMemberNavigation.self) { _ in
+                AppTeamListView(members: AppTeamMember.tntMembers)
             }
             .task {
                 await viewModel.fetchTeamInfo()
@@ -95,15 +147,6 @@ struct BoothListView: View {
         .background(Color(.quaternarySystemFill))
         .clipShape(RoundedRectangle(cornerRadius: 20))
     }
-}
-
-#Preview {
-    BoothListView(
-        tabSelection: .constant(.booth),
-        selectedBoothForMap: .constant(nil),
-        selectedFloorOrdinal: .constant(nil)
-    )
-    .modelContainer(for: FavoriteTeamInfo.self, inMemory: true)
 }
 
 struct CategoryFilterView: View {
@@ -157,7 +200,6 @@ struct CategoryFilterView: View {
             }
             .padding(.horizontal, layout.horizontalPadding)
         }
-        .padding(.top, layout.topPadding)
     }
 }
 
@@ -176,10 +218,6 @@ private struct DeviceLayout {
 
     var horizontalPadding: CGFloat {
         isIPad ? 32 : 16
-    }
-
-    var topPadding: CGFloat {
-        isIPad ? 0 : 12
     }
 }
 
@@ -201,3 +239,14 @@ struct FilterButton<Label: View>: View {
         .clipShape(Capsule())
     }
 }
+
+struct AppTeamMemberNavigation: Hashable {}
+
+// #Preview {
+//    BoothListView(
+//        tabSelection: .constant(.booth),
+//        selectedBoothForMap: .constant(nil),
+//        selectedFloorOrdinal: .constant(nil)
+//    )
+//    .modelContainer(for: FavoriteTeamInfo.self, inMemory: true)
+// }
