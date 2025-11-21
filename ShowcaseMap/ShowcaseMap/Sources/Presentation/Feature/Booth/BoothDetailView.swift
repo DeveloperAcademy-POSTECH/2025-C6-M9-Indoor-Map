@@ -23,8 +23,6 @@ struct BoothDetailView: View {
     @Query private var favoriteTeamInfos: [FavoriteTeamInfo]
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
-    @State private var showAppDownloadAlert = false
-
     private var isFavorite: Bool {
         favoriteTeamInfos.contains { $0.teamInfoId == teamInfo.id }
     }
@@ -108,9 +106,6 @@ struct BoothDetailView: View {
                 }
             }
         }
-        .alert("해당 앱은 현재 내부 관계자 대상으로만 제공되고 있습니다.", isPresented: $showAppDownloadAlert) {
-            Button("확인", role: .cancel) {}
-        }
     }
 
     @ViewBuilder
@@ -148,24 +143,7 @@ struct BoothDetailView: View {
 
                 Color.clear.frame(height: 12)
 
-                if let downloadUrl = teamInfo.downloadUrl {
-                    Link(destination: downloadUrl) {
-                        HStack(spacing: 0) {
-                            Text("앱 다운로드")
-                            Image(systemName: "arrow.up.forward")
-                        }
-                    }
-                    .downloadButtonStyle(isLarge: true)
-                } else {
-                    Button {
-                        showAppDownloadAlert = true
-                    } label: {
-                        HStack(spacing: 0) {
-                            Text("앱 다운로드")
-                            Image(systemName: "arrow.up.forward")
-                        }
-                    }.downloadButtonStyle(isLarge: true)
-                }
+                DownloadButton(downloadUrl: teamInfo.downloadUrl, isLarge: true)
             }
 
             Spacer()
@@ -185,7 +163,7 @@ struct BoothDetailView: View {
                 categoryLine: teamInfo.categoryLine
             )
 
-            AppDownloadCardView(appName: teamInfo.appName, boothNumber: teamInfo.boothNumber, downloadUrl: teamInfo.downloadUrl, showAlert: $showAppDownloadAlert)
+            AppDownloadCardView(appName: teamInfo.appName, boothNumber: teamInfo.boothNumber, downloadUrl: teamInfo.downloadUrl)
         }
     }
 }
@@ -232,7 +210,8 @@ struct AppDownloadCardView: View {
     let appName: String
     let boothNumber: String
     let downloadUrl: URL?
-    @Binding var showAlert: Bool
+
+    @State private var showAlert = false
 
     var body: some View {
         HStack(spacing: 12) {
@@ -253,10 +232,12 @@ struct AppDownloadCardView: View {
                 }.downloadButtonStyle()
             }
         }
-
         .padding(.all, 12)
         .background(Color.quatFill)
         .clipShape(RoundedRectangle(cornerRadius: 24))
+        .alert("해당 앱은 현재 내부 관계자 대상으로만 제공됩니다.", isPresented: $showAlert) {
+            Button("확인", role: .cancel) {}
+        }
     }
 }
 
@@ -358,6 +339,41 @@ private struct DeviceLayout {
 
     var logoCornerRadius: CGFloat {
         isIPad ? 38 : 18
+    }
+}
+
+// 다운로드 버튼
+struct DownloadButton: View {
+    let downloadUrl: URL?
+    let isLarge: Bool
+
+    @State private var showAlert = false
+
+    var body: some View {
+        Group {
+            if let downloadUrl {
+                Link(destination: downloadUrl) {
+                    buttonLabel
+                }
+            } else {
+                Button {
+                    showAlert = true
+                } label: {
+                    buttonLabel
+                }
+            }
+        }
+        .downloadButtonStyle(isLarge: isLarge)
+        .alert("해당 앱은 현재 내부 관계자 대상으로만 제공됩니다.", isPresented: $showAlert) {
+            Button("확인", role: .cancel) {}
+        }
+    }
+
+    private var buttonLabel: some View {
+        HStack(spacing: 0) {
+            Text("앱 다운로드")
+            Image(systemName: "arrow.up.forward")
+        }
     }
 }
 
