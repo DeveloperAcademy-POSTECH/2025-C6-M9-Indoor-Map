@@ -20,4 +20,13 @@ extension View {
                     .strokeBorder(color, lineWidth: lineWidth)
             )
     }
+
+    func floatingButtonStyle() -> some View {
+        self
+            .frame(width: 48, height: 48)
+            .buttonBorderShape(.circle)
+            .clipShape(Circle())
+            .applyGlassEffect()
+            .contentShape(Rectangle())
+    }
 }

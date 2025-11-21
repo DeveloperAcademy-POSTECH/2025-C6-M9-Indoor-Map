@@ -347,19 +347,13 @@ struct IndoorMapView: View {
                 self.viewModel?.selectedLevelIndex = nextIndex
             } label: {
                 Text("\(viewModel.currentLevelName)층")
-                    .font(.system(size: 19, weight: .medium))
+                    .font(.system(size: 18, weight: .medium))
             }
-            .frame(width: 48, height: 48)
-            .applyGlassEffect() // CategoryFilterView 안에 extension으로 선언됨
-            .clipShape(Circle())
+            .floatingButtonStyle()
 
             MapUserLocationButton(scope: mapScope)
-//                .buttonBorderShape(.circle)
-                .clipShape(Circle())
-                .frame(width: 48, height: 48)
-                .foregroundStyle(Color.primary, Color.clear)
-                .clipShape(Circle())
-                .applyGlassEffect()
+                .floatingButtonStyle()
+                .tint(Color.blue)
         }
         .foregroundStyle(Color.primary)
     }
