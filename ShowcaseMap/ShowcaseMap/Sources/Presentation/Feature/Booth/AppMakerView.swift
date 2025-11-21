@@ -62,6 +62,8 @@ struct ProfileComponent: View {
                     .font(Font.subheadline)
                     .foregroundColor(Color.secondary)
                 Text(member.description)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
                     .font(Font.subheadline)
                     .foregroundColor(Color.primary)
             }
