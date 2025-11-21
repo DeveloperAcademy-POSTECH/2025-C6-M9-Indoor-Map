@@ -3,9 +3,11 @@ import CoreLocation
 final class IndoorMapLocationManager: NSObject, CLLocationManagerDelegate {
     private let locationManager = CLLocationManager()
     private(set) var lastKnownLocation: CLLocationCoordinate2D?
+    private(set) var lastKnownFloor: Int?
 
     var onAuthorizationChange: ((CLAuthorizationStatus) -> Void)?
     var onLocationUpdate: ((CLLocationCoordinate2D) -> Void)?
+    var onFloorUpdate: ((Int?) -> Void)?
 
     override init() {
         super.init()
@@ -47,6 +49,12 @@ final class IndoorMapLocationManager: NSObject, CLLocationManagerDelegate {
         guard let location = locations.last else { return }
         lastKnownLocation = location.coordinate
         onLocationUpdate?(location.coordinate)
+
+        let floorLevel = location.floor?.level
+        if let floorLevel {
+            lastKnownFloor = floorLevel
+        }
+        onFloorUpdate?(floorLevel)
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

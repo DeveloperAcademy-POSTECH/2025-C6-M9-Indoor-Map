@@ -35,6 +35,7 @@ class IndoorMapViewModel {
     var teamInfos: [TeamInfo] = []
     private var allTeamInfos: [TeamInfo] = []
     var userLocation: CLLocationCoordinate2D?
+    private var shouldApplyNextFloorUpdate = false
 
     private let imdfStore: IMDFStore
     private let locationService = IndoorMapLocationManager()
@@ -60,6 +61,9 @@ class IndoorMapViewModel {
         self.imdfStore = imdfStore
         locationService.onLocationUpdate = { [weak self] coordinate in
             self?.userLocation = coordinate
+        }
+        locationService.onFloorUpdate = { [weak self] floorLevel in
+            self?.handleFloorUpdate(floorLevel: floorLevel)
         }
         locationService.requestAuthorization()
         locationService.startUpdating()
@@ -183,6 +187,17 @@ class IndoorMapViewModel {
         }
     }
 
+    func syncLFloorLevel() {
+        shouldApplyNextFloorUpdate = true
+
+        if let cachedFloorLevel = locationService.lastKnownFloor {
+            applyFloorLevelChange(floorLevel: cachedFloorLevel)
+            shouldApplyNextFloorUpdate = false
+        } else {
+            locationService.requestSingleLocation()
+        }
+    }
+
     private func findFirstAmenity(for category: POICategory, in ordinal: Int) -> CLLocationCoordinate2D? {
         let data = imdfStore.getMapData(for: ordinal, category: category)
         return data.markers.first?.coordinate
@@ -198,6 +213,26 @@ class IndoorMapViewModel {
                     pitch: 0
                 )
             )
+        }
+    }
+
+    private func handleFloorUpdate(floorLevel: Int?) {
+        guard shouldApplyNextFloorUpdate else { return }
+        defer { shouldApplyNextFloorUpdate = false }
+
+        guard let floorLevel else { return }
+        applyFloorLevelChange(floorLevel: floorLevel)
+    }
+
+    private func applyFloorLevelChange(floorLevel: Int) {
+        guard let targetIndex = levelIndex(forFloorLevel: floorLevel) else { return }
+        selectedLevelIndex = targetIndex
+    }
+
+    private func levelIndex(forFloorLevel floorLevel: Int) -> Int? {
+        levels.firstIndex { level in
+            let ordinal = level.properties.ordinal
+            return ordinal == floorLevel /* || ordinal + 1 == floorLevel */
         }
     }
 }

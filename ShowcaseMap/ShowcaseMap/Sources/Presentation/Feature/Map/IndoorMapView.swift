@@ -364,7 +364,7 @@ struct IndoorMapView: View {
                 trackingMode: $trackingMode,
                 mapCameraPosition: $mapCameraPosition
             ) {
-                // TODO: 층변환 감지
+                viewModel.syncLFloorLevel()
             }
             .floatingButtonStyle()
         }
