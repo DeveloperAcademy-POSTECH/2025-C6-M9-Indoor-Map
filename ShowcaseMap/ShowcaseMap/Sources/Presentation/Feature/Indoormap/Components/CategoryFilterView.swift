@@ -67,17 +67,6 @@ struct CategoryButton: View {
     }
 }
 
-extension View {
-    @ViewBuilder
-    func applyGlassEffect() -> some View {
-        if #available(iOS 26.0, *) {
-            self.glassEffect()
-        } else {
-            self.background(.ultraThinMaterial).clipShape(.capsule)
-        }
-    }
-}
-
 #Preview {
     @Previewable @State var selectedCategory: POICategory? = nil
     POICategoryFilterView(selectedCategory: $selectedCategory)
