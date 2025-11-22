@@ -124,7 +124,7 @@ struct ProfileIponeComponent: View {
 
     var body: some View {
         HStack(alignment: .center, spacing: 12) {
-            Image(systemName: "circle.fill")
+            Image(member.id)
                 .resizable()
                 .frame(width: 78, height: 78)
                 .clipShape(Circle())
