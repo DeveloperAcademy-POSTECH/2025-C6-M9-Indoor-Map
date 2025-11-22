@@ -4,13 +4,16 @@
 //
 //  Created by bishoe01 on 11/21/25.
 //
-import SwiftUI
 import MapKit
+import SwiftUI
 
 struct CustomMapUserLocationButton: View {
     @Binding var trackingMode: LocationTrackingMode
     @Binding var mapCameraPosition: MapCameraPosition
+    @Binding var isOutOfBounds: Bool
     let levelSyncAction: () -> Void
+
+    @State private var showAlert = false
 
     var body: some View {
         Button(action: {
@@ -20,6 +23,11 @@ struct CustomMapUserLocationButton: View {
         }
         .buttonStyle(.plain)
         .foregroundStyle(iconColor)
+        .alert("현재 위치 확인", isPresented: $showAlert) {
+            Button("확인") {}
+        } message: {
+            Text("쇼케이스 영역 내에서 이용 가능합니다")
+        }
     }
 
     private var iconName: String {
@@ -40,6 +48,12 @@ struct CustomMapUserLocationButton: View {
     private func handleTap() {
         switch trackingMode {
         case .idle:
+            // C5로부터 멀리있을때 alert
+            if isOutOfBounds {
+                showAlert = true
+                return
+            }
+
             trackingMode = .follow
             mapCameraPosition = .userLocation(followsHeading: false, fallback: .automatic)
             levelSyncAction()

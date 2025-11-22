@@ -36,6 +36,14 @@ class IndoorMapViewModel {
     private var allTeamInfos: [TeamInfo] = []
     var userLocation: CLLocationCoordinate2D?
 
+    /// C5중앙점 기준70m 밖에 위치하는지 확인
+    var isUserLocationOutOfBounds: Bool {
+        guard let userLocation else { return false }
+
+        let distance = MKMapPoint(userLocation).distance(to: MKMapPoint(MapConstants.centerCoordinate))
+        return distance >= 70
+    }
+
     private let imdfStore: IMDFStore
     private let locationService = IndoorMapLocationManager()
     private let teamRepository: TeamInfoRepository = MockTeamRepository()
