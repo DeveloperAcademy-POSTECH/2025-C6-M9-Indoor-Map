@@ -3,6 +3,8 @@ import CoreLocation
 final class IndoorMapLocationManager: NSObject, CLLocationManagerDelegate {
     private let locationManager = CLLocationManager()
     private(set) var lastKnownLocation: CLLocationCoordinate2D?
+    private(set) var lastKnownFloor: Int?
+    private var singleLocationCompletion: ((Int?) -> Void)?
 
     var onAuthorizationChange: ((CLAuthorizationStatus) -> Void)?
     var onLocationUpdate: ((CLLocationCoordinate2D) -> Void)?
@@ -29,7 +31,8 @@ final class IndoorMapLocationManager: NSObject, CLLocationManagerDelegate {
         locationManager.stopUpdatingLocation()
     }
 
-    func requestSingleLocation() {
+    func requestSingleLocation(completion: @escaping (Int?) -> Void) {
+        singleLocationCompletion = completion
         locationManager.requestLocation()
     }
 
@@ -47,6 +50,13 @@ final class IndoorMapLocationManager: NSObject, CLLocationManagerDelegate {
         guard let location = locations.last else { return }
         lastKnownLocation = location.coordinate
         onLocationUpdate?(location.coordinate)
+
+        let floorLevel = location.floor?.level
+        if let floorLevel {
+            lastKnownFloor = floorLevel
+        }
+        singleLocationCompletion?(floorLevel)
+        singleLocationCompletion = nil
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

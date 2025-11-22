@@ -183,6 +183,18 @@ class IndoorMapViewModel {
         }
     }
 
+    func syncLFloorLevel() {
+        locationService.requestSingleLocation { [weak self] floorLevel in
+            guard let self, let floorLevel,
+                  let targetIndex = levels.firstIndex(where: {
+                      $0.properties.ordinal == floorLevel
+                  })
+            else { return }
+
+            selectedLevelIndex = targetIndex
+        }
+    }
+
     private func findFirstAmenity(for category: POICategory, in ordinal: Int) -> CLLocationCoordinate2D? {
         let data = imdfStore.getMapData(for: ordinal, category: category)
         return data.markers.first?.coordinate
