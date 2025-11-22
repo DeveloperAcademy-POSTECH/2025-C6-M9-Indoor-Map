@@ -1,56 +1,77 @@
 {
-  "fill-specializations" : [
-    {
-      "value" : {
-        "linear-gradient" : [
-          "display-p3:1.00000,1.00000,1.00000,1.00000",
-          "srgb:0.88043,0.96494,0.99397,1.00000"
-        ]
-      }
-    },
-    {
-      "appearance" : "dark",
-      "value" : {
-        "linear-gradient" : [
-          "display-p3:0.10912,0.13747,0.23691,1.00000",
-          "display-p3:0.01388,0.03222,0.07446,1.00000"
-        ]
-      }
-    }
-  ],
+  "fill" : {
+    "automatic-gradient" : "display-p3:1.00000,1.00000,1.00000,1.00000"
+  },
   "groups" : [
     {
-      "blur-material" : null,
-      "hidden" : false,
       "layers" : [
         {
           "fill-specializations" : [
             {
-              "appearance" : "dark",
               "value" : {
-                "solid" : "srgb:0.03922,0.83922,1.00000,1.00000"
+                "solid" : "display-p3:0.00000,0.00000,0.00000,1.00000"
               }
-            }
-          ],
-          "glass-specializations" : [
-            {
-              "value" : true
             },
             {
               "appearance" : "dark",
-              "value" : true
+              "value" : {
+                "solid" : "srgb:1.00000,1.00000,1.00000,1.00000"
+              }
+            },
+            {
+              "appearance" : "tinted",
+              "value" : "none"
             }
           ],
-          "image-name" : "Light - Icon.png",
-          "name" : "Light - Icon"
+          "glass" : false,
+          "hidden" : false,
+          "image-name" : "showx.png",
+          "name" : "showx",
+          "position" : {
+            "scale" : 1,
+            "translation-in-points" : [
+              1.7578125,
+              -22.5859375
+            ]
+          }
+        },
+        {
+          "fill-specializations" : [
+            {
+              "value" : {
+                "solid" : "srgb:0.00000,0.00000,0.00000,1.00000"
+              }
+            },
+            {
+              "appearance" : "dark",
+              "value" : {
+                "solid" : "extended-gray:1.00000,1.00000"
+              }
+            },
+            {
+              "appearance" : "tinted",
+              "value" : {
+                "solid" : "extended-gray:1.00000,1.00000"
+              }
+            }
+          ],
+          "glass" : false,
+          "hidden" : true,
+          "image-name" : "Group 78.png",
+          "name" : "Group 78",
+          "position" : {
+            "scale" : 1.56,
+            "translation-in-points" : [
+              0,
+              0
+            ]
+          }
         }
       ],
-      "lighting" : "individual",
       "shadow" : {
         "kind" : "neutral",
         "opacity" : 0.5
       },
-      "specular" : true,
       "translucency" : {
         "enabled" : true,
         "value" : 0.5

@@ -17,7 +17,7 @@ struct TeamInfo: Identifiable, Hashable, Codable {
     let appDescription: String
     let members: [Learner]
     let category: AppCategory
-    let downloadUrl: URL
+    let downloadUrl: URL?
     let teamUrl: URL
     private let display_point: [Double]
     let levelId: Int
@@ -34,7 +34,7 @@ struct TeamInfo: Identifiable, Hashable, Codable {
         appDescription: String,
         members: [Learner],
         category: AppCategory,
-        downloadUrl: URL,
+        downloadUrl: URL?,
         teamUrl: URL,
         displayPoint: [Double],
 
@@ -56,5 +56,11 @@ struct TeamInfo: Identifiable, Hashable, Codable {
 extension TeamInfo {
     var categoryLine: String {
         "#\(category.displayName)"
+    }
+
+    var teamMemberString: String {
+        return members
+            .map { "\($0.name)(\($0.id))" }
+            .joined(separator: ", ")
     }
 }

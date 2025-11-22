@@ -20,4 +20,23 @@ extension View {
                     .strokeBorder(color, lineWidth: lineWidth)
             )
     }
+
+    func floatingButtonStyle() -> some View {
+        self
+            .font(.system(size: 19, weight: .medium))
+            .frame(width: 48, height: 48)
+            .buttonBorderShape(.circle)
+            .clipShape(Circle())
+            .applyGlassEffect()
+            .contentShape(Rectangle())
+    }
+    
+    @ViewBuilder
+    func applyGlassEffect() -> some View {
+        if #available(iOS 26.0, *) {
+            self.glassEffect()
+        } else {
+            self.background(.ultraThinMaterial).clipShape(.capsule)
+        }
+    }
 }

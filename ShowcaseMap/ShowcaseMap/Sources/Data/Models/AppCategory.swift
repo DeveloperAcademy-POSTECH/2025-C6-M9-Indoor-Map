@@ -47,7 +47,7 @@ enum AppCategory: String, CaseIterable, Identifiable, Codable {
 
     var systemImageName: String {
         switch self {
-        case .medical: return "cross.case.fill"
+        case .medical: return "stethoscope"
         case .productivity: return "paperplane.fill"
         case .graphicsAndDesign: return "swatchpalette.fill"
         case .government: return "building.columns.fill"
