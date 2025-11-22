@@ -362,7 +362,11 @@ struct IndoorMapView: View {
 
             CustomMapUserLocationButton(
                 trackingMode: $trackingMode,
-                mapCameraPosition: $mapCameraPosition
+                mapCameraPosition: $mapCameraPosition,
+                isOutOfBounds: Binding(
+                    get: { viewModel.isUserLocationOutOfBounds },
+                    set: { _ in }
+                )
             ) {
                 viewModel.syncLFloorLevel()
             }
