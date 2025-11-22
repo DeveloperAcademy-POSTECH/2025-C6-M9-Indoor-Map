@@ -471,11 +471,11 @@ private struct DeviceLayout {
     }
 }
 
-// 위치 추적 모드
+// 위치추적모드 - AppleMap과 동일
 enum LocationTrackingMode {
     case idle
     case follow
-    case followWithHeading
+    case followWithHeading // 부채꼴로 바라보는 방향 표시
 }
 
 #Preview {

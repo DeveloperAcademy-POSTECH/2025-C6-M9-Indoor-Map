@@ -10,12 +10,11 @@ import MapKit
 struct CustomMapUserLocationButton: View {
     @Binding var trackingMode: LocationTrackingMode
     @Binding var mapCameraPosition: MapCameraPosition
-    let action: () -> Void
+    let levelSyncAction: () -> Void
 
     var body: some View {
         Button(action: {
             handleTap()
-            action()
         }) {
             Image(systemName: iconName)
         }
@@ -43,9 +42,11 @@ struct CustomMapUserLocationButton: View {
         case .idle:
             trackingMode = .follow
             mapCameraPosition = .userLocation(followsHeading: false, fallback: .automatic)
+            levelSyncAction()
         case .follow:
             trackingMode = .followWithHeading
             mapCameraPosition = .userLocation(followsHeading: true, fallback: .automatic)
+            levelSyncAction()
         case .followWithHeading:
             trackingMode = .idle
             mapCameraPosition = .userLocation(followsHeading: false, fallback: .automatic)
